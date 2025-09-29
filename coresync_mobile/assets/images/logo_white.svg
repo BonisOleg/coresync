@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#DAA520;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B8860B;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="30" cy="30" r="24" fill="rgba(255,255,255,0.1)" stroke="url(#goldGradient)" stroke-width="2"/>
+  
+  <!-- Core symbol - interconnected elements -->
+  <g transform="translate(30,30)">
+    <!-- Central core -->
+    <circle cx="0" cy="0" r="6" fill="#FFFFFF" stroke="url(#goldGradient)" stroke-width="1.5"/>
+    
+    <!-- Orbital elements -->
+    <circle cx="-12" cy="-8" r="3" fill="url(#goldGradient)" opacity="0.8"/>
+    <circle cx="12" cy="-8" r="3" fill="url(#goldGradient)" opacity="0.8"/>
+    <circle cx="-12" cy="8" r="3" fill="url(#goldGradient)" opacity="0.8"/>
+    <circle cx="12" cy="8" r="3" fill="url(#goldGradient)" opacity="0.8"/>
+    
+    <!-- Connection lines -->
+    <line x1="-12" y1="-8" x2="0" y2="0" stroke="url(#goldGradient)" stroke-width="1" opacity="0.6"/>
+    <line x1="12" y1="-8" x2="0" y2="0" stroke="url(#goldGradient)" stroke-width="1" opacity="0.6"/>
+    <line x1="-12" y1="8" x2="0" y2="0" stroke="url(#goldGradient)" stroke-width="1" opacity="0.6"/>
+    <line x1="12" y1="8" x2="0" y2="0" stroke="url(#goldGradient)" stroke-width="1" opacity="0.6"/>
+  </g>
+  
+  <!-- CoreSync text -->
+  <text x="70" y="22" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF" filter="url(#glow)">Core</text>
+  <text x="70" y="44" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="url(#goldGradient)" filter="url(#glow)">Sync</text>
+  
+  <!-- Connecting element -->
+  <rect x="58" y="28" width="8" height="2" fill="url(#goldGradient)" opacity="0.8"/>
+</svg>
+

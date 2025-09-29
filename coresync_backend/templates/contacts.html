@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}CORESYNC - Contact Us{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/private.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Contact Hero Section using same structure as private-hero -->
+<section class="private-hero">
+    <img src="{% static 'images/relaxation_room.png' %}" alt="Contact CoreSync" class="private-hero-image">
+    <div class="private-hero-overlay">
+        <h1 class="privacy-title">CONTACT US</h1>
+    </div>
+</section>
+
+<!-- Contact Information Section using privacy-section structure -->
+<section class="privacy-section">
+    <div class="container">
+        <h2 class="privacy-title">GET IN TOUCH</h2>
+        <div class="privacy-content-new">
+            <div class="privacy-left-block">
+                Ready to begin your wellness journey with CoreSync? Our team is here to answer your questions
+                and help you discover the perfect spa experience tailored to your needs.
+            </div>
+            <div class="privacy-right-block">
+                <div class="privacy-item-line">Phone consultations available daily</div>
+                <div class="privacy-item-line">Same-day response to all inquiries</div>
+                <div class="privacy-item">Personalized service recommendations</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Details Section -->
+<section class="amenities-section">
+    <div class="container">
+        <h2 class="amenities-title">CONTACT INFORMATION</h2>
+        <div class="treatments-grid">
+            <div class="treatment-item">
+                <span class="treatment-name">Phone</span>
+                <span class="treatment-price">551.574.2281</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Email</span>
+                <span class="treatment-price">INFO@CORESYNC.LIFE</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Address</span>
+                <span class="treatment-price">1544 71ST STREET</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Location</span>
+                <span class="treatment-price">BROOKLYN, NY 11228</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Hours</span>
+                <span class="treatment-price">MON-SUN 9AM-9PM</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">WhatsApp</span>
+                <span class="treatment-price">+1 (347) 899-5612</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form Section -->
+<section class="privacy-section">
+    <div class="container">
+        <h2 class="privacy-title">SEND US A MESSAGE</h2>
+        <div class="privacy-content-new">
+            <form id="contact-form" class="contact-form-grid">
+                <div class="form-row">
+                    <div class="form-group-half">
+                        <label for="first-name" class="form-label">First Name</label>
+                        <input type="text" id="first-name" name="first_name" class="form-input" required>
+                    </div>
+                    <div class="form-group-half">
+                        <label for="last-name" class="form-label">Last Name</label>
+                        <input type="text" id="last-name" name="last_name" class="form-input" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-half">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+                    <div class="form-group-half">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-group-full">
+                    <label for="service-interest" class="form-label">Service Interest</label>
+                    <select id="service-interest" name="service_interest" class="form-input">
+                        <option value="">Select a service...</option>
+                        <option value="mensuite">Mensuite (Men's Spa)</option>
+                        <option value="coresync-private">Coresync Private (Couple's Spa)</option>
+                        <option value="membership">Membership Information</option>
+                        <option value="consultation">Personal Consultation</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group-full">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" name="message" class="form-input form-textarea" rows="5"
+                        placeholder="Tell us about your wellness goals..."></textarea>
+                </div>
+
+                <div class="form-group-full">
+                    <button type="submit" class="contact-submit-btn">SEND MESSAGE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Location Map Section -->
+<section class="amenities-section">
+    <div class="container">
+        <h2 class="amenities-title">FIND US</h2>
+        <div class="map-container">
+            <div class="map-placeholder">
+                <div class="map-info">
+                    <h3>CORESYNC WELLNESS CENTER</h3>
+                    <p>1544 71st Street, Brooklyn, NY 11228</p>
+                    <p>Located in the heart of Brooklyn</p>
+                    <p>Parking available on-site</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/private.js' %}"></script>
+<script>
+    // Contact form functionality (safe, no conflicts)
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Get form data
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData);
+
+        // Show loading state
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'SENDING...';
+        submitBtn.disabled = true;
+
+        // Simulate API call
+        setTimeout(() => {
+            alert('Thank you for your message! We\'ll get back to you within 24 hours.');
+            this.reset();
+
+            // Reset button
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }, 2000);
+    });
+</script>
+{% endblock %}

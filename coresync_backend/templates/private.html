@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}CORESYNC PRIVATE - Privacy, Perfected{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/private.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Private Hero Section -->
+<section class="private-hero">
+    <img src="{% static 'images/private.png' %}" alt="Private Spa Suite" class="private-hero-image">
+    <img src="{% static 'images/private1.png' %}" alt="CORESYNC Private" class="private-hero-overlay">
+</section>
+
+<!-- Privacy Section -->
+<section class="privacy-section">
+    <div class="container">
+        <h2 class="privacy-title">PRIVACY, PERFECTED</h2>
+        <div class="privacy-content-new">
+            <div class="privacy-left-block">
+                A sanctuary of discretion and renewal. Private suites, effortless care, and quiet luxury—an experience
+                reserved only for you.
+            </div>
+            <div class="privacy-right-block">
+                <div class="privacy-item-line">Private, contactless facility for complete discretion</div>
+                <div class="privacy-item-line">Perfect setting for couples and date nights</div>
+                <div class="privacy-item">Luxurious spa amenities designed for total relaxation</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Amenities Section -->
+<section class="amenities-section">
+    <div class="container">
+        <h2 class="amenities-title">AMENITIES</h2>
+        <div class="amenities-carousel">
+            <div class="amenities-container">
+                <div class="amenities-track">
+                    <div class="amenity-item">
+                        <img src="{% static 'images/fireplace.png' %}" alt="Fireplace" class="amenity-image">
+                    </div>
+                    <div class="amenity-item">
+                        <img src="{% static 'images/relaxation_room.png' %}" alt="Relaxation Room"
+                            class="amenity-image">
+                    </div>
+                    <div class="amenity-item">
+                        <img src="{% static 'images/shower.png' %}" alt="Shower" class="amenity-image">
+                    </div>
+                    <div class="amenity-item">
+                        <img src="{% static 'images/treatment_room.png' %}" alt="Treatment Room" class="amenity-image">
+                    </div>
+                    <div class="amenity-item">
+                        <img src="{% static 'images/sauna.png' %}" alt="Sauna" class="amenity-image">
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-nav carousel-prev" onclick="moveCarousel(-1)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+            <button class="carousel-nav carousel-next" onclick="moveCarousel(1)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Treatments Section -->
+<section class="treatments-section">
+    <div class="container">
+        <h2 class="treatments-title">TREATMENTS</h2>
+        <div class="treatments-grid">
+            <div class="treatment-item">
+                <span class="treatment-name">Ultimate Couple</span>
+                <span class="treatment-price">$200</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Ultimate Couple</span>
+                <span class="treatment-price">$200</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Hour Couple Escape</span>
+                <span class="treatment-price">$400</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Hour Couple Escape</span>
+                <span class="treatment-price">$400</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Hot Stone Massage</span>
+                <span class="treatment-price">$450</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Hot Stone Massage</span>
+                <span class="treatment-price">$450</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Misc Treatments</span>
+                <span class="treatment-price">$450</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Misc Treatments</span>
+                <span class="treatment-price">$450</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/private.js' %}"></script>
+{% endblock %}

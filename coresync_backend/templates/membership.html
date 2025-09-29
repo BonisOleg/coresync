@@ -1,0 +1,602 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}CORESYNC - Membership Plans{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/membership.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Membership Hero Section with custom sizing -->
+<section class="membership-hero">
+    <img src="{% static 'images/Hiro_converted.png' %}" alt="Membership Benefits" class="private-hero-image">
+    <div class="membership-hero-overlay">
+        <h1 class="membership-hero-title">MEMBERSHIP</h1>
+        <p class="membership-hero-subtitle">Unlock Premium Wellness Experiences</p>
+    </div>
+</section>
+
+<!-- Membership Plans Section using same structure as privacy-section -->
+<section class="membership-section privacy-section">
+    <div class="container">
+        <h2 class="membership-title privacy-title">MEMBERSHIP PLANS</h2>
+
+        <!-- Membership Cards Grid -->
+        <div class="membership-cards-grid">
+            <!-- Base Tier -->
+            <div class="membership-card">
+                <h3 class="membership-card-title">BASE TIER</h3>
+                <div class="membership-price">$375<span>/month</span></div>
+                <div class="membership-discount">25% OFF</div>
+                <ul class="membership-benefits">
+                    <li>25% discount on all services</li>
+                    <li>Priority booking access</li>
+                    <li>AI Massage Bed with discount</li>
+                    <li>Backyard access ($150-200/hour)</li>
+                    <li>Coresync Private at full price</li>
+                    <li>Email support</li>
+                </ul>
+                <button class="membership-cta-btn" onclick="openMembershipForm('base')">JOIN BASE TIER</button>
+            </div>
+
+            <!-- Premium Tier -->
+            <div class="membership-card membership-card--featured">
+                <h3 class="membership-card-title">PREMIUM TIER</h3>
+                <div class="membership-price">$700<span>/month</span></div>
+                <div class="membership-discount">35% OFF</div>
+                <ul class="membership-benefits">
+                    <li>1-2 free services per month</li>
+                    <li>1 free AI Massage Bed session</li>
+                    <li>Discount on Coresync Private</li>
+                    <li>Discounted Backyard access</li>
+                    <li>Priority customer support</li>
+                    <li>Birthday month perks</li>
+                    <li>Guest pass included</li>
+                </ul>
+                <button class="membership-cta-btn" onclick="openMembershipForm('premium')">JOIN PREMIUM TIER</button>
+            </div>
+
+            <!-- Unlimited Tier -->
+            <div class="membership-card">
+                <h3 class="membership-card-title">UNLIMITED TIER</h3>
+                <div class="membership-price">$1,650<span>/month</span></div>
+                <div class="membership-discount">ALL ACCESS</div>
+                <ul class="membership-benefits">
+                    <li>Unlimited access to all services</li>
+                    <li>Unlimited AI Massage Bed sessions</li>
+                    <li>Unlimited Coresync Private access</li>
+                    <li>Unlimited Backyard access</li>
+                    <li>Curated products included</li>
+                    <li>Concierge service included</li>
+                    <li>VIP customer support</li>
+                    <li>Exclusive events access</li>
+                </ul>
+                <button class="membership-cta-btn" onclick="openMembershipForm('unlimited')">JOIN UNLIMITED
+                    TIER</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Booking Rules Section using same structure as privacy-section -->
+<section class="privacy-section">
+    <div class="container">
+        <h2 class="privacy-title">BOOKING PRIVILEGES</h2>
+        <div class="privacy-content-new">
+            <div class="privacy-left-block">
+                Members enjoy exclusive booking privileges that ensure you never miss your wellness moment.
+                Priority access means peace of mind.
+            </div>
+            <div class="privacy-right-block">
+                <div class="privacy-item-line">Members can book 2-3 months in advance</div>
+                <div class="privacy-item-line">Non-members limited to 3 days advance booking</div>
+                <div class="privacy-item">All bookings require valid payment method</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Comparison Table Section -->
+<section class="privacy-section">
+    <div class="container">
+        <div class="membership-comparison">
+            <h2 class="membership-comparison-title">PLAN COMPARISON</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Non-Member</th>
+                        <th>Base Tier</th>
+                        <th>Premium Tier</th>
+                        <th>Unlimited</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="comparison-feature">Booking Window</td>
+                        <td>3 days</td>
+                        <td>2-3 months</td>
+                        <td>2-3 months</td>
+                        <td>2-3 months</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-feature">Service Discount</td>
+                        <td>0%</td>
+                        <td>25%</td>
+                        <td>35%</td>
+                        <td>100%</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-feature">AI Massage Bed</td>
+                        <td>Full Price</td>
+                        <td>Discounted</td>
+                        <td>1 Free/Month</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-feature">Coresync Private</td>
+                        <td>Full Price</td>
+                        <td>Full Price</td>
+                        <td>Discounted</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-feature">Backyard Access</td>
+                        <td>Not Available</td>
+                        <td>$150-200/hr</td>
+                        <td>Discounted</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-feature">Guest Passes</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td class="comparison-check">✓</td>
+                        <td class="comparison-check">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-feature">Concierge Service</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td class="comparison-check">✓</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Booking Calendar Section (placeholder) -->
+<section id="membership-booking-calendar" class="privacy-section" style="display: none;">
+    <div class="container">
+        <h2 class="privacy-title">BOOK YOUR SERVICE</h2>
+        <div id="booking-calendar-container">
+            <!-- Calendar will be inserted here by JavaScript -->
+        </div>
+    </div>
+</section>
+
+<!-- Benefits Section using amenities-section structure -->
+<section class="amenities-section privacy-section">
+    <div class="container">
+        <h2 class="amenities-title privacy-title">MEMBER BENEFITS</h2>
+        <div class="amenities-carousel">
+            <div class="amenities-container">
+                <div class="amenities-track">
+                    <div class="amenity-item">
+                        <img src="{% static 'images/fireplace.png' %}" alt="Priority Access" class="amenity-image">
+                    </div>
+                    <div class="amenity-item">
+                        <img src="{% static 'images/relaxation_room.png' %}" alt="Exclusive Discounts"
+                            class="amenity-image">
+                    </div>
+                    <div class="amenity-item">
+                        <img src="{% static 'images/shower.png' %}" alt="VIP Treatment" class="amenity-image">
+                    </div>
+                    <div class="amenity-item">
+                        <img src="{% static 'images/treatment_room.png' %}" alt="Member Events" class="amenity-image">
+                    </div>
+                    <div class="amenity-item">
+                        <img src="{% static 'images/sauna.png' %}" alt="Concierge Service" class="amenity-image">
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-nav carousel-prev" onclick="moveCarousel(-1)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+            <button class="carousel-nav carousel-next" onclick="moveCarousel(1)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- AI Assistant Widget (Requirements: AI + WhatsApp backup) -->
+<div id="ai-assistant-widget" class="ai-widget">
+    <div class="ai-widget-header">
+        <div class="ai-widget-title">
+            <span class="ai-icon">🤖</span>
+            <span>CoreSync AI Assistant</span>
+        </div>
+        <button class="ai-widget-close" onclick="toggleAIWidget()">&times;</button>
+    </div>
+    <div class="ai-widget-content">
+        <div class="ai-messages" id="ai-messages">
+            <div class="ai-message ai-message--bot">
+                <div class="ai-message-content">
+                    Hi! I'm your CoreSync AI Assistant. I can help you with:
+                    <br>• Membership plans and pricing
+                    <br>• Service information and booking
+                    <br>• Spa amenities and technology
+                    <br><br>What would you like to know?
+                </div>
+            </div>
+        </div>
+        <div class="ai-input-area">
+            <input type="text" id="ai-input" class="ai-input" placeholder="Ask me about CoreSync services...">
+            <button class="ai-send-btn" onclick="sendAIMessage()">Send</button>
+        </div>
+        <div class="ai-fallback" id="ai-fallback" style="display: none;">
+            <div class="ai-fallback-message">
+                I couldn't help with that. Would you like to speak with our team?
+            </div>
+            <button class="whatsapp-btn" onclick="openWhatsApp()">
+                📱 Chat on WhatsApp
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- AI Widget Toggle Button -->
+<div class="ai-widget-toggle" onclick="toggleAIWidget()">
+    <span class="ai-toggle-icon">💬</span>
+    <span class="ai-toggle-text">Need Help?</span>
+</div>
+
+<!-- Membership Form Modal (hidden by default) -->
+<div id="membership-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeMembershipForm()">&times;</span>
+        <h2 class="privacy-title" id="modal-title">JOIN MEMBERSHIP</h2>
+        <form id="membership-form" class="membership-form">
+            <input type="hidden" id="selected-plan" name="plan" value="">
+
+            <div class="form-group">
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" name="first_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" name="last_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <button type="submit" class="membership-cta-btn">START MEMBERSHIP</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- JavaScript for membership functionality -->
+<script>
+    // Membership form functionality (safe, no conflicts)
+    function openMembershipForm(planType) {
+        const modal = document.getElementById('membership-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const selectedPlan = document.getElementById('selected-plan');
+
+        // Set plan details
+        const planTitles = {
+            'base': 'JOIN BASE TIER - $375/month',
+            'premium': 'JOIN PREMIUM TIER - $700/month',
+            'unlimited': 'JOIN UNLIMITED TIER - $1,650/month'
+        };
+
+        modalTitle.textContent = planTitles[planType] || 'JOIN MEMBERSHIP';
+        selectedPlan.value = planType;
+
+        modal.style.display = 'block';
+
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMembershipForm() {
+        const modal = document.getElementById('membership-modal');
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function (event) {
+        const modal = document.getElementById('membership-modal');
+        if (event.target === modal) {
+            closeMembershipForm();
+        }
+    });
+
+    // Form submission
+    document.getElementById('membership-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Get form data
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData);
+
+        // Show loading state
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'PROCESSING...';
+        submitBtn.disabled = true;
+
+        // Simulate API call (replace with actual API endpoint)
+        setTimeout(() => {
+            alert(`Thank you for your interest in ${data.plan.toUpperCase()} membership! We'll contact you soon.`);
+            closeMembershipForm();
+            this.reset();
+
+            // Reset button
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }, 2000);
+    });
+
+    // ===================================
+    // AI ASSISTANT FUNCTIONALITY (Requirements)
+    // ===================================
+
+    let aiWidgetVisible = false;
+
+    function toggleAIWidget() {
+        const widget = document.getElementById('ai-assistant-widget');
+        const toggle = document.querySelector('.ai-widget-toggle');
+
+        aiWidgetVisible = !aiWidgetVisible;
+
+        if (aiWidgetVisible) {
+            widget.style.display = 'block';
+            toggle.style.display = 'none';
+        } else {
+            widget.style.display = 'none';
+            toggle.style.display = 'flex';
+        }
+    }
+
+    function sendAIMessage() {
+        const input = document.getElementById('ai-input');
+        const messages = document.getElementById('ai-messages');
+        const message = input.value.trim();
+
+        if (!message) return;
+
+        // Add user message
+        const userMessage = document.createElement('div');
+        userMessage.className = 'ai-message ai-message--user';
+        userMessage.innerHTML = `<div class="ai-message-content">${message}</div>`;
+        messages.appendChild(userMessage);
+
+        // Clear input
+        input.value = '';
+
+        // Simulate AI thinking
+        const thinkingMessage = document.createElement('div');
+        thinkingMessage.className = 'ai-message ai-message--bot';
+        thinkingMessage.innerHTML = `<div class="ai-message-content">Thinking...</div>`;
+        messages.appendChild(thinkingMessage);
+
+        // Scroll to bottom
+        messages.scrollTop = messages.scrollHeight;
+
+        // Simulate AI response
+        setTimeout(() => {
+            messages.removeChild(thinkingMessage);
+
+            const response = getAIResponse(message);
+            const botMessage = document.createElement('div');
+            botMessage.className = 'ai-message ai-message--bot';
+            botMessage.innerHTML = `<div class="ai-message-content">${response}</div>`;
+            messages.appendChild(botMessage);
+
+            // Show WhatsApp fallback if needed
+            if (response.includes('contact our team')) {
+                document.getElementById('ai-fallback').style.display = 'block';
+            }
+
+            messages.scrollTop = messages.scrollHeight;
+        }, 1500);
+    }
+
+    function getAIResponse(message) {
+        const lowerMessage = message.toLowerCase();
+
+        // Membership questions
+        if (lowerMessage.includes('membership') || lowerMessage.includes('plan') || lowerMessage.includes('price')) {
+            return `Great question about membership! We have 3 plans:<br><br>
+                    • <strong>Base Tier ($375/month)</strong>: 25% off all services<br>
+                    • <strong>Premium Tier ($700/month)</strong>: Free services included<br>
+                    • <strong>Unlimited ($1,650/month)</strong>: Everything unlimited<br><br>
+                    Members get priority booking 2-3 months ahead vs 3 days for non-members.`;
+        }
+
+        // Service questions
+        if (lowerMessage.includes('service') || lowerMessage.includes('massage') || lowerMessage.includes('facial')) {
+            return `We offer two main experiences:<br><br>
+                    • <strong>Mensuite</strong>: Advanced men's spa with AI massage beds<br>
+                    • <strong>Coresync Private</strong>: Luxury couple's spa with hot tub<br><br>
+                    Popular services: AI Massage ($200), Precision Facial ($180), Couple's Experience ($400).`;
+        }
+
+        // Booking questions
+        if (lowerMessage.includes('book') || lowerMessage.includes('appointment') || lowerMessage.includes('schedule')) {
+            return `To book your service:<br><br>
+                    1. Choose your date & time<br>
+                    2. Select preferred technician<br>
+                    3. Pick your service type<br>
+                    4. Add any enhancements<br>
+                    5. Confirm booking<br><br>
+                    Members get priority access to better time slots!`;
+        }
+
+        // Location/contact questions
+        if (lowerMessage.includes('location') || lowerMessage.includes('address') || lowerMessage.includes('contact')) {
+            return `We're located at:<br><br>
+                    📍 <strong>1544 71st Street, Brooklyn, NY 11228</strong><br>
+                    📞 <strong>551.574.2281</strong><br>
+                    ✉️ <strong>info@coresync.life</strong><br><br>
+                    Hours: 9 AM - 9 PM daily`;
+        }
+
+        // Technology questions
+        if (lowerMessage.includes('technology') || lowerMessage.includes('ai') || lowerMessage.includes('iot')) {
+            return `Our cutting-edge technology includes:<br><br>
+                    🤖 AI Massage Beds with personalized programs<br>
+                    🪞 Smart Mirror with analysis<br>
+                    🌿 IoT scent and lighting control<br>
+                    🧘 Meditation pods with guided sessions<br><br>
+                    Everything controlled through our mobile app!`;
+        }
+
+        // Default response with fallback
+        return `I'd be happy to help, but I need more specific information. For immediate assistance, please contact our team directly.`;
+    }
+
+    function openWhatsApp() {
+        const phone = '+13478995612';  // From requirements
+        const message = 'Hi! I need help with CoreSync services and membership.';
+        const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    }
+
+    // Enter key support for AI input
+    document.getElementById('ai-input').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            sendAIMessage();
+        }
+    });
+
+    // ===================================
+    // AMENITIES CAROUSEL FUNCTIONALITY
+    // ===================================
+
+    let currentSlide = 0;
+    const totalSlides = 5;
+
+    function updateCarousel() {
+        const track = document.querySelector('.amenities-track');
+        const amenityItems = document.querySelectorAll('.amenity-item');
+
+        if (!track || amenityItems.length === 0) return;
+
+        const itemWidth = amenityItems[0].offsetWidth;
+        const gap = parseFloat(getComputedStyle(track).gap) || 20;
+        const slideWidth = itemWidth + gap;
+
+        // Calculate how many items to show based on screen size
+        let itemsToShow = 4; // Desktop default
+        if (window.innerWidth <= 480) {
+            itemsToShow = 1;
+        } else if (window.innerWidth <= 768) {
+            itemsToShow = 2;
+        }
+
+        const maxSlide = Math.max(0, totalSlides - itemsToShow);
+        currentSlide = Math.min(currentSlide, maxSlide);
+
+        const translateX = -currentSlide * slideWidth;
+        track.style.transform = `translateX(${translateX}px)`;
+
+        // Update navigation buttons visibility
+        const prevBtn = document.querySelector('.carousel-prev');
+        const nextBtn = document.querySelector('.carousel-next');
+
+        if (prevBtn && nextBtn) {
+            prevBtn.style.opacity = currentSlide === 0 ? '0.5' : '1';
+            prevBtn.style.pointerEvents = currentSlide === 0 ? 'none' : 'auto';
+
+            nextBtn.style.opacity = currentSlide >= maxSlide ? '0.5' : '1';
+            nextBtn.style.pointerEvents = currentSlide >= maxSlide ? 'none' : 'auto';
+        }
+    }
+
+    function moveCarousel(direction) {
+        const itemsToShow = window.innerWidth <= 480 ? 1 : window.innerWidth <= 768 ? 2 : 4;
+        const maxSlide = Math.max(0, totalSlides - itemsToShow);
+
+        currentSlide += direction;
+        currentSlide = Math.max(0, Math.min(currentSlide, maxSlide));
+
+        updateCarousel();
+    }
+
+    // Touch/swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    function handleTouchStart(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }
+
+    function handleTouchEnd(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const swipeDistance = touchStartX - touchEndX;
+
+        if (Math.abs(swipeDistance) > swipeThreshold) {
+            if (swipeDistance > 0) {
+                // Swipe left - next slide
+                moveCarousel(1);
+            } else {
+                // Swipe right - previous slide
+                moveCarousel(-1);
+            }
+        }
+    }
+
+    // Initialize carousel after DOM is ready
+    document.addEventListener('DOMContentLoaded', function () {
+        // Small delay to ensure images are loaded
+        setTimeout(() => {
+            updateCarousel();
+        }, 100);
+
+        // Add touch event listeners for mobile swipe
+        const carouselContainer = document.querySelector('.amenities-container');
+        if (carouselContainer) {
+            carouselContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
+            carouselContainer.addEventListener('touchend', handleTouchEnd, { passive: true });
+        }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function () {
+        updateCarousel();
+    });
+
+    // Make moveCarousel globally available for onclick handlers
+    window.moveCarousel = moveCarousel;
+</script>
+{% endblock %}

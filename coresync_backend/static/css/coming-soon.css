@@ -1,0 +1,54 @@
+/* Coming soon page specific styles */
+.coming-soon {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem 2rem;
+    background: linear-gradient(135deg, #f5f5f0 0%, #e8e8e8 100%);
+}
+
+.coming-soon-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.coming-soon-title {
+    font-family: 'Maison_Neue_Mono', monospace;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+    color: #333;
+    text-transform: uppercase;
+}
+
+.coming-soon-message {
+    font-family: 'Maison_Neue_Book', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 3rem;
+    letter-spacing: 0.05em;
+}
+
+.back-btn {
+    background: none;
+    border: 2px solid #333;
+    color: #333;
+    font-family: 'Maison_Neue_Mono', monospace;
+    font-size: 0.9rem;
+    padding: 1rem 2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #333;
+    color: #fff;
+    transform: translateY(-2px);
+}

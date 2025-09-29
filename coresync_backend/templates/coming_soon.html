@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/coming-soon.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="coming-soon">
+    <div class="coming-soon-content">
+        <h1 class="coming-soon-title">Coming Soon</h1>
+        <p class="coming-soon-message">
+            {{ message|default:"This section is currently under development. Stay tuned for something amazing." }}
+        </p>
+        <a href="{% url 'home' %}" class="back-btn">
+            Return Home
+        </a>
+    </div>
+</section>
+{% endblock %}

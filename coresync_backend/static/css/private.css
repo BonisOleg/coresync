@@ -1,0 +1,739 @@
+/* Private page specific styles */
+body {
+    background: #f5f5f0;
+}
+
+.private-hero {
+    position: relative;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 14rem 6rem 0;
+    border-radius: 8px;
+}
+
+.private-hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(.8);
+    position: relative;
+    z-index: 1;
+}
+
+.private-hero-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.privacy-section,
+.amenities-section,
+.treatments-section {
+    background: #f5f5f0;
+    text-align: center;
+    color: #333;
+}
+
+.privacy-section {
+    padding: 8rem 0 1rem 0;
+}
+
+.privacy-title,
+.amenities-title,
+.treatments-title {
+    font-family: 'Maison_Neue_Mono', monospace;
+    letter-spacing: 0.5em;
+    margin-bottom: 3rem;
+    margin-top: 3rem;
+    color: #333;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.privacy-title {
+    font-size: 2.2rem;
+    line-height: 1.3;
+}
+
+.amenities-title,
+.treatments-title {
+    font-size: 2rem;
+}
+
+.privacy-content-new {
+    display: flex;
+    gap: 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    align-items: flex-start;
+}
+
+.privacy-left-block {
+    flex: 0 0 60%;
+    font-family: 'Maison_Neue_Book', sans-serif;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #666;
+    letter-spacing: 0.01em;
+    text-align: left;
+    font-weight: 500;
+    padding: 0 6rem 0 3rem;
+}
+
+.privacy-right-block {
+    flex: 0 0 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: 'Maison_Neue_Book', sans-serif;
+}
+
+.privacy-item-line {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #666;
+    letter-spacing: 0.01em;
+    text-align: left;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid #ccc;
+    width: fit-content;
+    font-weight: 500;
+}
+
+.privacy-item {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #666;
+    letter-spacing: 0.01em;
+    text-align: left;
+    width: fit-content;
+    font-weight: 500;
+}
+
+.amenities-section {
+    padding: 4rem 0;
+}
+
+.amenities-carousel {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4rem;
+}
+
+.amenities-container {
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.amenities-track {
+    display: flex;
+    gap: 1rem;
+    transition: transform 0.4s ease-in-out;
+    will-change: transform;
+}
+
+.amenity-item {
+    flex: 0 0 calc(25% - 0.75rem);
+    aspect-ratio: 2/3;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.amenity-item:hover {
+    transform: scale(1.02);
+}
+
+.amenity-image {
+    width: 100%;
+    height: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+    color: #333;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-nav:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-prev {
+    left: 1rem;
+}
+
+.carousel-next {
+    right: 1rem;
+}
+
+.carousel-nav svg {
+    width: 20px;
+    height: 20px;
+}
+
+.treatments-section {
+    padding: 4rem 0 6rem 0;
+    background: #f5f5f0;
+    position: relative;
+    margin-bottom: 5rem;
+}
+
+.treatments-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 8rem);
+    max-width: calc(1200px - 8rem);
+    height: calc(100% - 1rem);
+    background: rgba(220, 210, 195, 0.25);
+    border-radius: 12px;
+    z-index: 0;
+}
+
+.treatments-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+.treatments-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.treatment-item {
+    background: rgba(245, 240, 230, 0.7);
+    border: 1px solid rgba(200, 185, 165, 0.4);
+    border-radius: 2px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Maison_Neue_Book', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    min-height: 60px;
+}
+
+.treatment-item:hover {
+    background: rgba(245, 240, 230, 0.9);
+    border-color: rgba(200, 185, 165, 0.6);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.treatment-name {
+    color: #333;
+    font-weight: 400;
+    flex: 1;
+    text-align: left;
+}
+
+.treatment-price {
+    color: #666;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+/* Tablet responsive styles */
+@media(max-width: 1024px) {
+    .privacy-section {
+        padding: 6rem 0 8rem 0;
+    }
+
+    .privacy-content-new {
+        gap: 4rem;
+        max-width: 1000px;
+    }
+
+    .privacy-title {
+        font-size: 2rem;
+        letter-spacing: 0.4em;
+        margin-bottom: 4rem;
+    }
+
+    .privacy-left-block {
+        font-size: 1.1rem;
+        line-height: 1.5;
+    }
+
+    .privacy-item-line {
+        font-size: 0.7rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    .privacy-item {
+        font-size: 0.7rem;
+        line-height: 1.6;
+    }
+
+    .treatments-section {
+        padding: 3.5rem 0 5.5rem 0;
+    }
+
+    .treatments-section::before {
+        width: calc(100% - 6rem);
+        max-width: calc(1000px - 6rem);
+        height: calc(100% - 1rem);
+        border-radius: 10px;
+    }
+
+    .treatments-grid {
+        max-width: 700px;
+        gap: 0.8rem;
+        padding: 0 1.5rem;
+    }
+
+    .treatment-item {
+        padding: 1.3rem 1.8rem;
+        font-size: 0.8rem;
+        min-height: 55px;
+    }
+
+    .treatment-name {
+        font-size: 0.8rem;
+    }
+
+    .treatment-price {
+        font-size: 0.85rem;
+    }
+}
+
+/* Mobile responsive styles */
+@media(max-width:768px) {
+    .private-hero {
+        height: 50vh;
+        margin: 6rem 1rem 0;
+    }
+
+    .privacy-section {
+        padding: 5rem 0 6rem 0;
+    }
+
+    .privacy-content-new {
+        flex-direction: column;
+        gap: 3rem;
+        text-align: center;
+        padding: 0 1rem;
+        align-items: center;
+    }
+
+    .privacy-left-block {
+        flex: none;
+        text-align: center;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .privacy-right-block {
+        flex: none;
+        align-items: center;
+        width: 100%;
+    }
+
+    .privacy-title {
+        font-size: 1.8rem;
+        letter-spacing: 0.3em;
+        margin-bottom: 3rem;
+    }
+
+    .privacy-item-line {
+        font-size: 0.65rem;
+        line-height: 1.5;
+        text-align: center;
+        margin-bottom: 0.8rem;
+    }
+
+    .privacy-item {
+        font-size: 0.65rem;
+        line-height: 1.5;
+        text-align: center;
+    }
+
+    .amenities-carousel {
+        padding: 0 3rem;
+    }
+
+    .amenity-item {
+        flex: 0 0 calc(50% - 0.5rem);
+        aspect-ratio: 2/3;
+    }
+
+    .carousel-nav {
+        width: 40px;
+        height: 40px;
+    }
+
+    .carousel-prev {
+        left: 0.5rem;
+    }
+
+    .carousel-next {
+        right: 0.5rem;
+    }
+
+    .treatments-section {
+        padding: 3rem 0 5rem 0;
+    }
+
+    .treatments-section::before {
+        width: calc(100% - 6rem);
+        height: calc(100% - 0.5rem);
+        border-radius: 8px;
+    }
+
+    .treatments-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+        max-width: 400px;
+        padding: 0 1rem;
+    }
+
+    .treatment-item {
+        padding: 1.2rem 1.5rem;
+        font-size: 0.8rem;
+        min-height: 50px;
+    }
+
+    .treatment-price {
+        font-size: 0.85rem;
+    }
+}
+
+/* Small mobile responsive styles */
+@media(max-width: 480px) {
+    .privacy-section {
+        padding: 4rem 0 5rem 0;
+    }
+
+    .privacy-title {
+        font-size: 1.5rem;
+        letter-spacing: 0.25em;
+        margin-bottom: 2.5rem;
+    }
+
+    .privacy-left-block {
+        font-size: 0.95rem;
+        line-height: 1.4;
+    }
+
+    .privacy-item-line {
+        font-size: 0.6rem;
+        line-height: 1.4;
+        margin-bottom: 0.6rem;
+    }
+
+    .privacy-item {
+        font-size: 0.6rem;
+        line-height: 1.4;
+    }
+
+    .privacy-content-new {
+        gap: 2rem;
+        padding: 0 0.5rem;
+    }
+
+    .amenities-carousel {
+        padding: 0 2rem;
+    }
+
+    .amenity-item {
+        flex: 0 0 100%;
+        aspect-ratio: 3/4;
+        max-width: 350px;
+        margin: 0 auto;
+    }
+
+    .carousel-nav {
+        width: 36px;
+        height: 36px;
+    }
+
+    .carousel-prev {
+        left: 0.25rem;
+    }
+
+    .carousel-next {
+        right: 0.25rem;
+    }
+
+    .treatments-section {
+        padding: 3rem 0 4rem 0;
+    }
+
+    .treatments-section::before {
+        width: calc(100% - 4rem);
+        height: calc(100% - 0.5rem);
+        border-radius: 6px;
+    }
+
+    .treatments-grid {
+        max-width: 350px;
+        gap: 0.6rem;
+        padding: 0 0.5rem;
+    }
+
+    .treatment-item {
+        padding: 1rem 1.2rem;
+        font-size: 0.75rem;
+        min-height: 45px;
+        border-radius: 3px;
+    }
+
+    .treatment-name {
+        font-size: 0.75rem;
+        letter-spacing: 0.06em;
+    }
+
+    .treatment-price {
+        font-size: 0.8rem;
+    }
+
+    .treatments-title {
+        font-size: 1.6rem;
+        margin-bottom: 3rem;
+        letter-spacing: 0.4em;
+    }
+
+    .amenity-image {
+        max-height: 200px;
+    }
+}
+
+/* iOS Safari specific optimizations */
+@supports (-webkit-touch-callout: none) {
+    .amenity-item {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .amenity-image {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+
+    .treatment-item {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    .treatment-item:hover {
+        -webkit-transform: translateZ(0) translateY(-1px);
+        transform: translateZ(0) translateY(-1px);
+        background: rgba(245, 240, 230, 0.9);
+    }
+}
+
+/* ================================ */
+/* CONTACT FORM STYLES (EXTENDING EXISTING) */
+/* ================================ */
+
+/* Contact form styles (extending existing structure) */
+.contact-form-grid {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 2rem;
+}
+
+.form-group-half {
+    flex: 1;
+}
+
+.form-group-full {
+    width: 100%;
+}
+
+.form-label {
+    display: block;
+    color: #666;
+    font-family: 'Maison_Neue_Book', sans-serif;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.form-input {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #333;
+    font-family: 'Maison_Neue_Book', sans-serif;
+    font-size: 1rem;
+    border-radius: 0;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #666;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-submit-btn {
+    background: transparent;
+    border: 2px solid #333;
+    color: #333;
+    padding: 1rem 3rem;
+    font-family: 'Maison_Neue_Bold', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: center;
+    margin-top: 1rem;
+}
+
+.contact-submit-btn:hover {
+    background: #333;
+    color: #f5f5f0;
+    transform: translateY(-2px);
+}
+
+.contact-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Map placeholder styles */
+.map-container {
+    margin-top: 2rem;
+}
+
+.map-placeholder {
+    height: 400px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.map-info h3 {
+    font-family: 'Maison_Neue_Bold', sans-serif;
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.map-info p {
+    font-family: 'Maison_Neue_Book', sans-serif;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+/* Mobile responsiveness for contact form */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .contact-form-grid {
+        padding: 0 1rem;
+    }
+
+    .contact-submit-btn {
+        padding: 1rem 2rem;
+        width: 100%;
+    }
+}
+
+/* ================================ */
+/* MENSUITE CTA STYLES (EXTENDING EXISTING) */
+/* ================================ */
+
+.membership-cta-section {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.membership-link-btn {
+    display: inline-block;
+    background: transparent;
+    border: 2px solid #333;
+    color: #333;
+    padding: 1.2rem 3rem;
+    font-family: 'Maison_Neue_Bold', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.membership-link-btn:hover {
+    background: #333;
+    color: #f5f5f0;
+    transform: translateY(-2px);
+    text-decoration: none;
+}

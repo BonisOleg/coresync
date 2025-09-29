@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}CORESYNC MENSUITE - Advanced Men's Spa{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/private.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Mensuite Hero Section using same structure as private-hero -->
+<section class="private-hero">
+    <img src="{% static 'images/menssuite.png' %}" alt="Mensuite Men's Spa" class="private-hero-image">
+    <img src="{% static 'images/menssuite1.png' %}" alt="CORESYNC Mensuite" class="private-hero-overlay">
+</section>
+
+<!-- Mensuite Description Section using privacy-section structure -->
+<section class="privacy-section">
+    <div class="container">
+        <h2 class="privacy-title">PRECISION WELLNESS FOR MEN</h2>
+        <div class="privacy-content-new">
+            <div class="privacy-left-block">
+                Advanced wellness tailored for the modern professional. Experience cutting-edge technology
+                combined with traditional spa techniques in a masculine, sophisticated environment.
+            </div>
+            <div class="privacy-right-block">
+                <div class="privacy-item-line">Smart Mirror with AI analysis technology</div>
+                <div class="privacy-item-line">AI-powered massage bed customization</div>
+                <div class="privacy-item">Meditation room for mental clarity</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section using treatments structure -->
+<section class="treatments-section">
+    <div class="container">
+        <h2 class="treatments-title">MENSUITE SERVICES</h2>
+        <div class="treatments-grid">
+            <div class="treatment-item">
+                <span class="treatment-name">AI Massage Therapy</span>
+                <span class="treatment-price">$200</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Precision Facial</span>
+                <span class="treatment-price">$180</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Laser Hair Removal</span>
+                <span class="treatment-price">$150</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Executive Barber Service</span>
+                <span class="treatment-price">$120</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Deep Tissue Massage</span>
+                <span class="treatment-price">$240</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Sports Recovery</span>
+                <span class="treatment-price">$280</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Executive Package</span>
+                <span class="treatment-price">$450</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Meditation Session</span>
+                <span class="treatment-price">$80</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Technology Section using amenities structure -->
+<section class="amenities-section">
+    <div class="container">
+        <h2 class="amenities-title">TECHNOLOGY & AMENITIES</h2>
+        <div class="amenities-carousel">
+            <div class="amenities-container">
+                <div class="amenities-track">
+                    <div class="amenity-item">
+                        <img src="{% static 'images/treatment_room.png' %}" alt="AI Massage Bed" class="amenity-image">
+                    </div>
+                    <div class="amenity-item">
+                        <img src="{% static 'images/shower.png' %}" alt="Smart Mirror" class="amenity-image">
+                    </div>
+                    <div class="amenity-item">
+                        <img src="{% static 'images/relaxation_room.png' %}" alt="Meditation Room"
+                            class="amenity-image">
+                    </div>
+                    <div class="amenity-item">
+                        <img src="{% static 'images/sauna.png' %}" alt="Recovery Sauna" class="amenity-image">
+                    </div>
+                    <div class="amenity-item">
+                        <img src="{% static 'images/fireplace.png' %}" alt="Executive Lounge" class="amenity-image">
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-nav carousel-prev" onclick="moveCarousel(-1)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+            <button class="carousel-nav carousel-next" onclick="moveCarousel(1)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Membership Benefits Section -->
+<section class="privacy-section">
+    <div class="container">
+        <h2 class="privacy-title">MEMBER BENEFITS</h2>
+        <div class="privacy-content-new">
+            <div class="privacy-left-block">
+                Unlock exclusive access to premium services and advanced wellness technology.
+                Membership ensures priority booking and significant savings on all Mensuite treatments.
+            </div>
+            <div class="privacy-right-block">
+                <div class="privacy-item-line">25-35% discount on all services</div>
+                <div class="privacy-item-line">Priority booking up to 3 months ahead</div>
+                <div class="privacy-item">Complimentary AI analysis and consultations</div>
+            </div>
+        </div>
+
+        <div class="membership-cta-section">
+            <a href="{% url 'membership' %}" class="membership-link-btn">
+                VIEW MEMBERSHIP PLANS
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/private.js' %}"></script>
+{% endblock %}

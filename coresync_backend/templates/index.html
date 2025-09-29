@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}CORESYNC - Next Era of Spa Experiences{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-bg">
+        <img src="{% static 'images/Hiro_converted.png' %}" alt="Spa Interior" class="hero-image">
+    </div>
+    <div class="hero-content">
+        <h1 class="hero-title">
+            WELCOME TO THE<br>
+            NEXT ERA OF SPA<br>
+            EXPERIENCES
+        </h1>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services">
+    <div class="container">
+        <div class="services-grid">
+            <!-- CORESYNC Private -->
+            <div class="service-card" data-link="{% url 'private' %}">
+                <div class="service-image">
+                    <img src="{% static 'images/private.png' %}" alt="Private Spa" class="service-bg">
+                    <img src="{% static 'images/private1.png' %}" alt="CORESYNC Private" class="service-overlay">
+                </div>
+                <button class="service-btn">
+                    BOOK HERE YOUR PRIVATE ESCAPE
+                </button>
+            </div>
+
+            <!-- Menssuite -->
+            <div class="service-card" data-link="{% url 'menssuite' %}">
+                <div class="service-image">
+                    <img src="{% static 'images/menssuite.png' %}" alt="Menssuite" class="service-bg">
+                    <img src="{% static 'images/menssuite1.png' %}" alt="Menssuite Logo" class="service-overlay">
+                </div>
+                <button class="service-btn">
+                    BOOK HERE YOUR SYSTEM RESET
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- NEW MEMBERSHIP PREVIEW SECTION -->
+<section class="membership-section">
+    <div class="container">
+        <h2 class="membership-title">UNLOCK YOUR WELLNESS JOURNEY</h2>
+        <div class="services-grid">
+            <!-- Base Tier Preview -->
+            <div class="service-card" data-link="{% url 'membership' %}">
+                <div class="service-image">
+                    <img src="{% static 'images/private.png' %}" alt="Base Membership" class="service-bg">
+                    <div class="service-overlay membership-preview-overlay">
+                        <h3 class="membership-preview-title">BASE TIER</h3>
+                        <p class="membership-preview-price">From $375/month</p>
+                        <p class="membership-preview-benefit">25% OFF ALL SERVICES</p>
+                    </div>
+                </div>
+                <button class="service-btn">
+                    START YOUR MEMBERSHIP
+                </button>
+            </div>
+
+            <!-- Premium Tier Preview -->
+            <div class="service-card" data-link="{% url 'membership' %}">
+                <div class="service-image">
+                    <img src="{% static 'images/menssuite.png' %}" alt="Premium Membership" class="service-bg">
+                    <div class="service-overlay membership-preview-overlay membership-preview-overlay--featured">
+                        <div class="membership-preview-badge">MOST POPULAR</div>
+                        <h3 class="membership-preview-title">PREMIUM TIER</h3>
+                        <p class="membership-preview-price">From $700/month</p>
+                        <p class="membership-preview-benefit">FREE SERVICES INCLUDED</p>
+                    </div>
+                </div>
+                <button class="service-btn membership-preview-btn--featured">
+                    UNLOCK PREMIUM ACCESS
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/membership.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/index.js' %}"></script>
+{% endblock %}

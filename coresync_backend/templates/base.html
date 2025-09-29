@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>{% block title %}CORESYNC{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-logo">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'images/menu.png' %}" alt="CORESYNC" class="header-logo-img">
+                </a>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="nav-menu" id="nav-menu">
+                <div class="nav-left">
+                    <button class="nav-btn" data-link="{% url 'membership' %}">Membership</button>
+                    <button class="nav-btn" data-link="{% url 'contacts' %}">Contacts</button>
+                </div>
+                <div class="nav-right">
+                    <button class="nav-btn" data-link="{% url 'menssuite' %}">Mensuite</button>
+                    <button class="nav-btn" data-link="{% url 'private' %}">Coresync Private</button>
+                </div>
+            </nav>
+
+            <div class="burger-menu" id="burger-menu">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-address">
+                    1544 71ST STREET<br>
+                    BROOKLYN, NY 11228
+                </div>
+                <div class="footer-logo">
+                    <img src="{% static 'images/footerlogo.png' %}" alt="CoreSync" class="footer-logo-img">
+                </div>
+                <div class="footer-contact">
+                    551.574.2281<br>
+                    INFO@CORESYNC.LIFE
+                </div>
+            </div>
+            <div class="footer-cta">
+                <button class="footer-btn">
+                    NEED ANYTHING? WE'RE HERE.
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>
