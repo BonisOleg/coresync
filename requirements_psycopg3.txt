@@ -1,16 +1,18 @@
-# Django Core & Production Optimized for Render 2025
-# Python 3.13.4 Compatible Versions
+# Django + PostgreSQL - Python 3.13.4 COMPATIBLE
+# Using PSYCOPG 3.x (new generation)
+
 Django==5.1.1
-djangorestframework==3.15.2
+djangorestframework==3.15.2  
 django-cors-headers==4.4.0
 python-decouple==3.8
 
-# Static Files & WhiteNoise for Render
+# Static Files
 whitenoise==6.7.0
 django-storages==1.14.4
 
-# Database - Python 3.13+ COMPATIBLE
+# Database - NEW GENERATION PostgreSQL driver
 psycopg[binary]==3.2.3
+psycopg[pool]==3.2.3
 dj-database-url==2.2.0
 
 # Authentication & Security
@@ -20,7 +22,7 @@ cryptography==42.0.8
 # API Documentation
 drf-spectacular==0.27.2
 
-# Payment Processing - Compatible version
+# Payment Processing
 stripe==10.11.0
 
 # File Processing

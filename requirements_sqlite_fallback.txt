@@ -1,26 +1,25 @@
-# Django Core & Production Optimized for Render 2025
-# Python 3.13.4 Compatible Versions
+# SQLITE FALLBACK - NO POSTGRESQL NEEDED
+# For demonstration and testing
+
 Django==5.1.1
 djangorestframework==3.15.2
 django-cors-headers==4.4.0
 python-decouple==3.8
 
-# Static Files & WhiteNoise for Render
+# Static Files
 whitenoise==6.7.0
 django-storages==1.14.4
 
-# Database - Python 3.13+ COMPATIBLE
-psycopg[binary]==3.2.3
-dj-database-url==2.2.0
+# NO DATABASE DRIVERS - SQLite built-in
 
-# Authentication & Security
+# Authentication & Security  
 djangorestframework-simplejwt==5.3.0
 cryptography==42.0.8
 
 # API Documentation
 drf-spectacular==0.27.2
 
-# Payment Processing - Compatible version
+# Payment Processing
 stripe==10.11.0
 
 # File Processing
