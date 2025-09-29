@@ -1,0 +1,45 @@
+# Django Core & Production Optimized for Render 2025
+Django==5.1.1
+djangorestframework==3.15.2
+django-cors-headers==4.4.0
+python-decouple==3.8
+
+# Static Files & WhiteNoise for Render
+whitenoise==6.7.0
+django-storages==1.14.4
+
+# Database
+psycopg2-binary==2.9.9
+dj-database-url==2.2.0
+
+# Authentication & Security
+djangorestframework-simplejwt==5.3.0
+cryptography==42.0.8
+
+# API Documentation
+drf-spectacular==0.27.2
+
+# Payment Processing
+stripe==8.12.0
+
+# File Processing
+Pillow==10.4.0
+
+# HTTP Client
+requests==2.32.3
+
+# Environment
+python-dotenv==1.0.1
+
+# Production Server
+gunicorn==22.0.0
+
+# Redis & Channels (optional - only if using WebSocket features)
+# redis==5.0.8
+# channels==4.1.0
+# channels-redis==4.2.0
+
+# Development Tools (commented for production)
+# celery==5.3.6
+# python-quickbooks==0.9.7
+# boto3==1.35.27
