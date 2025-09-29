@@ -1,0 +1,36 @@
+# Django Core & Production - STABLE VERSIONS
+# Python 3.11.10 Compatible (TESTED)
+Django==5.0.9
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+python-decouple==3.8
+
+# Static Files & WhiteNoise for Render
+whitenoise==6.6.0
+django-storages==1.14.2
+
+# Database - STABLE
+psycopg2-binary==2.9.7
+dj-database-url==2.1.0
+
+# Authentication & Security
+djangorestframework-simplejwt==5.3.0
+cryptography==41.0.8
+
+# API Documentation
+drf-spectacular==0.26.5
+
+# Payment Processing - STABLE
+stripe==7.13.0
+
+# File Processing
+Pillow==10.0.1
+
+# HTTP Client
+requests==2.31.0
+
+# Environment
+python-dotenv==1.0.0
+
+# Production Server
+gunicorn==21.2.0
