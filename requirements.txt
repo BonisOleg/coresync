@@ -1,4 +1,5 @@
 # Django Core & Production Optimized for Render 2025
+# Python 3.13.4 Compatible Versions
 Django==5.1.1
 djangorestframework==3.15.2
 django-cors-headers==4.4.0
@@ -19,8 +20,8 @@ cryptography==42.0.8
 # API Documentation
 drf-spectacular==0.27.2
 
-# Payment Processing
-stripe==8.12.0
+# Payment Processing - Compatible version
+stripe==10.11.0
 
 # File Processing
 Pillow==10.4.0
@@ -33,13 +34,3 @@ python-dotenv==1.0.1
 
 # Production Server
 gunicorn==22.0.0
-
-# Redis & Channels (optional - only if using WebSocket features)
-# redis==5.0.8
-# channels==4.1.0
-# channels-redis==4.2.0
-
-# Development Tools (commented for production)
-# celery==5.3.6
-# python-quickbooks==0.9.7
-# boto3==1.35.27
