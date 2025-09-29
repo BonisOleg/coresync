@@ -9,7 +9,7 @@ services:
     buildCommand: "./build.sh"
     startCommand: "./start.sh"
     plan: free
-    healthCheckPath: /health/
+    healthCheckPath: /
     autoDeploy: false
     
     envVars:

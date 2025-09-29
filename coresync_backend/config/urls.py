@@ -40,6 +40,7 @@ urlpatterns = [
     
     # API health check (PRESERVED!)
     path('api/health/', api_health, name='api_health'),
+    path('health/', api_health, name='health_check'),  # For Render health check
     path('api/test/', api_test, name='api_test'),
     
     # NEW API ROUTES (FIXED INTEGRATION)
