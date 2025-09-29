@@ -1,0 +1,13 @@
+# Render.com Simple Configuration - Fixed for 29.09.2025
+# Use this version if render.yaml has issues
+
+services:
+  - type: web
+    name: coresync-django
+    env: python
+    buildCommand: "./build.sh"  
+    startCommand: "./start.sh"
+    healthCheckPath: /health/
+    
+databases:
+  - name: coresync-postgres

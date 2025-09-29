@@ -1,16 +1,15 @@
 # Render.com Configuration for CoreSync Django App
-# Optimized for 29.09.2025
+# Optimized for 29.09.2025 - CORRECTED VERSION
 
 services:
   # Django Web Service
   - type: web
     name: coresync-django
-    runtime: python3
+    env: python
     buildCommand: "./build.sh"
     startCommand: "./start.sh"
     plan: free
-    env: python
-    healthCheckPath: /
+    healthCheckPath: /health/
     autoDeploy: false
     
     envVars:
@@ -18,25 +17,14 @@ services:
         value: false
       - key: DJANGO_SETTINGS_MODULE
         value: config.settings
-      - key: PYTHON_VERSION
-        value: "3.11.6"
       - key: SECRET_KEY
         generateValue: true
       - key: DATABASE_URL
         fromDatabase:
           name: coresync-postgres
           property: connectionString
-          
-  # PostgreSQL Database
-  - type: pserv
-    name: coresync-postgres
-    plan: free
-    env: postgresql
-    disk:
-      name: coresync-db
-      mountPath: /var/lib/postgresql/data
-      sizeGB: 1
 
 databases:
+  # PostgreSQL Database - Separate from services
   - name: coresync-postgres
     plan: free
