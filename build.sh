@@ -27,17 +27,9 @@ cd coresync_backend
 echo "📁 Collecting static files..."
 python manage.py collectstatic --noinput --clear
 
-# Create database migrations for all apps
+# Create database migrations (simplified for deploy)
 echo "🗄️ Creating database migrations..."
-python manage.py makemigrations core --noinput || echo "No core migrations needed"
-python manage.py makemigrations users --noinput || echo "No users migrations needed" 
-python manage.py makemigrations services --noinput || echo "No services migrations needed"
-python manage.py makemigrations memberships --noinput || echo "No memberships migrations needed"
-python manage.py makemigrations payments --noinput || echo "No payments migrations needed"
-python manage.py makemigrations forms --noinput || echo "No forms migrations needed"
-python manage.py makemigrations iot_control --noinput || echo "No iot_control migrations needed"
-python manage.py makemigrations analytics --noinput || echo "No analytics migrations needed"
-python manage.py makemigrations authentication --noinput || echo "No authentication migrations needed"
+python manage.py makemigrations --noinput || echo "No new migrations needed"
 
 # Apply database migrations  
 echo "🔄 Applying database migrations..."
