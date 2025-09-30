@@ -48,7 +48,7 @@ urlpatterns = [
     path('', include('services.urls')),      # Services API
     path('', include('memberships.urls')),   # Memberships API  
     path('', include('users.urls')),         # Users API
-    path('', include('services.booking_urls')),  # Booking Calendar API
+    # path('', include('services.booking_urls')),  # Booking Calendar API - DISABLED FOR INITIAL DEPLOY
     path('', include('payments.urls')),      # Payments & QuickBooks API
 ]
 

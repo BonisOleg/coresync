@@ -13,7 +13,7 @@ from django.core.exceptions import ValidationError
 
 from .booking_models import Booking, Room, AvailabilitySlot, BookingAddon
 from .models import Service, ServiceAddon
-from .serializers import ServiceSerializer
+from .serializers import ServiceDetailSerializer
 from memberships.models import Membership
 from payments.models import Payment, QuickBooksSync
 
@@ -251,7 +251,7 @@ class BookingViewSet(viewsets.ModelViewSet):
             return Response({
                 'id': booking.id,
                 'booking_reference': booking.booking_reference,
-                'service': ServiceSerializer(service).data,
+                'service': ServiceDetailSerializer(service).data,
                 'date': booking.booking_date.isoformat(),
                 'start_time': booking.start_time.strftime('%H:%M'),
                 'end_time': booking.end_time.strftime('%H:%M'),
