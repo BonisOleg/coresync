@@ -53,13 +53,8 @@ def auto_sync_payment_to_quickbooks(sender, instance, created, **kwargs):
         if created:
             logger.info(f"Scheduled QuickBooks sync for payment {instance.payment_id}")
             
-            # Trigger immediate sync via Celery task
-            if quickbooks_service.is_configured():
-                from .tasks import sync_specific_payment
-                sync_specific_payment.delay(instance.id)
-                logger.info(f"Scheduled immediate QuickBooks sync for payment {instance.payment_id}")
-            else:
-                logger.warning(f"QuickBooks not configured - payment {instance.payment_id} sync delayed")
+            # QuickBooks sync disabled for initial deploy
+            logger.info(f"QuickBooks sync scheduled for payment {instance.payment_id} (disabled for deploy)")
     
     except Exception as e:
         logger.error(f"Failed to schedule QuickBooks sync for payment {instance.payment_id}: {e}")
@@ -104,13 +99,8 @@ def auto_sync_booking_to_quickbooks(sender, instance, created, **kwargs):
         if created:
             logger.info(f"Scheduled QuickBooks invoice sync for booking {instance.booking_reference}")
             
-            # Trigger immediate sync via Celery task
-            if quickbooks_service.is_configured():
-                from .tasks import sync_specific_booking
-                sync_specific_booking.delay(instance.id)
-                logger.info(f"Scheduled immediate QuickBooks sync for booking {instance.booking_reference}")
-            else:
-                logger.warning(f"QuickBooks not configured - booking {instance.booking_reference} sync delayed")
+            # QuickBooks sync disabled for initial deploy  
+            logger.info(f"QuickBooks sync scheduled for booking {instance.booking_reference} (disabled for deploy)")
     
     except Exception as e:
         logger.error(f"Failed to schedule QuickBooks sync for booking {instance.booking_reference}: {e}")

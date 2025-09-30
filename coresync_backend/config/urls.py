@@ -49,7 +49,7 @@ urlpatterns = [
     path('', include('memberships.urls')),   # Memberships API  
     path('', include('users.urls')),         # Users API
     # path('', include('services.booking_urls')),  # Booking Calendar API - DISABLED FOR INITIAL DEPLOY
-    path('', include('payments.urls')),      # Payments & QuickBooks API
+    # path('', include('payments.urls')),      # Payments & QuickBooks API - DISABLED FOR INITIAL DEPLOY
 ]
 
 # Serve media files in development

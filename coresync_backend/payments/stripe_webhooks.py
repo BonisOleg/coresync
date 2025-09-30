@@ -12,7 +12,7 @@ from django.conf import settings
 from django.utils import timezone
 
 from .models import Payment, StripeWebhookEvent
-from .tasks import sync_specific_payment
+# from .tasks import sync_specific_payment  # DISABLED - no celery
 
 logger = logging.getLogger(__name__)
 
@@ -102,8 +102,8 @@ def handle_payment_succeeded(payment_intent):
         
         logger.info(f"Payment {payment.payment_id} marked as succeeded")
         
-        # Trigger immediate QuickBooks sync (via signal)
-        # The post_save signal will automatically schedule QuickBooks sync
+        # QuickBooks sync disabled for initial deploy
+        # TODO: Re-enable when celery is available
         
         # Also update related booking status if applicable
         if payment.payment_type == 'service' and 'booking_id' in payment.metadata:
@@ -239,24 +239,7 @@ def handle_subscription_updated(subscription):
 def sync_all_pending_payments():
     """
     Manually sync all pending payments to QuickBooks.
-    Can be called from admin or management command.
+    DISABLED for initial deploy - no celery available.
     """
-    pending_payments = Payment.objects.filter(
-        status='succeeded',
-        quickbooks_synced=False
-    )
-    
-    success_count = 0
-    failed_count = 0
-    
-    for payment in pending_payments:
-        try:
-            # Schedule for sync
-            sync_specific_payment.delay(payment.id)
-            success_count += 1
-        except Exception as e:
-            logger.error(f"Failed to schedule sync for payment {payment.payment_id}: {e}")
-            failed_count += 1
-    
-    logger.info(f"Scheduled {success_count} payments for QuickBooks sync, {failed_count} failed")
-    return success_count, failed_count
+    logger.warning("QuickBooks sync disabled for initial deploy")
+    return 0, 0
