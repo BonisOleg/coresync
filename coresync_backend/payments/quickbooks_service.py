@@ -12,9 +12,17 @@ from django.conf import settings
 from django.utils import timezone
 from django.core.management.base import BaseCommand
 
-from quickbooks import QuickBooks
-from quickbooks.objects import Customer, Item, Invoice, Payment, CompanyInfo
-from quickbooks.exceptions import QuickbooksException
+try:
+    from quickbooks import QuickBooks
+    from quickbooks.objects import Customer, Item, Invoice, Payment, CompanyInfo
+    from quickbooks.exceptions import QuickbooksException
+    QUICKBOOKS_AVAILABLE = True
+except ImportError:
+    # Fallback for deployment without QuickBooks libraries
+    QUICKBOOKS_AVAILABLE = False
+    QuickBooks = None
+    Customer = Item = Invoice = Payment = CompanyInfo = None
+    QuickbooksException = Exception
 
 from .models import Payment as CoreSyncPayment, QuickBooksSync
 from memberships.models import Membership
@@ -44,6 +52,8 @@ class QuickBooksService:
     
     def is_configured(self):
         """Check if QuickBooks integration is properly configured."""
+        if not QUICKBOOKS_AVAILABLE:
+            return False
         required_settings = [
             self.company_id,
             self.client_id, 
@@ -54,6 +64,11 @@ class QuickBooksService:
     
     def _initialize_client(self):
         """Initialize QuickBooks client."""
+        if not QUICKBOOKS_AVAILABLE:
+            logger.warning("QuickBooks libraries not available - running in compatibility mode")
+            self.client = None
+            return
+            
         try:
             self.client = QuickBooks(
                 sandbox=self.sandbox,
