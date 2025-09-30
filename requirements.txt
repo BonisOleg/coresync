@@ -35,10 +35,11 @@ python-dotenv==1.0.1
 # Production Server
 gunicorn==22.0.0
 
-# Task Queue (for QuickBooks sync)
-celery==5.3.4
-redis==5.0.8
+# Task Queue (for QuickBooks sync) - DISABLED FOR INITIAL DEPLOY
+# celery==5.3.4
+# redis==5.0.8
 
-# QuickBooks Integration (simplified)
-intuitlib==1.2.4
-requests-oauthlib==2.0.0
+# QuickBooks Integration - DISABLED FOR INITIAL DEPLOY  
+# Will be enabled after successful basic deploy
+# intuitlib==1.2.4
+# requests-oauthlib==2.0.0

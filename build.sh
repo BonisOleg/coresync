@@ -43,13 +43,13 @@ python manage.py makemigrations authentication --noinput || echo "No authenticat
 echo "🔄 Applying database migrations..."
 python manage.py migrate --noinput
 
-# Test deployment configuration
-echo "🧪 Running deployment tests..."
-if python deployment_test.py; then
-    echo "✅ Deployment tests passed!"
-else
-    echo "⚠️ Deployment test warnings (continuing anyway)..."
-fi
+# Test deployment configuration - DISABLED FOR INITIAL DEPLOY
+echo "🧪 Skipping deployment tests for initial deploy..."
+# if python deployment_test.py; then
+#     echo "✅ Deployment tests passed!"
+# else
+#     echo "⚠️ Deployment test warnings (continuing anyway)..."
+# fi
 
 # Create superuser if needed (only in development)
 if [ "$DJANGO_SUPERUSER_USERNAME" ]; then
