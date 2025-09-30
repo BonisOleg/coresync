@@ -34,6 +34,7 @@ urlpatterns = [
     path('menssuite/', TemplateView.as_view(template_name='menssuite.html'), name='menssuite'),
     path('membership/', TemplateView.as_view(template_name='membership.html'), name='membership'),
     path('contacts/', TemplateView.as_view(template_name='contacts.html'), name='contacts'),
+    path('book/', TemplateView.as_view(template_name='booking_calendar.html'), name='booking_calendar'),
     
     # Admin panel (PRESERVED!)
     path('admin/', admin.site.urls),
@@ -47,6 +48,8 @@ urlpatterns = [
     path('', include('services.urls')),      # Services API
     path('', include('memberships.urls')),   # Memberships API  
     path('', include('users.urls')),         # Users API
+    path('', include('services.booking_urls')),  # Booking Calendar API
+    path('', include('payments.urls')),      # Payments & QuickBooks API
 ]
 
 # Serve media files in development

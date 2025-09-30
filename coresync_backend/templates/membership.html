@@ -168,15 +168,7 @@
     </div>
 </section>
 
-<!-- Booking Calendar Section (placeholder) -->
-<section id="membership-booking-calendar" class="privacy-section" style="display: none;">
-    <div class="container">
-        <h2 class="privacy-title">BOOK YOUR SERVICE</h2>
-        <div id="booking-calendar-container">
-            <!-- Calendar will be inserted here by JavaScript -->
-        </div>
-    </div>
-</section>
+<!-- Removed duplicate booking calendar - use dedicated /book/ page -->
 
 <!-- Benefits Section using amenities-section structure -->
 <section class="amenities-section privacy-section">
@@ -186,20 +178,36 @@
             <div class="amenities-container">
                 <div class="amenities-track">
                     <div class="amenity-item">
-                        <img src="{% static 'images/fireplace.png' %}" alt="Priority Access" class="amenity-image">
+                        <video autoplay muted loop playsinline class="amenity-video">
+                            <source src="{% static 'videos/priority_access.mp4' %}" type="video/mp4">
+                            <img src="{% static 'images/fireplace.png' %}" alt="Priority Access" class="amenity-image">
+                        </video>
                     </div>
                     <div class="amenity-item">
-                        <img src="{% static 'images/relaxation_room.png' %}" alt="Exclusive Discounts"
-                            class="amenity-image">
+                        <video autoplay muted loop playsinline class="amenity-video">
+                            <source src="{% static 'videos/exclusive_discounts.mp4' %}" type="video/mp4">
+                            <img src="{% static 'images/relaxation_room.png' %}" alt="Exclusive Discounts"
+                                class="amenity-image">
+                        </video>
                     </div>
                     <div class="amenity-item">
-                        <img src="{% static 'images/shower.png' %}" alt="VIP Treatment" class="amenity-image">
+                        <video autoplay muted loop playsinline class="amenity-video">
+                            <source src="{% static 'videos/vip_treatment.mp4' %}" type="video/mp4">
+                            <img src="{% static 'images/shower.png' %}" alt="VIP Treatment" class="amenity-image">
+                        </video>
                     </div>
                     <div class="amenity-item">
-                        <img src="{% static 'images/treatment_room.png' %}" alt="Member Events" class="amenity-image">
+                        <video autoplay muted loop playsinline class="amenity-video">
+                            <source src="{% static 'videos/member_events.mp4' %}" type="video/mp4">
+                            <img src="{% static 'images/treatment_room.png' %}" alt="Member Events"
+                                class="amenity-image">
+                        </video>
                     </div>
                     <div class="amenity-item">
-                        <img src="{% static 'images/sauna.png' %}" alt="Concierge Service" class="amenity-image">
+                        <video autoplay muted loop playsinline class="amenity-video">
+                            <source src="{% static 'videos/concierge_service.mp4' %}" type="video/mp4">
+                            <img src="{% static 'images/sauna.png' %}" alt="Concierge Service" class="amenity-image">
+                        </video>
                     </div>
                 </div>
             </div>

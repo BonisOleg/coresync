@@ -219,3 +219,5 @@ class UserStatsSerializer(serializers.Serializer):
     loyalty_points = serializers.IntegerField(default=0)  # Future feature
 
 
+
+

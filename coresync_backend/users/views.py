@@ -347,3 +347,5 @@ class UserRegistrationViewSet(viewsets.ViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+

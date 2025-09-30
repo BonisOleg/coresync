@@ -36,3 +36,5 @@ python-dotenv==1.0.1
 
 # Production Server
 gunicorn==22.0.0
+
+

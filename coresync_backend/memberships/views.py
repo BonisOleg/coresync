@@ -2,6 +2,7 @@
 DRF Views for Memberships app.
 Safe ViewSets without conflicts with existing code.
 """
+import logging
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -9,6 +10,8 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.utils import timezone
+
+logger = logging.getLogger(__name__)
 
 from .models import MembershipPlan, Membership, MembershipBenefit
 from .serializers import (
@@ -138,6 +141,9 @@ class MembershipViewSet(viewsets.ModelViewSet):
                 # Reset monthly usage counters on upgrade
                 current_membership.reset_monthly_usage()
                 
+                # Create payment record for QuickBooks integration
+                self._create_membership_payment(current_membership, serializer.validated_data)
+                
                 response_data = {
                     'success': True,
                     'message': f'Successfully upgraded to {new_plan.name}',
@@ -161,6 +167,35 @@ class MembershipViewSet(viewsets.ModelViewSet):
                 }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def _create_membership_payment(self, membership, payment_data):
+        """Create payment record for membership - ensures ALL payments go to QuickBooks."""
+        from payments.models import Payment
+        import uuid
+        
+        try:
+            payment = Payment.objects.create(
+                user=membership.user,
+                payment_type='membership',
+                payment_method=payment_data.get('payment_method', 'stripe_card'),
+                amount=membership.plan.price,
+                currency='USD',
+                status='succeeded',  # Membership upgrades are immediate
+                description=f"Membership: {membership.plan.name}",
+                membership=membership,
+                metadata={
+                    'membership_id': membership.id,
+                    'plan_name': membership.plan.name,
+                    'upgrade_date': timezone.now().isoformat(),
+                }
+            )
+            
+            logger.info(f"Created membership payment record {payment.payment_id} for {membership.user.full_name}")
+            return payment
+            
+        except Exception as e:
+            logger.error(f"Failed to create membership payment for {membership.user.full_name}: {e}")
+            return None
     
     @action(detail=False, methods=['get'])
     def usage_stats(self, request):
@@ -252,5 +287,7 @@ class MembershipBenefitViewSet(viewsets.ReadOnlyModelViewSet):
             )
         
         return Response(grouped_benefits)
+
+
 
 

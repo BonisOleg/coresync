@@ -220,3 +220,7 @@ class ServiceHistory(BaseModel):
     def total_amount(self):
         """Calculate total amount including add-ons."""
         return self.price_paid + self.addons_total
+
+
+# Booking models are imported separately to avoid circular imports
+# Use: from services.booking_models import Room, Booking, etc. where needed

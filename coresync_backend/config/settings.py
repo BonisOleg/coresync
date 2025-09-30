@@ -211,12 +211,41 @@ CHANNEL_LAYERS = {
 # Celery Configuration
 CELERY_BROKER_URL = config('CELERY_BROKER_URL', default='redis://localhost:6379/1')
 CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND', default='redis://localhost:6379/1')
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+
+# Celery Beat Schedule for QuickBooks auto-sync
+CELERY_BEAT_SCHEDULE = {
+    'sync-quickbooks-queue': {
+        'task': 'payments.tasks.sync_quickbooks_queue',
+        'schedule': 300.0,  # Every 5 minutes
+        'options': {'max_retries': 3}
+    },
+    'retry-failed-quickbooks-syncs': {
+        'task': 'payments.tasks.retry_failed_quickbooks_syncs',
+        'schedule': 3600.0,  # Every hour
+    },
+    'cleanup-old-sync-records': {
+        'task': 'payments.tasks.cleanup_old_sync_records',
+        'schedule': 86400.0,  # Daily
+    },
+}
 
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
 EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
 EMAIL_USE_TLS = True
+
+# QuickBooks API Configuration
+QUICKBOOKS_CLIENT_ID = config('QUICKBOOKS_CLIENT_ID', default='')
+QUICKBOOKS_CLIENT_SECRET = config('QUICKBOOKS_CLIENT_SECRET', default='')
+QUICKBOOKS_ACCESS_TOKEN = config('QUICKBOOKS_ACCESS_TOKEN', default='')
+QUICKBOOKS_REFRESH_TOKEN = config('QUICKBOOKS_REFRESH_TOKEN', default='')
+QUICKBOOKS_COMPANY_ID = config('QUICKBOOKS_COMPANY_ID', default='')
+QUICKBOOKS_SANDBOX = config('QUICKBOOKS_SANDBOX', default=True, cast=bool)  # Set to False for production
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 

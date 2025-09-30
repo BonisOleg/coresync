@@ -4,10 +4,15 @@
 {% block title %}CORESYNC - Next Era of Spa Experiences{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
+<!-- Hero Section with Video (Client Requirement) -->
 <section class="hero">
     <div class="hero-bg">
-        <img src="{% static 'images/Hiro_converted.png' %}" alt="Spa Interior" class="hero-image">
+        <video autoplay muted loop playsinline class="hero-video">
+            <source src="{% static 'videos/hero_spa_experience.mp4' %}" type="video/mp4">
+            <source src="{% static 'videos/hero_spa_experience.webm' %}" type="video/webm">
+            <!-- Fallback image -->
+            <img src="{% static 'images/Hiro_converted.png' %}" alt="Spa Interior" class="hero-image">
+        </video>
     </div>
     <div class="hero-content">
         <h1 class="hero-title">
@@ -28,7 +33,7 @@
                     <img src="{% static 'images/private.png' %}" alt="Private Spa" class="service-bg">
                     <img src="{% static 'images/private1.png' %}" alt="CORESYNC Private" class="service-overlay">
                 </div>
-                <button class="service-btn">
+                <button class="service-btn" onclick="window.location.href='{% url 'booking_calendar' %}'">
                     BOOK HERE YOUR PRIVATE ESCAPE
                 </button>
             </div>
@@ -39,7 +44,7 @@
                     <img src="{% static 'images/menssuite.png' %}" alt="Menssuite" class="service-bg">
                     <img src="{% static 'images/menssuite1.png' %}" alt="Menssuite Logo" class="service-overlay">
                 </div>
-                <button class="service-btn">
+                <button class="service-btn" onclick="window.location.href='{% url 'booking_calendar' %}'">
                     BOOK HERE YOUR SYSTEM RESET
                 </button>
             </div>
@@ -62,7 +67,7 @@
                         <p class="membership-preview-benefit">25% OFF ALL SERVICES</p>
                     </div>
                 </div>
-                <button class="service-btn">
+                <button class="service-btn" onclick="window.location.href='{% url 'membership' %}'">
                     START YOUR MEMBERSHIP
                 </button>
             </div>
@@ -78,7 +83,8 @@
                         <p class="membership-preview-benefit">FREE SERVICES INCLUDED</p>
                     </div>
                 </div>
-                <button class="service-btn membership-preview-btn--featured">
+                <button class="service-btn membership-preview-btn--featured"
+                    onclick="window.location.href='{% url 'membership' %}'">
                     UNLOCK PREMIUM ACCESS
                 </button>
             </div>

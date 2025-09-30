@@ -1,0 +1,666 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Book Your Service - CORESYNC{% endblock %}
+
+{% block content %}
+<!-- Booking Calendar Page -->
+<section class="booking-page"
+    style="min-height: 100vh; background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding: 2rem 0;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+
+        <!-- Header -->
+        <div class="booking-header" style="text-align: center; margin-bottom: 4rem;">
+            <h1
+                style="color: #B8860B; font-family: 'Maison_Neue_Bold', sans-serif; font-size: 2.5rem; margin-bottom: 1rem;">
+                BOOK YOUR EXPERIENCE
+            </h1>
+            <p
+                style="color: rgba(255,255,255,0.8); font-family: 'Maison_Neue_Book', sans-serif; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+                Select your preferred date, time, and service. Members enjoy priority booking and exclusive discounts.
+            </p>
+        </div>
+
+        <!-- Membership Status Display -->
+        <div class="membership-status"
+            style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 1.5rem; margin-bottom: 3rem; border-radius: 10px; text-align: center;">
+            <div id="membership-info" style="color: #fff; font-family: 'Maison_Neue_Book', sans-serif;">
+                <div style="margin-bottom: 1rem;">
+                    <span style="color: rgba(255,255,255,0.7);">Your Status:</span>
+                    <span id="current-status"
+                        style="color: #B8860B; font-family: 'Maison_Neue_Bold', sans-serif; font-size: 1.2rem;">Loading...</span>
+                </div>
+                <div id="membership-benefits" style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">
+                    <!-- Benefits will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Membership Testing Buttons (Demo) -->
+            <div class="membership-demo"
+                style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 1rem;">Demo: Test different
+                    membership levels</p>
+                <div class="demo-buttons" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="setMembershipLevel('none')" class="demo-btn"
+                        style="background: #dc3545; color: #fff; border: none; padding: 0.8rem 1.5rem; font-family: 'Maison_Neue_Book', sans-serif; cursor: pointer; border-radius: 5px;">
+                        Non-Member
+                    </button>
+                    <button onclick="setMembershipLevel('base')" class="demo-btn"
+                        style="background: #6c757d; color: #fff; border: none; padding: 0.8rem 1.5rem; font-family: 'Maison_Neue_Book', sans-serif; cursor: pointer; border-radius: 5px;">
+                        Base Member
+                    </button>
+                    <button onclick="setMembershipLevel('premium')" class="demo-btn"
+                        style="background: #28a745; color: #fff; border: none; padding: 0.8rem 1.5rem; font-family: 'Maison_Neue_Book', sans-serif; cursor: pointer; border-radius: 5px;">
+                        Premium Member
+                    </button>
+                    <button onclick="setMembershipLevel('unlimited')" class="demo-btn"
+                        style="background: #B8860B; color: #000; border: none; padding: 0.8rem 1.5rem; font-family: 'Maison_Neue_Bold', sans-serif; cursor: pointer; border-radius: 5px;">
+                        VIP Unlimited
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Calendar Container -->
+        <div id="booking-calendar-container"
+            style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 3rem; min-height: 600px;">
+            <!-- Calendar will be initialized here by JavaScript -->
+            <div style="text-align: center; color: rgba(255,255,255,0.7); font-family: 'Maison_Neue_Book', sans-serif;">
+                Loading booking calendar...
+            </div>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="booking-info" style="margin-top: 4rem; text-align: center;">
+            <h3 style="color: #B8860B; font-family: 'Maison_Neue_Bold', sans-serif; margin-bottom: 2rem;">
+                BOOKING INFORMATION
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+
+                <div class="info-card"
+                    style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 10px; text-align: left;">
+                    <h4 style="color: #fff; font-family: 'Maison_Neue_Bold', sans-serif; margin-bottom: 1rem;">Member
+                        Priority</h4>
+                    <ul
+                        style="color: rgba(255,255,255,0.8); font-family: 'Maison_Neue_Book', sans-serif; list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;">✅ Members: Book 2-3 months ahead</li>
+                        <li style="margin-bottom: 0.5rem;">✅ VIP: Priority access to best slots</li>
+                        <li style="margin-bottom: 0.5rem;">❌ Non-Members: Only 3 days ahead</li>
+                    </ul>
+                </div>
+
+                <div class="info-card"
+                    style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 10px; text-align: left;">
+                    <h4 style="color: #fff; font-family: 'Maison_Neue_Bold', sans-serif; margin-bottom: 1rem;">
+                        Cancellation Policy</h4>
+                    <ul
+                        style="color: rgba(255,255,255,0.8); font-family: 'Maison_Neue_Book', sans-serif; list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;">✅ Members: Cancel up to 24h before</li>
+                        <li style="margin-bottom: 0.5rem;">❌ Non-Members: 48h notice required</li>
+                        <li style="margin-bottom: 0.5rem;">💰 Late cancellations may incur fees</li>
+                    </ul>
+                </div>
+
+                <div class="info-card"
+                    style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 10px; text-align: left;">
+                    <h4 style="color: #fff; font-family: 'Maison_Neue_Bold', sans-serif; margin-bottom: 1rem;">Payment &
+                        Pricing</h4>
+                    <ul
+                        style="color: rgba(255,255,255,0.8); font-family: 'Maison_Neue_Book', sans-serif; list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;">💳 Secure payment with Stripe</li>
+                        <li style="margin-bottom: 0.5rem;">📱 Apple Pay & Google Pay supported</li>
+                        <li style="margin-bottom: 0.5rem;">💰 Member discounts applied automatically</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- CSRF Token for API calls -->
+{% csrf_token %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Global variables
+    let bookingCalendar = null;
+
+    // Initialize calendar when page loads
+    document.addEventListener('DOMContentLoaded', function () {
+        initializeMembershipStatus();
+        initializeBookingCalendar();
+    });
+
+    // Initialize membership status display
+    function initializeMembershipStatus() {
+        const membership = getCurrentMembershipLevel();
+        updateMembershipDisplay(membership);
+    }
+
+    // Get current membership level (demo version)
+    function getCurrentMembershipLevel() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('membership') || localStorage.getItem('membershipLevel') || 'none';
+    }
+
+    // Update membership display
+    function updateMembershipDisplay(level) {
+        const statusElement = document.getElementById('current-status');
+        const benefitsElement = document.getElementById('membership-benefits');
+
+        let statusText, statusColor, benefits;
+
+        switch (level) {
+            case 'unlimited':
+                statusText = 'VIP UNLIMITED MEMBER';
+                statusColor = '#B8860B';
+                benefits = '🌟 Book up to 3 months ahead • Priority access • All services included • VIP treatment';
+                break;
+            case 'premium':
+                statusText = 'PREMIUM MEMBER';
+                statusColor = '#28a745';
+                benefits = '✨ Book up to 2 months ahead • Priority booking • 30-40% discount • Free services included';
+                break;
+            case 'base':
+                statusText = 'BASE MEMBER';
+                statusColor = '#6c757d';
+                benefits = '📅 Book up to 1 month ahead • 25% discount on all services';
+                break;
+            default:
+                statusText = 'NON-MEMBER';
+                statusColor = '#dc3545';
+                benefits = '⏰ Book up to 3 days ahead • Full pricing • Join membership for better access!';
+        }
+
+        statusElement.textContent = statusText;
+        statusElement.style.color = statusColor;
+        benefitsElement.textContent = benefits;
+    }
+
+    // Set membership level (demo function)
+    function setMembershipLevel(level) {
+        localStorage.setItem('membershipLevel', level);
+        const url = new URL(window.location);
+        url.searchParams.set('membership', level);
+        window.history.pushState({}, '', url);
+
+        updateMembershipDisplay(level);
+
+        // Reinitialize calendar with new membership level
+        if (bookingCalendar) {
+            initializeBookingCalendar();
+        }
+    }
+
+    // Initialize booking calendar
+    function initializeBookingCalendar() {
+        const container = document.getElementById('booking-calendar-container');
+
+        // Clear previous content
+        container.innerHTML = '<div style="text-align: center; color: rgba(255,255,255,0.7); font-family: \'Maison_Neue_Book\', sans-serif;">Initializing calendar...</div>';
+
+        // Initialize calendar with slight delay to show loading
+        setTimeout(() => {
+            bookingCalendar = new CoreSyncBookingCalendar('booking-calendar-container');
+        }, 500);
+    }
+
+    // Enhanced calendar initialization
+    if (typeof CoreSyncBookingCalendar !== 'undefined') {
+        // Add membership integration to existing calendar class
+        const originalGetUserPrivileges = CoreSyncBookingCalendar.prototype.getUserPrivileges;
+
+        CoreSyncBookingCalendar.prototype.getUserPrivileges = function () {
+            const membershipLevel = getCurrentMembershipLevel();
+
+            switch (membershipLevel) {
+                case 'unlimited':
+                    return {
+                        isMember: true,
+                        isVip: true,
+                        hasPriorityBooking: true,
+                        canBookPrioritySlots: true,
+                        maxAdvanceDays: 90,
+                        discountPercentage: 100 // All inclusive
+                    };
+                case 'premium':
+                    return {
+                        isMember: true,
+                        isVip: false,
+                        hasPriorityBooking: true,
+                        canBookPrioritySlots: true,
+                        maxAdvanceDays: 60,
+                        discountPercentage: 35
+                    };
+                case 'base':
+                    return {
+                        isMember: true,
+                        isVip: false,
+                        hasPriorityBooking: false,
+                        canBookPrioritySlots: false,
+                        maxAdvanceDays: 30,
+                        discountPercentage: 25
+                    };
+                default:
+                    return {
+                        isMember: false,
+                        isVip: false,
+                        hasPriorityBooking: false,
+                        canBookPrioritySlots: false,
+                        maxAdvanceDays: 3,
+                        discountPercentage: 0
+                    };
+            }
+        };
+    }
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Progressive Booking Calendar Styles */
+    .progressive-booking-calendar {
+        font-family: 'Maison_Neue_Book', sans-serif;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    /* Calendar Section */
+    .calendar-section {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 2rem;
+    }
+
+    .calendar-title {
+        color: #B8860B;
+        font-family: 'Maison_Neue_Bold', sans-serif;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+    }
+
+    .calendar-grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .month-calendar {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 10px;
+        padding: 1rem;
+    }
+
+    .month-header {
+        color: #fff;
+        font-family: 'Maison_Neue_Bold', sans-serif;
+        text-align: center;
+        padding: 1rem 0;
+        font-size: 0.9rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 1rem;
+    }
+
+    .weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 2px;
+        margin-bottom: 0.5rem;
+    }
+
+    .weekday {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.7rem;
+        text-align: center;
+        padding: 0.3rem;
+        font-family: 'Maison_Neue_Bold', sans-serif;
+    }
+
+    .days-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 2px;
+    }
+
+    .calendar-day {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        cursor: default;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .calendar-day.other-month {
+        color: rgba(255, 255, 255, 0.3);
+    }
+
+    .calendar-day.available {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .calendar-day.available:hover {
+        background: rgba(184, 134, 11, 0.2);
+        transform: scale(1.1);
+    }
+
+    .calendar-day.selected {
+        background: #4A90E2;
+        color: #fff;
+        font-family: 'Maison_Neue_Bold', sans-serif;
+        box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+    }
+
+    .calendar-day.unavailable {
+        color: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    .calendar-day.member-only {
+        background: rgba(255, 0, 0, 0.1);
+        border: 1px solid rgba(255, 0, 0, 0.3);
+    }
+
+    .calendar-day.today {
+        border: 2px solid #B8860B;
+    }
+
+    /* Dropdown Section */
+    .dropdown-section {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 2rem;
+    }
+
+    .booking-options-container {
+        margin-bottom: 2rem;
+    }
+
+    .base-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .option-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .option-label {
+        color: #B8860B;
+        font-family: 'Maison_Neue_Bold', sans-serif;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+
+    .booking-dropdown {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        padding: 0.8rem 1rem;
+        color: #fff;
+        font-family: 'Maison_Neue_Book', sans-serif;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        outline: none;
+    }
+
+    .booking-dropdown:focus {
+        border-color: #4A90E2;
+        box-shadow: 0 0 10px rgba(74, 144, 226, 0.3);
+        transform: scale(1.02);
+    }
+
+    .booking-dropdown option {
+        background: #2d2d2d;
+        color: #fff;
+        padding: 0.5rem;
+    }
+
+    /* Progressive Options */
+    .progressive-options {
+        transition: all 0.3s ease;
+    }
+
+    .progressive-option {
+        margin-bottom: 1.5rem;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: slideInUp 0.5s ease forwards;
+    }
+
+    .progressive-option:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .progressive-option:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .progressive-option:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .progressive-option:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    @keyframes slideInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .service-preferences .preferences-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .no-selection {
+        color: rgba(255, 255, 255, 0.5);
+        text-align: center;
+        padding: 2rem;
+        font-style: italic;
+    }
+
+    /* Check Button */
+    .booking-actions {
+        text-align: center;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .check-btn {
+        background: #4A90E2;
+        color: #fff;
+        border: none;
+        padding: 1rem 3rem;
+        font-family: 'Maison_Neue_Bold', sans-serif;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+    }
+
+    .check-btn:hover {
+        background: #357ABD;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+    }
+
+    .check-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    /* Success Screen */
+    .booking-success {
+        text-align: center;
+        padding: 3rem;
+        background: rgba(0, 255, 0, 0.05);
+        border: 1px solid rgba(0, 255, 0, 0.2);
+        border-radius: 15px;
+    }
+
+    .success-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+
+    .success-title {
+        color: #00ff88;
+        font-family: 'Maison_Neue_Bold', sans-serif;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .success-details {
+        color: #fff;
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+    .success-btn {
+        padding: 1rem 2rem;
+        margin: 0 0.5rem;
+        border: none;
+        border-radius: 8px;
+        font-family: 'Maison_Neue_Bold', sans-serif;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .success-btn.primary {
+        background: #00ff88;
+        color: #000;
+    }
+
+    .success-btn.secondary {
+        background: transparent;
+        color: #fff;
+        border: 1px solid #fff;
+    }
+
+    .success-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Messages */
+    .booking-message {
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        font-family: 'Maison_Neue_Book', sans-serif;
+        animation: slideDown 0.3s ease;
+    }
+
+    .booking-message.error {
+        background: rgba(255, 0, 0, 0.1);
+        border: 1px solid rgba(255, 0, 0, 0.3);
+        color: #ff6b6b;
+    }
+
+    .booking-message.info {
+        background: rgba(74, 144, 226, 0.1);
+        border: 1px solid rgba(74, 144, 226, 0.3);
+        color: #4A90E2;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Demo Buttons Enhancement */
+    .demo-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .info-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.08);
+        transition: all 0.3s ease;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 1024px) {
+        .progressive-booking-calendar {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .calendar-grid-container {
+            grid-template-columns: 1fr;
+        }
+
+        .base-options {
+            grid-template-columns: 1fr;
+        }
+
+        .service-preferences .preferences-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .demo-buttons {
+            flex-direction: column;
+        }
+
+        .demo-btn {
+            margin-bottom: 0.5rem;
+        }
+
+        .progressive-booking-calendar {
+            padding: 1rem;
+        }
+
+        .calendar-section,
+        .dropdown-section {
+            padding: 1.5rem;
+        }
+
+        .check-btn {
+            width: 100%;
+            padding: 1.2rem;
+        }
+    }
+</style>
+{% endblock %}
