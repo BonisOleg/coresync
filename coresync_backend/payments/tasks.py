@@ -1,11 +1,19 @@
 """
 Celery tasks for QuickBooks synchronization.
+DISABLED FOR INITIAL DEPLOY - no celery module available.
 """
 import logging
-from celery import shared_task
+# from celery import shared_task  # DISABLED
 from django.utils import timezone
 from django.db import models
 from datetime import timedelta
+
+# Mock shared_task decorator for initial deploy
+def shared_task(*args, **kwargs):
+    """Mock shared_task decorator when celery not available"""
+    def decorator(func):
+        return func
+    return decorator
 
 from .quickbooks_service import quickbooks_service
 from .models import QuickBooksSync
