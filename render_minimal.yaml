@@ -1,0 +1,19 @@
+# ULTRA MINIMAL Render Config - Last Resort
+services:
+  - type: web
+    name: coresync-minimal
+    env: python
+    buildCommand: |
+      pip install Django==5.1.1 gunicorn whitenoise psycopg[binary] python-decouple
+      cd coresync_backend
+      python manage.py migrate --noinput
+      python manage.py collectstatic --noinput
+    startCommand: cd coresync_backend && python -m gunicorn config.wsgi --bind 0.0.0.0:$PORT
+    plan: free
+    envVars:
+      - key: DEBUG
+        value: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: "*"
