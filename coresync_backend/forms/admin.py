@@ -1,5 +1,6 @@
 """
 Django Admin configuration for Forms app.
+FIXED: All fields match actual models
 """
 from django.contrib import admin
 from django.utils.html import format_html
@@ -68,7 +69,7 @@ class ContactSubmissionAdmin(admin.ModelAdmin):
         return super().get_queryset(request).select_related('assigned_to')
     
     # Actions
-    actions = ['mark_as_responded', 'assign_to_me', 'mark_as_spam', 'export_to_csv']
+    actions = ['mark_as_responded', 'assign_to_me', 'mark_as_spam']
     
     def mark_as_responded(self, request, queryset):
         """Mark selected submissions as responded."""
@@ -99,26 +100,41 @@ class ContactSubmissionAdmin(admin.ModelAdmin):
 class MembershipInquiryAdmin(admin.ModelAdmin):
     """Admin interface for Membership Inquiries."""
     
-    list_display = ['name', 'email', 'phone', 'interested_plan', 'status', 'follow_up_date', 'created_at']
-    list_filter = ['interested_plan', 'status', 'follow_up_date', 'created_at']
-    search_fields = ['name', 'email', 'phone', 'interested_plan']
+    list_display = ['full_name', 'email', 'phone', 'interested_plan', 'status', 'created_at']
+    list_filter = ['interested_plan', 'status', 'interest_level', 'created_at']
+    search_fields = ['first_name', 'last_name', 'email', 'phone', 'interested_plan']
     date_hierarchy = 'created_at'
     ordering = ['-created_at']
     
     fieldsets = (
-        ('Inquiry Information', {
-            'fields': ('name', 'email', 'phone', 'interested_plan', 'message')
+        ('Personal Information', {
+            'fields': ('first_name', 'last_name', 'email', 'phone')
         }),
-        ('Status & Follow-up', {
-            'fields': ('status', 'follow_up_date', 'sales_notes'),
-            'description': 'Sales tracking and follow-up scheduling'
+        ('Membership Interest', {
+            'fields': ('interested_plan', 'interest_level', 'preferred_services')
+        }),
+        ('Preferences', {
+            'fields': ('preferred_contact_time', 'how_heard_about_us'),
+            'classes': ('collapse',)
+        }),
+        ('Additional Information', {
+            'fields': ('questions', 'special_requests'),
+            'classes': ('collapse',)
+        }),
+        ('Lead Management', {
+            'fields': ('status', 'assigned_to', 'contact_attempts'),
+            'description': 'Sales tracking and assignment'
+        }),
+        ('Follow-up', {
+            'fields': ('last_contact_date', 'next_follow_up_date'),
+            'classes': ('collapse',)
         }),
         ('Conversion Tracking', {
-            'fields': ('converted_to_member', 'conversion_date', 'membership_plan_purchased'),
+            'fields': ('converted_user', 'converted_at'),
             'classes': ('collapse',)
         }),
         ('Technical Details', {
-            'fields': ('ip_address', 'user_agent', 'referrer'),
+            'fields': ('ip_address', 'user_agent', 'utm_source', 'utm_campaign'),
             'classes': ('collapse',)
         }),
         ('Timestamps', {
@@ -127,32 +143,36 @@ class MembershipInquiryAdmin(admin.ModelAdmin):
         }),
     )
     
-    readonly_fields = ['created_at', 'updated_at', 'conversion_date']
+    readonly_fields = ['created_at', 'updated_at', 'converted_at']
+    
+    def full_name(self, obj):
+        """Display full name."""
+        return obj.full_name
+    full_name.short_description = 'Name'
     
     def get_queryset(self, request):
         """Order by follow-up priority."""
-        return super().get_queryset(request).order_by('follow_up_date', '-created_at')
+        return super().get_queryset(request).order_by('next_follow_up_date', '-created_at')
     
     # Actions
-    actions = ['schedule_follow_up', 'mark_converted', 'send_membership_info']
+    actions = ['schedule_follow_up', 'mark_converted']
     
     def schedule_follow_up(self, request, queryset):
         """Schedule follow-up for selected inquiries."""
-        from datetime import date
-        follow_up_date = date.today() + timedelta(days=3)
+        from datetime import datetime
+        follow_up_date = datetime.now() + timedelta(days=3)
         updated = queryset.update(
-            follow_up_date=follow_up_date,
-            status='follow_up_scheduled'
+            next_follow_up_date=follow_up_date,
+            status='contacted'
         )
-        self.message_user(request, f'{updated} inquiries scheduled for follow-up on {follow_up_date}.')
+        self.message_user(request, f'{updated} inquiries scheduled for follow-up on {follow_up_date.date()}.')
     schedule_follow_up.short_description = "Schedule 3-day follow-up"
     
     def mark_converted(self, request, queryset):
         """Mark selected inquiries as converted to memberships."""
         updated = queryset.update(
-            converted_to_member=True,
-            conversion_date=timezone.now().date(),
-            status='converted'
+            status='converted',
+            converted_at=timezone.now()
         )
         self.message_user(request, f'{updated} inquiries marked as converted.')
     mark_converted.short_description = "Mark as converted"
@@ -162,30 +182,26 @@ class MembershipInquiryAdmin(admin.ModelAdmin):
 class NewsletterSubscriptionAdmin(admin.ModelAdmin):
     """Admin interface for Newsletter Subscriptions."""
     
-    list_display = ['email', 'name', 'subscribed', 'email_verified', 'source', 'created_at']
-    list_filter = ['subscribed', 'email_verified', 'source', 'created_at']
-    search_fields = ['email', 'name']
+    list_display = ['email', 'first_name', 'is_subscribed', 'source', 'created_at']
+    list_filter = ['is_subscribed', 'marketing_emails', 'service_updates', 'source', 'created_at']
+    search_fields = ['email', 'first_name']
     date_hierarchy = 'created_at'
     ordering = ['-created_at']
     
     fieldsets = (
         ('Subscriber Information', {
-            'fields': ('email', 'name', 'phone')
+            'fields': ('email', 'first_name')
         }),
-        ('Subscription Status', {
-            'fields': ('subscribed', 'email_verified', 'verification_token'),
-            'description': 'Current subscription and verification status'
+        ('Subscription Preferences', {
+            'fields': ('marketing_emails', 'service_updates', 'special_offers', 'event_notifications'),
+            'description': 'Email preferences for subscriber'
         }),
-        ('Subscription Details', {
-            'fields': ('source', 'interests', 'preferred_frequency'),
-            'classes': ('collapse',)
+        ('Status', {
+            'fields': ('is_subscribed', 'unsubscribed_at', 'unsubscribe_reason'),
+            'description': 'Current subscription status'
         }),
-        ('Tracking', {
-            'fields': ('subscribed_at', 'unsubscribed_at', 'last_email_sent'),
-            'classes': ('collapse',)
-        }),
-        ('Technical Details', {
-            'fields': ('ip_address', 'user_agent'),
+        ('Source', {
+            'fields': ('source', 'ip_address'),
             'classes': ('collapse',)
         }),
         ('Timestamps', {
@@ -194,56 +210,26 @@ class NewsletterSubscriptionAdmin(admin.ModelAdmin):
         }),
     )
     
-    readonly_fields = ['verification_token', 'created_at', 'updated_at', 'subscribed_at', 'unsubscribed_at']
+    readonly_fields = ['created_at', 'updated_at', 'unsubscribed_at']
     
     def get_queryset(self, request):
         """Show active subscriptions first."""
-        return super().get_queryset(request).order_by('-subscribed', '-created_at')
+        return super().get_queryset(request).order_by('-is_subscribed', '-created_at')
     
     # Actions
-    actions = ['send_verification_email', 'mark_as_verified', 'unsubscribe_selected', 'export_subscriber_list']
+    actions = ['mark_as_subscribed', 'unsubscribe_selected']
     
-    def send_verification_email(self, request, queryset):
-        """Send verification emails to unverified subscribers."""
-        unverified = queryset.filter(email_verified=False)
-        count = unverified.count()
-        self.message_user(request, f'Verification emails sent to {count} subscribers.')
-    send_verification_email.short_description = "Send verification emails"
-    
-    def mark_as_verified(self, request, queryset):
-        """Mark selected subscriptions as email verified."""
-        updated = queryset.update(email_verified=True)
-        self.message_user(request, f'{updated} subscriptions marked as verified.')
-    mark_as_verified.short_description = "Mark as verified"
+    def mark_as_subscribed(self, request, queryset):
+        """Re-subscribe selected subscriptions."""
+        updated = queryset.update(is_subscribed=True, unsubscribed_at=None)
+        self.message_user(request, f'{updated} subscriptions reactivated.')
+    mark_as_subscribed.short_description = "Reactivate subscription"
     
     def unsubscribe_selected(self, request, queryset):
         """Unsubscribe selected subscribers."""
         updated = queryset.update(
-            subscribed=False,
+            is_subscribed=False,
             unsubscribed_at=timezone.now()
         )
         self.message_user(request, f'{updated} subscribers unsubscribed.')
     unsubscribe_selected.short_description = "Unsubscribe"
-    
-    # Custom dashboard metrics
-    def changelist_view(self, request, extra_context=None):
-        """Add subscription statistics to changelist view."""
-        extra_context = extra_context or {}
-        
-        # Calculate subscription statistics
-        total_subscribers = self.model.objects.count()
-        active_subscribers = self.model.objects.filter(subscribed=True).count()
-        verified_subscribers = self.model.objects.filter(email_verified=True).count()
-        recent_subscribers = self.model.objects.filter(
-            created_at__gte=timezone.now() - timedelta(days=30)
-        ).count()
-        
-        extra_context['subscription_stats'] = {
-            'total': total_subscribers,
-            'active': active_subscribers,
-            'verified': verified_subscribers,
-            'recent': recent_subscribers,
-            'verification_rate': round((verified_subscribers / total_subscribers * 100), 2) if total_subscribers > 0 else 0
-        }
-        
-        return super().changelist_view(request, extra_context=extra_context)

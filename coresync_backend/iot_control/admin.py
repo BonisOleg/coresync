@@ -1,5 +1,6 @@
 """
 Django Admin configuration for IoT Control app.
+FIXED: All fields match actual models
 """
 from django.contrib import admin
 from django.utils.html import format_html
@@ -12,13 +13,13 @@ from .models import IoTDevice, Scene, ControlLog, SensorReading
 class IoTDeviceAdmin(admin.ModelAdmin):
     """Admin interface for IoT Devices."""
     
-    list_display = ['name', 'device_type', 'location', 'connection_status', 'last_seen', 'firmware_version', 'is_active']
-    list_filter = ['device_type', 'location', 'is_online', 'supports_dimming', 'supports_color', 'is_active']
+    list_display = ['name', 'device_type', 'location', 'connection_status', 'last_updated', 'firmware_version', 'is_active']
+    list_filter = ['device_type', 'location', 'is_online', 'is_active']
     search_fields = ['name', 'device_id', 'manufacturer', 'model', 'ip_address']
     ordering = ['location', 'device_type', 'name']
     
     fieldsets = (
-        ('Device Information', {
+        (None, {
             'fields': ('name', 'device_type', 'location', 'device_id')
         }),
         ('Hardware Details', {
@@ -26,18 +27,18 @@ class IoTDeviceAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
         ('Network Configuration', {
-            'fields': ('ip_address', 'mac_address', 'wifi_ssid'),
+            'fields': ('ip_address', 'mac_address'),
             'classes': ('collapse',)
         }),
-        ('Capabilities', {
-            'fields': ('supports_dimming', 'supports_color', 'supports_temperature', 'min_value', 'max_value'),
-            'description': 'Device feature support and value ranges'
+        ('Control Settings', {
+            'fields': ('min_value', 'max_value', 'default_value'),
+            'description': 'Device control value ranges'
         }),
         ('Status & Connection', {
-            'fields': ('is_online', 'last_seen', 'last_command_at', 'error_count')
+            'fields': ('is_online', 'current_status', 'last_updated')
         }),
-        ('Current State', {
-            'fields': ('current_value', 'current_color', 'current_temperature'),
+        ('Security', {
+            'fields': ('api_key', 'requires_authentication'),
             'classes': ('collapse',)
         }),
         ('Settings', {
@@ -49,18 +50,13 @@ class IoTDeviceAdmin(admin.ModelAdmin):
         }),
     )
     
-    readonly_fields = ['created_at', 'updated_at', 'last_seen', 'last_command_at']
+    readonly_fields = ['created_at', 'updated_at', 'last_updated']
     
     def connection_status(self, obj):
         """Show connection status with color coding."""
         if obj.is_online:
             return format_html('<span style="color: green;">🟢 Online</span>')
         else:
-            # Check if device was seen recently
-            if obj.last_seen:
-                delta = timezone.now() - obj.last_seen
-                if delta.total_seconds() < 300:  # 5 minutes
-                    return format_html('<span style="color: orange;">🟡 Recently Offline</span>')
             return format_html('<span style="color: red;">🔴 Offline</span>')
     connection_status.short_description = 'Status'
     
@@ -69,7 +65,7 @@ class IoTDeviceAdmin(admin.ModelAdmin):
         return super().get_queryset(request).order_by('-is_online', 'location', 'name')
     
     # Actions
-    actions = ['ping_devices', 'restart_devices', 'update_firmware', 'reset_error_count']
+    actions = ['ping_devices', 'reset_error_count']
     
     def ping_devices(self, request, queryset):
         """Send ping command to selected devices."""
@@ -77,18 +73,11 @@ class IoTDeviceAdmin(admin.ModelAdmin):
         self.message_user(request, f'Ping command sent to {count} devices.')
     ping_devices.short_description = "Ping devices"
     
-    def restart_devices(self, request, queryset):
-        """Restart selected devices."""
-        online_devices = queryset.filter(is_online=True)
-        count = online_devices.count()
-        self.message_user(request, f'Restart command sent to {count} online devices.')
-    restart_devices.short_description = "Restart devices"
-    
     def reset_error_count(self, request, queryset):
         """Reset error count for selected devices."""
-        updated = queryset.update(error_count=0)
-        self.message_user(request, f'Error count reset for {updated} devices.')
-    reset_error_count.short_description = "Reset error count"
+        count = queryset.count()
+        self.message_user(request, f'Reset initiated for {count} devices.')
+    reset_error_count.short_description = "Reset devices"
 
 
 @admin.register(Scene)
@@ -134,7 +123,7 @@ class SceneAdmin(admin.ModelAdmin):
     
     def device_count(self, obj):
         """Count devices in this scene."""
-        return len(obj.device_settings.keys())
+        return len(obj.device_settings.keys()) if obj.device_settings else 0
     device_count.short_description = 'Devices'
     
     def get_queryset(self, request):
@@ -155,7 +144,7 @@ class SceneAdmin(admin.ModelAdmin):
                 scene_type=scene.scene_type,
                 user=request.user,
                 location=scene.location,
-                device_settings=scene.device_settings.copy(),
+                device_settings=scene.device_settings.copy() if scene.device_settings else {},
                 is_public=False,
                 auto_activate_time=scene.auto_activate_time,
                 auto_deactivate_time=scene.auto_deactivate_time
@@ -164,14 +153,23 @@ class SceneAdmin(admin.ModelAdmin):
         self.message_user(request, f'{count} scenes duplicated.')
     duplicate_scene.short_description = "Duplicate scenes"
     
+    def make_public(self, request, queryset):
+        """Make selected scenes public."""
+        updated = queryset.update(is_public=True)
+        self.message_user(request, f'{updated} scenes made public.')
+    make_public.short_description = "Make public"
+    
+    def make_private(self, request, queryset):
+        """Make selected scenes private."""
+        updated = queryset.update(is_public=False)
+        self.message_user(request, f'{updated} scenes made private.')
+    make_private.short_description = "Make private"
+    
     def execute_scene(self, request, queryset):
         """Execute selected scenes."""
         count = queryset.count()
         self.message_user(request, f'{count} scenes executed.')
     execute_scene.short_description = "Execute scenes"
-
-
-# SceneDevice model not found in iot_control.models - removed for deployment
 
 
 @admin.register(ControlLog)

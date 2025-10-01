@@ -1,5 +1,6 @@
 """
 Django Admin configuration for Services app.
+FIXED: All fields match actual models from booking_models.py
 """
 from django.contrib import admin
 from django.utils.html import format_html
@@ -101,7 +102,7 @@ class ServiceAdmin(admin.ModelAdmin):
     member_discount.short_description = 'Member Discount'
     
     # Actions
-    actions = ['mark_featured', 'unmark_featured', 'enable_member_only']
+    actions = ['mark_featured', 'unmark_featured']
     
     def mark_featured(self, request, queryset):
         """Mark selected services as featured."""
@@ -157,24 +158,33 @@ class ServiceAddonAdmin(admin.ModelAdmin):
 class RoomAdmin(admin.ModelAdmin):
     """Admin interface for Spa Rooms."""
     
-    list_display = ['name', 'room_type', 'capacity', 'is_available', 'iot_device_connected', 'is_active']
-    list_filter = ['room_type', 'is_available', 'is_active', 'created_at']
-    search_fields = ['name', 'description', 'iot_device_id']
-    ordering = ['name']
+    list_display = ['name', 'room_type', 'capacity', 'maintenance_mode', 'has_iot_control', 'is_active']
+    list_filter = ['room_type', 'maintenance_mode', 'has_iot_control', 'is_active', 'created_at']
+    search_fields = ['name', 'features']
+    ordering = ['room_type', 'name']
     
     fieldsets = (
         (None, {
-            'fields': ('name', 'room_type', 'description', 'capacity')
+            'fields': ('name', 'room_type', 'capacity')
         }),
-        ('IoT Integration', {
-            'fields': ('iot_device_id', 'iot_capabilities'),
+        ('Features', {
+            'fields': ('features',),
+            'description': 'JSON list of room features',
             'classes': ('collapse',)
         }),
-        ('Availability', {
-            'fields': ('is_available', 'maintenance_notes')
+        ('IoT Integration', {
+            'fields': ('has_iot_control', 'iot_device_ids'),
+            'classes': ('collapse',)
+        }),
+        ('Operating Hours', {
+            'fields': ('opening_time', 'closing_time'),
+        }),
+        ('Pricing', {
+            'fields': ('premium_modifier',),
+            'description': 'Price multiplier for this room (1.0 = standard)'
         }),
         ('Status', {
-            'fields': ('is_active',)
+            'fields': ('is_active', 'maintenance_mode')
         }),
         ('Timestamps', {
             'fields': ('created_at', 'updated_at'),
@@ -183,40 +193,52 @@ class RoomAdmin(admin.ModelAdmin):
     )
     
     readonly_fields = ['created_at', 'updated_at']
-    
-    def iot_device_connected(self, obj):
-        """Show IoT device connection status."""
-        if obj.iot_device_id:
-            return format_html('<span style="color: green;">✓ Connected</span>')
-        return format_html('<span style="color: red;">✗ Not Connected</span>')
-    iot_device_connected.short_description = 'IoT Status'
 
 
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
     """Admin interface for Bookings."""
     
-    list_display = ['booking_reference', 'user_name', 'service', 'room', 'booking_date', 'booking_time', 'status', 'payment_status']
+    list_display = ['booking_reference', 'user_name', 'service', 'room', 'booking_date', 'start_time', 'status', 'payment_status']
     list_filter = ['status', 'payment_status', 'booking_tier', 'booking_date', 'created_at']
     search_fields = ['booking_reference', 'user__email', 'user__first_name', 'user__last_name', 'service__name']
     date_hierarchy = 'booking_date'
-    ordering = ['-booking_date', '-booking_time']
+    ordering = ['-booking_date', '-start_time']
     
     fieldsets = (
         ('Booking Information', {
             'fields': ('booking_reference', 'user', 'service', 'room')
         }),
         ('Schedule', {
-            'fields': ('booking_date', 'booking_time', 'duration_minutes')
+            'fields': ('booking_date', 'start_time', 'end_time', 'duration')
+        }),
+        ('Guest Information', {
+            'fields': ('guest_name', 'guest_phone', 'guest_email'),
+            'classes': ('collapse',)
         }),
         ('Pricing', {
-            'fields': ('base_price', 'addon_total', 'discount_amount', 'final_total', 'booking_tier')
+            'fields': ('base_price', 'addons_total', 'discount_applied', 'final_total', 'booking_tier')
+        }),
+        ('Payment', {
+            'fields': ('payment_status', 'payment_method', 'stripe_payment_intent_id')
         }),
         ('Status', {
-            'fields': ('status', 'payment_status', 'stripe_payment_intent_id')
+            'fields': ('status', 'is_priority_booking', 'booked_at', 'confirmed_at')
         }),
-        ('Additional Information', {
-            'fields': ('special_requests', 'scene_preferences', 'notes'),
+        ('Service Details', {
+            'fields': ('assigned_technician', 'ai_program', 'scene_preferences'),
+            'classes': ('collapse',)
+        }),
+        ('Special Requests', {
+            'fields': ('special_requests', 'allergies_notes', 'medical_notes'),
+            'classes': ('collapse',)
+        }),
+        ('Cancellation', {
+            'fields': ('cancelled_at', 'cancellation_reason'),
+            'classes': ('collapse',)
+        }),
+        ('QuickBooks', {
+            'fields': ('quickbooks_synced', 'quickbooks_invoice_id'),
             'classes': ('collapse',)
         }),
         ('Timestamps', {
@@ -225,7 +247,7 @@ class BookingAdmin(admin.ModelAdmin):
         }),
     )
     
-    readonly_fields = ['booking_reference', 'created_at', 'updated_at', 'addon_total', 'final_total']
+    readonly_fields = ['booking_reference', 'created_at', 'updated_at', 'booked_at', 'confirmed_at', 'cancelled_at', 'addons_total', 'final_total']
     
     def user_name(self, obj):
         """Display user full name."""
@@ -233,34 +255,54 @@ class BookingAdmin(admin.ModelAdmin):
     user_name.short_description = 'Customer'
     
     # Actions
-    actions = ['confirm_booking', 'cancel_booking', 'mark_completed']
+    actions = ['confirm_booking', 'cancel_booking']
     
     def confirm_booking(self, request, queryset):
         """Confirm selected bookings."""
-        updated = queryset.filter(status='pending').update(status='confirmed')
+        from django.utils import timezone
+        updated = queryset.filter(status='pending').update(status='confirmed', confirmed_at=timezone.now())
         self.message_user(request, f'{updated} bookings confirmed.')
     confirm_booking.short_description = "Confirm bookings"
+    
+    def cancel_booking(self, request, queryset):
+        """Cancel selected bookings."""
+        from django.utils import timezone
+        updated = queryset.filter(status__in=['pending', 'confirmed']).update(
+            status='cancelled',
+            cancelled_at=timezone.now(),
+            cancellation_reason='Cancelled by admin'
+        )
+        self.message_user(request, f'{updated} bookings cancelled.')
+    cancel_booking.short_description = "Cancel bookings"
 
 
 @admin.register(AvailabilitySlot)
 class AvailabilitySlotAdmin(admin.ModelAdmin):
     """Admin interface for Availability Slots."""
     
-    list_display = ['date', 'start_time', 'end_time', 'room', 'service', 'is_available', 'is_member_only', 'is_priority_slot']
-    list_filter = ['is_available', 'is_member_only', 'is_priority_slot', 'date', 'room', 'service']
-    search_fields = ['room__name', 'service__name']
+    list_display = ['date', 'start_time', 'end_time', 'room', 'current_bookings', 'max_bookings', 'is_blocked']
+    list_filter = ['is_blocked', 'is_premium_slot', 'date', 'room']
+    search_fields = ['room__name', 'block_reason']
     date_hierarchy = 'date'
     ordering = ['date', 'start_time']
     
     fieldsets = (
         ('Schedule', {
-            'fields': ('date', 'start_time', 'end_time')
+            'fields': ('date', 'start_time', 'end_time', 'room')
         }),
-        ('Assignment', {
-            'fields': ('room', 'service')
+        ('Capacity', {
+            'fields': ('max_bookings', 'current_bookings')
         }),
-        ('Availability', {
-            'fields': ('is_available', 'is_member_only', 'is_priority_slot', 'max_bookings', 'current_bookings')
+        ('Priority Access', {
+            'fields': ('member_only_until', 'vip_only_until'),
+            'description': 'Control when members vs non-members can book'
+        }),
+        ('Pricing', {
+            'fields': ('base_price_modifier',),
+            'description': 'Price multiplier for peak hours (1.0 = standard)'
+        }),
+        ('Status', {
+            'fields': ('is_blocked', 'block_reason', 'is_premium_slot', 'tags')
         }),
         ('Timestamps', {
             'fields': ('created_at', 'updated_at'),
@@ -276,15 +318,9 @@ class BookingAddonInline(admin.TabularInline):
     """Inline admin for booking add-ons."""
     model = BookingAddon
     extra = 0
-    readonly_fields = ['addon_price']
+    readonly_fields = ['total_price']
+    fields = ['addon', 'quantity', 'unit_price', 'total_price', 'notes']
 
 
-class ServiceHistoryInline(admin.TabularInline):
-    """Inline admin for service history."""
-    model = ServiceHistory
-    extra = 0
-    readonly_fields = ['used_at', 'price_paid']
-
-
-# Add inlines to existing admin
+# Add inline to BookingAdmin
 BookingAdmin.inlines = [BookingAddonInline]

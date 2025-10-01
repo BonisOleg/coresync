@@ -125,7 +125,7 @@ class StripeWebhookEventAdmin(admin.ModelAdmin):
         }),
     )
     
-    readonly_fields = ['created_at', 'updated_at']
+    readonly_fields = ['created_at']
     
     def event_id_short(self, obj):
         """Display shortened event ID."""
