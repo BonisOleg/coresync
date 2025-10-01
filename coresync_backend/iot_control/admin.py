@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.db.models import Count, Q
 from django.utils import timezone
-from .models import IoTDevice, Scene, SceneDevice, UserPreference
+from .models import IoTDevice, Scene, ControlLog, SensorReading
 
 
 @admin.register(IoTDevice)
@@ -95,25 +95,30 @@ class IoTDeviceAdmin(admin.ModelAdmin):
 class SceneAdmin(admin.ModelAdmin):
     """Admin interface for IoT Scenes."""
     
-    list_display = ['name', 'category', 'creator', 'device_count', 'is_public', 'usage_count', 'is_active']
-    list_filter = ['category', 'is_public', 'is_active', 'created_at']
-    search_fields = ['name', 'description', 'creator__username']
-    ordering = ['category', 'name']
+    list_display = ['name', 'scene_type', 'user', 'device_count', 'is_public', 'usage_count', 'is_active']
+    list_filter = ['scene_type', 'is_public', 'is_active', 'location', 'created_at']
+    search_fields = ['name', 'description', 'user__username']
+    ordering = ['scene_type', 'name']
     
     fieldsets = (
         ('Scene Information', {
-            'fields': ('name', 'description', 'category', 'icon')
+            'fields': ('name', 'description', 'scene_type')
         }),
         ('Access Control', {
-            'fields': ('creator', 'is_public', 'allowed_users'),
-            'description': 'Who can view and use this scene'
+            'fields': ('user', 'is_public', 'location'),
+            'description': 'Scene ownership and location restrictions'
         }),
-        ('Execution Settings', {
-            'fields': ('execution_delay', 'transition_duration'),
+        ('Device Settings', {
+            'fields': ('device_settings',),
+            'description': 'JSON configuration for devices in this scene',
+            'classes': ('collapse',)
+        }),
+        ('Schedule', {
+            'fields': ('auto_activate_time', 'auto_deactivate_time'),
             'classes': ('collapse',)
         }),
         ('Usage Statistics', {
-            'fields': ('usage_count', 'last_used_at'),
+            'fields': ('usage_count',),
             'classes': ('collapse',)
         }),
         ('Settings', {
@@ -125,19 +130,16 @@ class SceneAdmin(admin.ModelAdmin):
         }),
     )
     
-    readonly_fields = ['created_at', 'updated_at', 'usage_count', 'last_used_at']
-    filter_horizontal = ['allowed_users']
+    readonly_fields = ['created_at', 'updated_at', 'usage_count']
     
     def device_count(self, obj):
         """Count devices in this scene."""
-        return obj.devices.count()
+        return len(obj.device_settings.keys())
     device_count.short_description = 'Devices'
     
     def get_queryset(self, request):
-        """Optimize with select_related and annotations."""
-        return super().get_queryset(request).select_related('creator').annotate(
-            device_count=Count('scene_devices')
-        )
+        """Optimize with select_related."""
+        return super().get_queryset(request).select_related('user')
     
     # Actions
     actions = ['duplicate_scene', 'make_public', 'make_private', 'execute_scene']
@@ -150,22 +152,14 @@ class SceneAdmin(admin.ModelAdmin):
             new_scene = Scene.objects.create(
                 name=f"{scene.name} (Copy)",
                 description=scene.description,
-                category=scene.category,
-                creator=request.user,
+                scene_type=scene.scene_type,
+                user=request.user,
+                location=scene.location,
+                device_settings=scene.device_settings.copy(),
                 is_public=False,
-                execution_delay=scene.execution_delay,
-                transition_duration=scene.transition_duration
+                auto_activate_time=scene.auto_activate_time,
+                auto_deactivate_time=scene.auto_deactivate_time
             )
-            # Copy scene devices
-            for scene_device in scene.scene_devices.all():
-                SceneDevice.objects.create(
-                    scene=new_scene,
-                    device=scene_device.device,
-                    target_value=scene_device.target_value,
-                    target_color=scene_device.target_color,
-                    target_temperature=scene_device.target_temperature,
-                    delay=scene_device.delay
-                )
             count += 1
         self.message_user(request, f'{count} scenes duplicated.')
     duplicate_scene.short_description = "Duplicate scenes"
@@ -177,100 +171,64 @@ class SceneAdmin(admin.ModelAdmin):
     execute_scene.short_description = "Execute scenes"
 
 
-@admin.register(SceneDevice)
-class SceneDeviceAdmin(admin.ModelAdmin):
-    """Admin interface for Scene Device Settings."""
+# SceneDevice model not found in iot_control.models - removed for deployment
+
+
+@admin.register(ControlLog)
+class ControlLogAdmin(admin.ModelAdmin):
+    """Admin interface for IoT Control Logs."""
     
-    list_display = ['scene', 'device', 'target_value', 'target_color', 'delay', 'is_enabled']
-    list_filter = ['scene', 'device__device_type', 'device__location', 'is_enabled']
-    search_fields = ['scene__name', 'device__name']
-    ordering = ['scene', 'device']
+    list_display = ['user', 'device', 'action_type', 'action_description', 'success', 'timestamp']
+    list_filter = ['action_type', 'success', 'timestamp', 'device__device_type', 'device__location']
+    search_fields = ['user__email', 'device__name', 'action_description', 'scene__name']
+    date_hierarchy = 'timestamp'
+    ordering = ['-timestamp']
     
     fieldsets = (
-        ('Assignment', {
-            'fields': ('scene', 'device')
+        ('Action Information', {
+            'fields': ('user', 'device', 'scene', 'action_type', 'action_description')
         }),
-        ('Target Settings', {
-            'fields': ('target_value', 'target_color', 'target_temperature'),
-            'description': 'Device settings when this scene is activated'
+        ('State Changes', {
+            'fields': ('previous_state', 'new_state'),
+            'classes': ('collapse',)
         }),
-        ('Timing', {
-            'fields': ('delay',),
-            'description': 'Delay before applying settings (in seconds)'
+        ('Result', {
+            'fields': ('success', 'error_message')
         }),
-        ('Status', {
-            'fields': ('is_enabled',)
-        }),
-        ('Timestamps', {
-            'fields': ('created_at', 'updated_at'),
+        ('Metadata', {
+            'fields': ('timestamp', 'ip_address', 'user_agent'),
             'classes': ('collapse',)
         }),
     )
     
-    readonly_fields = ['created_at', 'updated_at']
-
-
-@admin.register(UserPreference)
-class UserPreferenceAdmin(admin.ModelAdmin):
-    """Admin interface for User IoT Preferences."""
-    
-    list_display = ['user', 'preferred_lighting', 'preferred_temperature', 'preferred_scent', 'auto_scenes_enabled']
-    list_filter = ['auto_scenes_enabled', 'preferred_scent', 'created_at']
-    search_fields = ['user__username', 'user__email']
-    ordering = ['user']
-    
-    fieldsets = (
-        ('User', {
-            'fields': ('user',)
-        }),
-        ('Lighting Preferences', {
-            'fields': ('preferred_lighting', 'preferred_color'),
-            'classes': ('collapse',)
-        }),
-        ('Environmental Preferences', {
-            'fields': ('preferred_temperature', 'preferred_scent', 'preferred_music_genre'),
-            'classes': ('collapse',)
-        }),
-        ('Scene Preferences', {
-            'fields': ('favorite_scenes', 'auto_scenes_enabled'),
-            'description': 'Automatic scene activation and favorites'
-        }),
-        ('Timestamps', {
-            'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',)
-        }),
-    )
-    
-    readonly_fields = ['created_at', 'updated_at']
-    filter_horizontal = ['favorite_scenes']
+    readonly_fields = ['timestamp']
     
     def get_queryset(self, request):
         """Optimize with select_related."""
-        return super().get_queryset(request).select_related('user')
+        return super().get_queryset(request).select_related('user', 'device', 'scene')
+
+
+@admin.register(SensorReading)
+class SensorReadingAdmin(admin.ModelAdmin):
+    """Admin interface for Sensor Readings."""
     
-    # Actions
-    actions = ['enable_auto_scenes', 'disable_auto_scenes', 'reset_preferences']
+    list_display = ['device', 'reading_type', 'value', 'unit', 'quality_score', 'timestamp']
+    list_filter = ['reading_type', 'device__device_type', 'device__location', 'timestamp']
+    search_fields = ['device__name', 'reading_type']
+    date_hierarchy = 'timestamp'
+    ordering = ['-timestamp']
     
-    def enable_auto_scenes(self, request, queryset):
-        """Enable automatic scenes for selected users."""
-        updated = queryset.update(auto_scenes_enabled=True)
-        self.message_user(request, f'Auto scenes enabled for {updated} users.')
-    enable_auto_scenes.short_description = "Enable auto scenes"
+    fieldsets = (
+        ('Reading Information', {
+            'fields': ('device', 'reading_type', 'value', 'unit')
+        }),
+        ('Quality & Metadata', {
+            'fields': ('quality_score', 'timestamp'),
+        }),
+    )
     
-    def disable_auto_scenes(self, request, queryset):
-        """Disable automatic scenes for selected users."""
-        updated = queryset.update(auto_scenes_enabled=False)
-        self.message_user(request, f'Auto scenes disabled for {updated} users.')
-    disable_auto_scenes.short_description = "Disable auto scenes"
-
-
-# Inline admin for scene devices
-class SceneDeviceInline(admin.TabularInline):
-    """Inline admin for scene device configurations."""
-    model = SceneDevice
-    extra = 1
-    fields = ['device', 'target_value', 'target_color', 'target_temperature', 'delay', 'is_enabled']
-
-
-# Add inline to SceneAdmin
-SceneAdmin.inlines = [SceneDeviceInline]
+    readonly_fields = ['timestamp']
+    
+    def get_queryset(self, request):
+        """Optimize with select_related."""
+        return super().get_queryset(request).select_related('device')
