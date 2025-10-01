@@ -51,8 +51,8 @@
 
 /* Featured card styling */
 .membership-card--featured {
-    border-color: #4A90E2;
-    background: rgba(74, 144, 226, 0.05);
+    border-color: #B8860B;
+    background: rgba(184, 134, 11, 0.05);
 }
 
 .membership-card--featured::before {
@@ -61,8 +61,8 @@
     top: 0;
     left: 0;
     right: 0;
-    background: #4A90E2;
-    color: #fff;
+    background: #B8860B;
+    color: #000;
     padding: 0.5rem;
     font-family: 'Maison_Neue_Mono', monospace;
     font-size: 0.75rem;
@@ -82,7 +82,7 @@
 }
 
 .membership-card--featured .membership-card-title {
-    color: #4A90E2;
+    color: #B8860B;
 }
 
 /* Pricing display */
@@ -101,7 +101,7 @@
 }
 
 .membership-card--featured .membership-price {
-    color: #4A90E2;
+    color: #B8860B;
 }
 
 /* Benefits list */
@@ -125,7 +125,7 @@
     content: '•';
     position: absolute;
     left: 0;
-    color: #fff;
+    color: #B8860B;
     font-weight: bold;
     font-size: 1.2rem;
 }
@@ -158,13 +158,13 @@
 }
 
 .membership-card--featured .membership-cta-btn {
-    border-color: #4A90E2;
-    color: #4A90E2;
+    border-color: #B8860B;
+    color: #B8860B;
 }
 
 .membership-card--featured .membership-cta-btn:hover {
-    background: #4A90E2;
-    color: #fff;
+    background: #B8860B;
+    color: #000;
 }
 
 /* Discount badge */
@@ -172,8 +172,8 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background: #4A90E2;
-    color: #fff;
+    background: #B8860B;
+    color: #000;
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-family: 'Maison_Neue_Mono', monospace;
@@ -217,7 +217,7 @@
 .comparison-table th {
     background: rgba(255, 255, 255, 0.05);
     font-family: 'Maison_Neue_Bold', sans-serif;
-    color: #fff;
+    color: #B8860B;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-size: 0.9rem;
@@ -233,7 +233,7 @@
 }
 
 .comparison-table .comparison-check {
-    color: #4A90E2;
+    color: #B8860B;
     font-weight: bold;
     text-align: center;
 }
@@ -300,7 +300,7 @@
 }
 
 .membership-preview-overlay--featured {
-    background: rgba(74, 144, 226, 0.6);
+    background: rgba(184, 134, 11, 0.6);
 }
 
 .membership-preview-title {
@@ -350,14 +350,14 @@
 }
 
 .membership-preview-btn--featured {
-    background: #4A90E2;
-    color: #fff;
-    border-color: #4A90E2;
+    background: #B8860B;
+    color: #000;
+    border-color: #B8860B;
 }
 
 .membership-preview-btn--featured:hover {
-    background: #357ABD;
-    border-color: #357ABD;
+    background: #9A7209;
+    border-color: #9A7209;
 }
 
 /* Modal styles */
@@ -421,7 +421,7 @@
 
 .form-group input:focus {
     outline: none;
-    border-color: #4A90E2;
+    border-color: #B8860B;
 }
 
 /* ================================ */
@@ -435,7 +435,7 @@
     width: 350px;
     max-height: 500px;
     background: #1a1a1a;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid #B8860B;
     border-radius: 8px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     z-index: 10000;
@@ -444,8 +444,8 @@
 }
 
 .ai-widget-header {
-    background: #4A90E2;
-    color: #fff;
+    background: #B8860B;
+    color: #000;
     padding: 1rem;
     display: flex;
     justify-content: space-between;
@@ -467,7 +467,7 @@
 .ai-widget-close {
     background: none;
     border: none;
-    color: #fff;
+    color: #000;
     font-size: 1.5rem;
     cursor: pointer;
     line-height: 1;
@@ -501,8 +501,8 @@
 }
 
 .ai-message--user .ai-message-content {
-    background: rgba(74, 144, 226, 0.2);
-    border: 1px solid rgba(74, 144, 226, 0.3);
+    background: rgba(184, 134, 11, 0.2);
+    border: 1px solid rgba(184, 134, 11, 0.3);
     color: #fff;
     padding: 0.8rem;
     border-radius: 8px;
@@ -529,13 +529,13 @@
 
 .ai-input:focus {
     outline: none;
-    border-color: #4A90E2;
+    border-color: #B8860B;
 }
 
 .ai-send-btn {
-    background: #4A90E2;
+    background: #B8860B;
     border: none;
-    color: #fff;
+    color: #000;
     padding: 0.8rem 1rem;
     border-radius: 4px;
     cursor: pointer;
@@ -546,7 +546,7 @@
 }
 
 .ai-send-btn:hover {
-    background: #357ABD;
+    background: #9A7209;
 }
 
 .ai-fallback {
@@ -587,12 +587,12 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: #4A90E2;
-    color: #fff;
+    background: #B8860B;
+    color: #000;
     padding: 1rem;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 4px 16px rgba(74, 144, 226, 0.3);
+    box-shadow: 0 4px 16px rgba(184, 134, 11, 0.3);
     z-index: 9999;
     display: flex;
     align-items: center;
@@ -606,7 +606,7 @@
 
 .ai-widget-toggle:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+    box-shadow: 0 6px 20px rgba(184, 134, 11, 0.4);
 }
 
 .ai-toggle-icon {

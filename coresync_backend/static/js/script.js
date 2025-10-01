@@ -108,6 +108,7 @@ class CoreSyncBookingCalendar {
     constructor(containerId) {
         this.containerId = containerId;
         this.container = document.getElementById(containerId);
+        this.selectedDates = [];  // Array for date range selection
         this.bookingData = {
             date: '',
             time: '',
@@ -497,21 +498,78 @@ class CoreSyncBookingCalendar {
     }
 
     bindDateEvents() {
-        // Calendar day selection
+        // Calendar day selection with range support
         document.querySelectorAll('.calendar-day.available').forEach(day => {
             day.addEventListener('click', (e) => {
-                // Remove previous selection
-                document.querySelectorAll('.calendar-day.selected').forEach(d =>
-                    d.classList.remove('selected'));
+                const clickedDate = e.target.dataset.date;
 
-                // Add selection to clicked day
-                e.target.classList.add('selected');
-                this.bookingData.date = e.target.dataset.date;
+                // If no dates selected or clicking same date, start fresh
+                if (this.selectedDates.length === 0 || this.selectedDates.includes(clickedDate)) {
+                    this.selectedDates = [clickedDate];
+                    this.bookingData.date = clickedDate;
+                }
+                // If one date selected, create range
+                else if (this.selectedDates.length === 1) {
+                    const startDate = new Date(this.selectedDates[0]);
+                    const endDate = new Date(clickedDate);
+
+                    // Ensure start < end
+                    if (startDate > endDate) {
+                        [this.selectedDates[0], clickedDate] = [clickedDate, this.selectedDates[0]];
+                    }
+
+                    // Build range
+                    this.selectedDates = this.getDateRange(this.selectedDates[0], clickedDate);
+                    this.bookingData.date = this.selectedDates[0];  // Use first date as booking date
+                }
+                // If already a range, start over
+                else {
+                    this.selectedDates = [clickedDate];
+                    this.bookingData.date = clickedDate;
+                }
+
+                // Update visual selection
+                this.updateDateSelection();
 
                 // Update progressive options
                 this.updateProgressiveOptions();
             });
         });
+    }
+
+    getDateRange(start, end) {
+        const dates = [];
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+
+        for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+            dates.push(new Date(d).toISOString().split('T')[0]);
+        }
+
+        return dates;
+    }
+
+    updateDateSelection() {
+        // Remove all selection classes
+        document.querySelectorAll('.calendar-day').forEach(day => {
+            day.classList.remove('selected', 'in-range', 'range-start', 'range-end');
+        });
+
+        // Apply selection classes
+        if (this.selectedDates.length > 0) {
+            this.selectedDates.forEach((date, index) => {
+                const dayElement = document.querySelector(`.calendar-day[data-date="${date}"]`);
+                if (dayElement) {
+                    if (this.selectedDates.length === 1) {
+                        dayElement.classList.add('selected');
+                    } else {
+                        dayElement.classList.add('in-range');
+                        if (index === 0) dayElement.classList.add('range-start');
+                        if (index === this.selectedDates.length - 1) dayElement.classList.add('range-end');
+                    }
+                }
+            });
+        }
     }
 
     bindProgressiveDropdownEvents() {

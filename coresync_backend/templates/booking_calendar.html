@@ -6,55 +6,59 @@
 {% block content %}
 <!-- Booking Calendar Page -->
 <section class="booking-page"
-    style="min-height: 100vh; background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding: 2rem 0;">
-    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+    style="min-height: 100vh; background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding: 10rem 0 4rem 0;">
+    <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
 
         <!-- Header -->
-        <div class="booking-header" style="text-align: center; margin-bottom: 4rem;">
+        <div class="booking-header" style="text-align: center; margin-bottom: 3rem;">
             <h1
-                style="color: #fff; font-family: 'Maison_Neue_Bold', sans-serif; font-size: 2.5rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                style="color: #fff; font-family: 'Maison_Neue_Bold', sans-serif; font-size: 2.5rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.15em;">
                 BOOK YOUR EXPERIENCE
             </h1>
             <p
-                style="color: rgba(255,255,255,0.7); font-family: 'Maison_Neue_Book', sans-serif; font-size: 1rem; max-width: 600px; margin: 0 auto;">
+                style="color: rgba(255,255,255,0.7); font-family: 'Maison_Neue_Book', sans-serif; font-size: 1rem; max-width: 600px; margin: 0 auto; line-height: 1.6;">
                 Select your preferred date, time, and service. Members enjoy priority booking and exclusive discounts.
             </p>
         </div>
 
         <!-- Membership Status Display -->
         <div class="membership-status"
-            style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 1.5rem; margin-bottom: 3rem; border-radius: 10px; text-align: center;">
+            style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 2rem; margin-bottom: 3rem; border-radius: 8px; text-align: center;">
             <div id="membership-info" style="color: #fff; font-family: 'Maison_Neue_Book', sans-serif;">
                 <div style="margin-bottom: 1rem;">
-                    <span style="color: rgba(255,255,255,0.7);">Your Status:</span>
+                    <span
+                        style="color: rgba(255,255,255,0.7); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em;">Your
+                        Status:</span>
                     <span id="current-status"
-                        style="color: #fff; font-family: 'Maison_Neue_Bold', sans-serif; font-size: 1.2rem;">Loading...</span>
+                        style="color: #B8860B; font-family: 'Maison_Neue_Bold', sans-serif; font-size: 1.3rem; margin-left: 1rem;">Loading...</span>
                 </div>
-                <div id="membership-benefits" style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">
+                <div id="membership-benefits"
+                    style="font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.5;">
                     <!-- Benefits will be populated by JavaScript -->
                 </div>
             </div>
 
             <!-- Membership Testing Buttons (Demo) -->
             <div class="membership-demo"
-                style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 1rem;">Demo: Test different
-                    membership levels</p>
+                style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p
+                    style="color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                    Demo: Test Membership Levels</p>
                 <div class="demo-buttons" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                     <button onclick="setMembershipLevel('none')" class="demo-btn"
-                        style="background: #dc3545; color: #fff; border: none; padding: 0.8rem 1.5rem; font-family: 'Maison_Neue_Book', sans-serif; cursor: pointer; border-radius: 5px;">
+                        style="background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 0.8rem 1.5rem; font-family: 'Maison_Neue_Book', sans-serif; cursor: pointer; border-radius: 4px; transition: all 0.3s ease;">
                         Non-Member
                     </button>
                     <button onclick="setMembershipLevel('base')" class="demo-btn"
-                        style="background: #6c757d; color: #fff; border: none; padding: 0.8rem 1.5rem; font-family: 'Maison_Neue_Book', sans-serif; cursor: pointer; border-radius: 5px;">
+                        style="background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 0.8rem 1.5rem; font-family: 'Maison_Neue_Book', sans-serif; cursor: pointer; border-radius: 4px; transition: all 0.3s ease;">
                         Base Member
                     </button>
                     <button onclick="setMembershipLevel('premium')" class="demo-btn"
-                        style="background: #28a745; color: #fff; border: none; padding: 0.8rem 1.5rem; font-family: 'Maison_Neue_Book', sans-serif; cursor: pointer; border-radius: 5px;">
+                        style="background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 0.8rem 1.5rem; font-family: 'Maison_Neue_Book', sans-serif; cursor: pointer; border-radius: 4px; transition: all 0.3s ease;">
                         Premium Member
                     </button>
                     <button onclick="setMembershipLevel('unlimited')" class="demo-btn"
-                        style="background: #B8860B; color: #000; border: none; padding: 0.8rem 1.5rem; font-family: 'Maison_Neue_Bold', sans-serif; cursor: pointer; border-radius: 5px;">
+                        style="background: #B8860B; color: #000; border: 1px solid #B8860B; padding: 0.8rem 1.5rem; font-family: 'Maison_Neue_Bold', sans-serif; cursor: pointer; border-radius: 4px; transition: all 0.3s ease;">
                         VIP Unlimited
                     </button>
                 </div>
@@ -63,7 +67,7 @@
 
         <!-- Booking Calendar Container -->
         <div id="booking-calendar-container"
-            style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 3rem; min-height: 600px;">
+            style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 3rem; min-height: 600px;">
             <!-- Calendar will be initialized here by JavaScript -->
             <div style="text-align: center; color: rgba(255,255,255,0.7); font-family: 'Maison_Neue_Book', sans-serif;">
                 Loading booking calendar...
@@ -71,51 +75,80 @@
         </div>
 
         <!-- Additional Information -->
-        <div class="booking-info" style="margin-top: 4rem; text-align: center;">
+        <div class="booking-info" style="margin-top: 4rem; padding-bottom: 4rem;">
             <h3
-                style="color: #fff; font-family: 'Maison_Neue_Bold', sans-serif; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 0.2em;">
+                style="color: #fff; font-family: 'Maison_Neue_Bold', sans-serif; margin-bottom: 3rem; text-transform: uppercase; letter-spacing: 0.2em; text-align: center; font-size: 1.8rem;">
                 BOOKING INFORMATION
             </h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto;">
 
                 <div class="info-card"
-                    style="background: rgba(255,255,255,0.05); padding: 2rem; border: 1px solid rgba(255,255,255,0.1); text-align: left;">
+                    style="background: rgba(255,255,255,0.05); padding: 2.5rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;">
                     <h4
-                        style="color: #fff; font-family: 'Maison_Neue_Bold', sans-serif; margin-bottom: 1rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.1em;">
-                        Member
-                        Priority</h4>
+                        style="color: #B8860B; font-family: 'Maison_Neue_Bold', sans-serif; margin-bottom: 1.5rem; text-transform: uppercase; font-size: 1rem; letter-spacing: 0.15em;">
+                        Member Priority
+                    </h4>
                     <ul
-                        style="color: rgba(255,255,255,0.7); font-family: 'Maison_Neue_Book', sans-serif; list-style: none; padding: 0; font-size: 0.9rem;">
-                        <li style="margin-bottom: 0.5rem;">Members: Book 2-3 months ahead</li>
-                        <li style="margin-bottom: 0.5rem;">VIP: Priority access to best slots</li>
-                        <li style="margin-bottom: 0.5rem;">Non-Members: Only 3 days ahead</li>
+                        style="color: rgba(255,255,255,0.8); font-family: 'Maison_Neue_Book', sans-serif; list-style: none; padding: 0; font-size: 0.95rem; line-height: 1.8;">
+                        <li style="padding-left: 1.5rem; position: relative; margin-bottom: 0.8rem;">
+                            <span style="position: absolute; left: 0; color: #B8860B;">•</span>
+                            Members: Book 2-3 months ahead
+                        </li>
+                        <li style="padding-left: 1.5rem; position: relative; margin-bottom: 0.8rem;">
+                            <span style="position: absolute; left: 0; color: #B8860B;">•</span>
+                            VIP: Priority access to best slots
+                        </li>
+                        <li style="padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: #B8860B;">•</span>
+                            Non-Members: Only 3 days ahead
+                        </li>
                     </ul>
                 </div>
 
                 <div class="info-card"
-                    style="background: rgba(255,255,255,0.05); padding: 2rem; border: 1px solid rgba(255,255,255,0.1); text-align: left;">
+                    style="background: rgba(255,255,255,0.05); padding: 2.5rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;">
                     <h4
-                        style="color: #fff; font-family: 'Maison_Neue_Bold', sans-serif; margin-bottom: 1rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.1em;">
-                        Cancellation Policy</h4>
+                        style="color: #B8860B; font-family: 'Maison_Neue_Bold', sans-serif; margin-bottom: 1.5rem; text-transform: uppercase; font-size: 1rem; letter-spacing: 0.15em;">
+                        Cancellation Policy
+                    </h4>
                     <ul
-                        style="color: rgba(255,255,255,0.7); font-family: 'Maison_Neue_Book', sans-serif; list-style: none; padding: 0; font-size: 0.9rem;">
-                        <li style="margin-bottom: 0.5rem;">Members: Cancel up to 24h before</li>
-                        <li style="margin-bottom: 0.5rem;">Non-Members: 48h notice required</li>
-                        <li style="margin-bottom: 0.5rem;">Late cancellations may incur fees</li>
+                        style="color: rgba(255,255,255,0.8); font-family: 'Maison_Neue_Book', sans-serif; list-style: none; padding: 0; font-size: 0.95rem; line-height: 1.8;">
+                        <li style="padding-left: 1.5rem; position: relative; margin-bottom: 0.8rem;">
+                            <span style="position: absolute; left: 0; color: #B8860B;">•</span>
+                            Members: Cancel up to 24h before
+                        </li>
+                        <li style="padding-left: 1.5rem; position: relative; margin-bottom: 0.8rem;">
+                            <span style="position: absolute; left: 0; color: #B8860B;">•</span>
+                            Non-Members: 48h notice required
+                        </li>
+                        <li style="padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: #B8860B;">•</span>
+                            Late cancellations may incur fees
+                        </li>
                     </ul>
                 </div>
 
                 <div class="info-card"
-                    style="background: rgba(255,255,255,0.05); padding: 2rem; border: 1px solid rgba(255,255,255,0.1); text-align: left;">
+                    style="background: rgba(255,255,255,0.05); padding: 2.5rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;">
                     <h4
-                        style="color: #fff; font-family: 'Maison_Neue_Bold', sans-serif; margin-bottom: 1rem; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.1em;">
-                        Payment &
-                        Pricing</h4>
+                        style="color: #B8860B; font-family: 'Maison_Neue_Bold', sans-serif; margin-bottom: 1.5rem; text-transform: uppercase; font-size: 1rem; letter-spacing: 0.15em;">
+                        Payment & Pricing
+                    </h4>
                     <ul
-                        style="color: rgba(255,255,255,0.7); font-family: 'Maison_Neue_Book', sans-serif; list-style: none; padding: 0; font-size: 0.9rem;">
-                        <li style="margin-bottom: 0.5rem;">Secure payment with Stripe</li>
-                        <li style="margin-bottom: 0.5rem;">Apple Pay & Google Pay supported</li>
-                        <li style="margin-bottom: 0.5rem;">Member discounts applied automatically</li>
+                        style="color: rgba(255,255,255,0.8); font-family: 'Maison_Neue_Book', sans-serif; list-style: none; padding: 0; font-size: 0.95rem; line-height: 1.8;">
+                        <li style="padding-left: 1.5rem; position: relative; margin-bottom: 0.8rem;">
+                            <span style="position: absolute; left: 0; color: #B8860B;">•</span>
+                            Secure payment with Stripe
+                        </li>
+                        <li style="padding-left: 1.5rem; position: relative; margin-bottom: 0.8rem;">
+                            <span style="position: absolute; left: 0; color: #B8860B;">•</span>
+                            Apple Pay & Google Pay supported
+                        </li>
+                        <li style="padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: #B8860B;">•</span>
+                            Member discounts applied automatically
+                        </li>
                     </ul>
                 </div>
 
@@ -133,11 +166,28 @@
 <script>
     // Global variables
     let bookingCalendar = null;
+    let selectedDates = [];  // Array to store selected date range
 
     // Initialize calendar when page loads
     document.addEventListener('DOMContentLoaded', function () {
         initializeMembershipStatus();
         initializeBookingCalendar();
+
+        // Add hover effect to demo buttons
+        document.querySelectorAll('.demo-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function () {
+                if (this.style.background === 'transparent') {
+                    this.style.background = 'rgba(255,255,255,0.1)';
+                    this.style.borderColor = 'rgba(255,255,255,0.5)';
+                }
+            });
+            btn.addEventListener('mouseleave', function () {
+                if (this.innerHTML.trim() !== 'VIP Unlimited') {
+                    this.style.background = 'transparent';
+                    this.style.borderColor = 'rgba(255,255,255,0.3)';
+                }
+            });
+        });
     });
 
     // Initialize membership status display
@@ -162,17 +212,17 @@
         switch (level) {
             case 'unlimited':
                 statusText = 'VIP UNLIMITED MEMBER';
-                statusColor = '#fff';
+                statusColor = '#B8860B';
                 benefits = 'Book up to 3 months ahead • Priority access • All services included • VIP treatment';
                 break;
             case 'premium':
                 statusText = 'PREMIUM MEMBER';
-                statusColor = '#fff';
+                statusColor = '#B8860B';
                 benefits = 'Book up to 2 months ahead • Priority booking • 30-40% discount • Free services included';
                 break;
             case 'base':
                 statusText = 'BASE MEMBER';
-                statusColor = '#fff';
+                statusColor = '#B8860B';
                 benefits = 'Book up to 1 month ahead • 25% discount on all services';
                 break;
             default:
@@ -206,12 +256,12 @@
         const container = document.getElementById('booking-calendar-container');
 
         // Clear previous content
-        container.innerHTML = '<div style="text-align: center; color: rgba(255,255,255,0.7); font-family: \'Maison_Neue_Book\', sans-serif;">Initializing calendar...</div>';
+        container.innerHTML = '<div style="text-align: center; color: rgba(255,255,255,0.7); font-family: \'Maison_Neue_Book\', sans-serif; padding: 2rem;">Initializing calendar...</div>';
 
         // Initialize calendar with slight delay to show loading
         setTimeout(() => {
             bookingCalendar = new CoreSyncBookingCalendar('booking-calendar-container');
-        }, 500);
+        }, 300);
     }
 
     // Enhanced calendar initialization
@@ -273,7 +323,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 3rem;
-        max-width: 1400px;
+        max-width: 100%;
         margin: 0 auto;
     }
 
@@ -281,16 +331,16 @@
     .calendar-section {
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
+        border-radius: 8px;
         padding: 2rem;
     }
 
     .calendar-title {
-        color: #fff;
+        color: #B8860B;
         font-family: 'Maison_Neue_Bold', sans-serif;
         text-align: center;
         margin-bottom: 2rem;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         letter-spacing: 0.2em;
         text-transform: uppercase;
     }
@@ -303,8 +353,8 @@
 
     .month-calendar {
         background: rgba(255, 255, 255, 0.02);
-        border-radius: 10px;
-        padding: 1rem;
+        border-radius: 8px;
+        padding: 1.5rem;
     }
 
     .month-header {
@@ -312,30 +362,33 @@
         font-family: 'Maison_Neue_Bold', sans-serif;
         text-align: center;
         padding: 1rem 0;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         margin-bottom: 1rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
     }
 
     .weekdays {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        gap: 2px;
+        gap: 4px;
         margin-bottom: 0.5rem;
     }
 
     .weekday {
         color: rgba(255, 255, 255, 0.6);
-        font-size: 0.7rem;
+        font-size: 0.75rem;
         text-align: center;
-        padding: 0.3rem;
+        padding: 0.5rem 0;
         font-family: 'Maison_Neue_Bold', sans-serif;
+        letter-spacing: 0.05em;
     }
 
     .days-grid {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        gap: 2px;
+        gap: 4px;
     }
 
     .calendar-day {
@@ -343,15 +396,16 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         cursor: default;
         border-radius: 4px;
         transition: all 0.3s ease;
         position: relative;
+        font-family: 'Maison_Neue_Book', sans-serif;
     }
 
     .calendar-day.other-month {
-        color: rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.25);
     }
 
     .calendar-day.available {
@@ -362,16 +416,29 @@
     }
 
     .calendar-day.available:hover {
-        background: rgba(255, 255, 255, 0.15);
-        transform: scale(1.1);
-        border-color: rgba(255, 255, 255, 0.3);
+        background: rgba(184, 134, 11, 0.2);
+        transform: scale(1.05);
+        border-color: #B8860B;
     }
 
-    .calendar-day.selected {
-        background: #4A90E2;
-        color: #fff;
+    .calendar-day.selected,
+    .calendar-day.in-range {
+        background: #B8860B;
+        color: #000;
         font-family: 'Maison_Neue_Bold', sans-serif;
-        box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+        border: 1px solid #B8860B;
+    }
+
+    .calendar-day.range-start {
+        background: #B8860B;
+        color: #000;
+        font-weight: bold;
+    }
+
+    .calendar-day.range-end {
+        background: #B8860B;
+        color: #000;
+        font-weight: bold;
     }
 
     .calendar-day.unavailable {
@@ -380,23 +447,28 @@
     }
 
     .calendar-day.member-only {
-        background: rgba(255, 0, 0, 0.1);
-        border: 1px solid rgba(255, 0, 0, 0.3);
+        background: rgba(255, 100, 100, 0.15);
+        border: 1px solid rgba(255, 100, 100, 0.3);
+        color: rgba(255, 255, 255, 0.5);
     }
 
     .calendar-day.today {
-        border: 2px solid #4A90E2;
+        border: 2px solid #B8860B;
+        box-shadow: 0 0 8px rgba(184, 134, 11, 0.3);
     }
 
     /* Dropdown Section */
     .dropdown-section {
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
+        border-radius: 8px;
         padding: 2rem;
+        display: flex;
+        flex-direction: column;
     }
 
     .booking-options-container {
+        flex: 1;
         margin-bottom: 2rem;
     }
 
@@ -416,18 +488,18 @@
     }
 
     .option-label {
-        color: #fff;
+        color: #B8860B;
         font-family: 'Maison_Neue_Bold', sans-serif;
-        font-size: 0.85rem;
-        letter-spacing: 0.1em;
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
         text-transform: uppercase;
     }
 
     .booking-dropdown {
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
-        padding: 0.8rem 1rem;
+        border-radius: 4px;
+        padding: 0.9rem 1rem;
         color: #fff;
         font-family: 'Maison_Neue_Book', sans-serif;
         font-size: 0.9rem;
@@ -436,9 +508,9 @@
     }
 
     .booking-dropdown:focus {
-        border-color: #4A90E2;
-        box-shadow: 0 0 10px rgba(74, 144, 226, 0.3);
-        transform: scale(1.02);
+        border-color: #B8860B;
+        box-shadow: 0 0 8px rgba(184, 134, 11, 0.3);
+        background: rgba(255, 255, 255, 0.08);
     }
 
     .booking-dropdown option {
@@ -491,39 +563,41 @@
     .no-selection {
         color: rgba(255, 255, 255, 0.5);
         text-align: center;
-        padding: 2rem;
+        padding: 3rem 2rem;
         font-style: italic;
+        font-size: 0.95rem;
     }
 
     /* Check Button */
     .booking-actions {
         text-align: center;
-        padding-top: 1rem;
+        padding-top: 1.5rem;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: auto;
     }
 
     .check-btn {
-        background: #4A90E2;
-        color: #fff;
+        background: #B8860B;
+        color: #000;
         border: none;
         padding: 1rem 3rem;
         font-family: 'Maison_Neue_Bold', sans-serif;
-        font-size: 1.1rem;
-        letter-spacing: 1px;
-        border-radius: 8px;
+        font-size: 1rem;
+        letter-spacing: 0.15em;
+        border-radius: 4px;
         cursor: pointer;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+        text-transform: uppercase;
     }
 
     .check-btn:hover {
-        background: #357ABD;
+        background: #9A7209;
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+        box-shadow: 0 4px 12px rgba(184, 134, 11, 0.4);
     }
 
     .check-btn:disabled {
-        opacity: 0.6;
+        opacity: 0.5;
         cursor: not-allowed;
         transform: none;
     }
@@ -532,27 +606,30 @@
     .booking-success {
         text-align: center;
         padding: 3rem;
-        background: rgba(0, 255, 0, 0.05);
-        border: 1px solid rgba(0, 255, 0, 0.2);
-        border-radius: 15px;
+        background: rgba(184, 134, 11, 0.1);
+        border: 1px solid rgba(184, 134, 11, 0.3);
+        border-radius: 8px;
     }
 
     .success-icon {
         font-size: 4rem;
         margin-bottom: 1rem;
+        color: #B8860B;
     }
 
     .success-title {
-        color: #00ff88;
+        color: #B8860B;
         font-family: 'Maison_Neue_Bold', sans-serif;
         font-size: 2rem;
         margin-bottom: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
     }
 
     .success-details {
         color: #fff;
         margin-bottom: 2rem;
-        font-size: 1.1rem;
+        font-size: 1rem;
         line-height: 1.8;
     }
 
@@ -560,15 +637,21 @@
         padding: 1rem 2rem;
         margin: 0 0.5rem;
         border: none;
-        border-radius: 8px;
+        border-radius: 4px;
         font-family: 'Maison_Neue_Bold', sans-serif;
         cursor: pointer;
         transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
     }
 
     .success-btn.primary {
-        background: #00ff88;
+        background: #B8860B;
         color: #000;
+    }
+
+    .success-btn.primary:hover {
+        background: #9A7209;
     }
 
     .success-btn.secondary {
@@ -577,30 +660,29 @@
         border: 1px solid #fff;
     }
 
-    .success-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    .success-btn.secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
     }
 
     /* Messages */
     .booking-message {
         padding: 1rem;
-        border-radius: 8px;
+        border-radius: 4px;
         margin-bottom: 1rem;
         font-family: 'Maison_Neue_Book', sans-serif;
         animation: slideDown 0.3s ease;
     }
 
     .booking-message.error {
-        background: rgba(255, 0, 0, 0.1);
-        border: 1px solid rgba(255, 0, 0, 0.3);
+        background: rgba(255, 100, 100, 0.15);
+        border: 1px solid rgba(255, 100, 100, 0.3);
         color: #ff6b6b;
     }
 
     .booking-message.info {
-        background: rgba(74, 144, 226, 0.1);
-        border: 1px solid rgba(74, 144, 226, 0.3);
-        color: #4A90E2;
+        background: rgba(184, 134, 11, 0.15);
+        border: 1px solid rgba(184, 134, 11, 0.3);
+        color: #B8860B;
     }
 
     @keyframes slideDown {
@@ -615,17 +697,15 @@
         }
     }
 
-    /* Demo Buttons Enhancement */
-    .demo-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    /* Info cards hover effect */
+    .info-card {
         transition: all 0.3s ease;
     }
 
     .info-card:hover {
         transform: translateY(-5px);
-        background: rgba(255, 255, 255, 0.08);
-        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-color: rgba(184, 134, 11, 0.3) !important;
     }
 
     /* Mobile Responsiveness */
@@ -649,12 +729,8 @@
     }
 
     @media (max-width: 768px) {
-        .demo-buttons {
-            flex-direction: column;
-        }
-
-        .demo-btn {
-            margin-bottom: 0.5rem;
+        .booking-page {
+            padding: 8rem 0 2rem 0 !important;
         }
 
         .progressive-booking-calendar {
@@ -669,6 +745,14 @@
         .check-btn {
             width: 100%;
             padding: 1.2rem;
+        }
+
+        .calendar-grid-container {
+            gap: 1rem;
+        }
+
+        .month-calendar {
+            padding: 1rem;
         }
     }
 </style>
