@@ -39,7 +39,7 @@ class PaymentAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
         ('Refund Information', {
-            'fields': ('refund_amount', 'refund_reason', 'refunded_at'),
+            'fields': ('refund_amount', 'refund_reason'),
             'classes': ('collapse',)
         }),
         ('Additional Details', {
