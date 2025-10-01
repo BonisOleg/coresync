@@ -92,3 +92,5 @@ mv requirements_minimal.txt requirements.txt
 **🚀 REDEPLOY NOW - БАЗА ДАНИХ ПРАЦЮВАТИМЕ!**
 
 
+
+

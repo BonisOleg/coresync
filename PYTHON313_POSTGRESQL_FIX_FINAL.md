@@ -128,3 +128,5 @@ mv requirements_psycopg3.txt requirements.txt
 *Це остаточне рішення проблеми Python 3.13 + PostgreSQL у 2025 році.*
 
 
+
+

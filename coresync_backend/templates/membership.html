@@ -152,15 +152,15 @@
                         <td class="comparison-feature">Guest Passes</td>
                         <td>—</td>
                         <td>—</td>
-                        <td class="comparison-check">✓</td>
-                        <td class="comparison-check">✓</td>
+                        <td class="comparison-check">Yes</td>
+                        <td class="comparison-check">Yes</td>
                     </tr>
                     <tr>
                         <td class="comparison-feature">Concierge Service</td>
                         <td>—</td>
                         <td>—</td>
                         <td>—</td>
-                        <td class="comparison-check">✓</td>
+                        <td class="comparison-check">Yes</td>
                     </tr>
                 </tbody>
             </table>
@@ -231,7 +231,6 @@
 <div id="ai-assistant-widget" class="ai-widget">
     <div class="ai-widget-header">
         <div class="ai-widget-title">
-            <span class="ai-icon">🤖</span>
             <span>CoreSync AI Assistant</span>
         </div>
         <button class="ai-widget-close" onclick="toggleAIWidget()">&times;</button>
@@ -240,7 +239,7 @@
         <div class="ai-messages" id="ai-messages">
             <div class="ai-message ai-message--bot">
                 <div class="ai-message-content">
-                    Hi! I'm your CoreSync AI Assistant. I can help you with:
+                    Hello! I'm your CoreSync AI Assistant. I can help you with:
                     <br>• Membership plans and pricing
                     <br>• Service information and booking
                     <br>• Spa amenities and technology
@@ -257,7 +256,7 @@
                 I couldn't help with that. Would you like to speak with our team?
             </div>
             <button class="whatsapp-btn" onclick="openWhatsApp()">
-                📱 Chat on WhatsApp
+                Chat on WhatsApp
             </button>
         </div>
     </div>
@@ -265,7 +264,6 @@
 
 <!-- AI Widget Toggle Button -->
 <div class="ai-widget-toggle" onclick="toggleAIWidget()">
-    <span class="ai-toggle-icon">💬</span>
     <span class="ai-toggle-text">Need Help?</span>
 </div>
 
@@ -468,20 +466,20 @@
         // Location/contact questions
         if (lowerMessage.includes('location') || lowerMessage.includes('address') || lowerMessage.includes('contact')) {
             return `We're located at:<br><br>
-                    📍 <strong>1544 71st Street, Brooklyn, NY 11228</strong><br>
-                    📞 <strong>551.574.2281</strong><br>
-                    ✉️ <strong>info@coresync.life</strong><br><br>
+                    <strong>1544 71st Street, Brooklyn, NY 11228</strong><br>
+                    <strong>551.574.2281</strong><br>
+                    <strong>info@coresync.life</strong><br><br>
                     Hours: 9 AM - 9 PM daily`;
         }
 
         // Technology questions
         if (lowerMessage.includes('technology') || lowerMessage.includes('ai') || lowerMessage.includes('iot')) {
             return `Our cutting-edge technology includes:<br><br>
-                    🤖 AI Massage Beds with personalized programs<br>
-                    🪞 Smart Mirror with analysis<br>
-                    🌿 IoT scent and lighting control<br>
-                    🧘 Meditation pods with guided sessions<br><br>
-                    Everything controlled through our mobile app!`;
+                    AI Massage Beds with personalized programs<br>
+                    Smart Mirror with analysis<br>
+                    IoT scent and lighting control<br>
+                    Meditation pods with guided sessions<br><br>
+                    Everything controlled through our mobile app`;
         }
 
         // Default response with fallback

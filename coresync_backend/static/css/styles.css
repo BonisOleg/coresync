@@ -408,9 +408,9 @@ body {
 }
 
 .footer-btn {
-    background: #F5F5DC;
+    background: #4A90E2;
     border: none;
-    color: #000;
+    color: #fff;
     font-family: 'Maison_Neue_Mono', monospace;
     font-size: .9rem;
     padding: 1rem 2rem;
@@ -422,9 +422,9 @@ body {
 }
 
 .footer-btn:hover {
-    background: #fff;
+    background: #357ABD;
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(245, 245, 220, .3)
+    box-shadow: 0 4px 15px rgba(74, 144, 226, .4)
 }
 
 .footer-address,

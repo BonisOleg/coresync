@@ -1,72 +1,58 @@
 /* 
- * Membership CSS - Safe extension without conflicts
- * Uses existing color scheme and fonts from main site
- * Based on existing styles.css and private.css patterns
+ * Membership CSS - Minimalist black and white design
+ * Based on private.css color scheme
  */
 
 /* Membership section using existing styles pattern */
 .membership-section {
     background: #000;
-    /* Same as body in styles.css */
     color: #fff;
-    /* Same text color */
     padding: 8rem 0 4rem 0;
-    /* Similar to privacy-section padding */
     text-align: center;
 }
 
-/* Title using existing Maison_Neue_Mono pattern from private.css */
+/* Title using existing Maison_Neue_Mono pattern */
 .membership-title {
     font-family: 'Maison_Neue_Mono', monospace;
     font-size: 2.2rem;
-    /* Same as privacy-title */
     letter-spacing: 0.5em;
-    /* Same as privacy-title */
     margin-bottom: 3rem;
-    /* Same spacing */
     color: #fff;
     text-transform: uppercase;
     font-weight: normal;
 }
 
-/* Grid layout similar to privacy-content-new structure */
+/* Grid layout */
 .membership-cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 3rem;
     max-width: 1400px;
-    /* Same as container max-width */
     margin: 0 auto;
     padding: 0 2rem;
-    /* Same as container padding */
 }
 
 /* Individual membership cards */
 .membership-card {
     background: rgba(255, 255, 255, 0.05);
-    /* Subtle background like site elements */
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    /* Same border-radius as private-hero */
     padding: 3rem 2rem;
     position: relative;
     transition: all 0.3s ease;
-    /* Same transition pattern */
     overflow: hidden;
 }
 
 .membership-card:hover {
     transform: translateY(-8px);
-    /* Same hover effect as service cards */
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Featured card styling */
 .membership-card--featured {
-    border-color: #B8860B;
-    /* Gold color from existing palette */
-    background: rgba(184, 134, 11, 0.05);
+    border-color: #4A90E2;
+    background: rgba(74, 144, 226, 0.05);
 }
 
 .membership-card--featured::before {
@@ -75,9 +61,8 @@
     top: 0;
     left: 0;
     right: 0;
-    background: #B8860B;
-    /* Gold accent */
-    color: #000;
+    background: #4A90E2;
+    color: #fff;
     padding: 0.5rem;
     font-family: 'Maison_Neue_Mono', monospace;
     font-size: 0.75rem;
@@ -88,16 +73,16 @@
 /* Card title */
 .membership-card-title {
     font-family: 'Maison_Neue_Bold', sans-serif;
-    /* Using existing bold font */
     font-size: 1.5rem;
     color: #fff;
     margin-bottom: 1rem;
     font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 .membership-card--featured .membership-card-title {
-    color: #B8860B;
-    /* Gold for featured card */
+    color: #4A90E2;
 }
 
 /* Pricing display */
@@ -112,12 +97,11 @@
 .membership-price span {
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.7);
-    /* Muted text like existing patterns */
     font-weight: normal;
 }
 
 .membership-card--featured .membership-price {
-    color: #B8860B;
+    color: #4A90E2;
 }
 
 /* Benefits list */
@@ -129,7 +113,6 @@
 
 .membership-benefits li {
     font-family: 'Maison_Neue_Book', sans-serif;
-    /* Using existing book font */
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.9);
     padding: 0.75rem 0;
@@ -139,19 +122,19 @@
 }
 
 .membership-benefits li::before {
-    content: '✓';
+    content: '•';
     position: absolute;
     left: 0;
-    color: #B8860B;
-    /* Gold checkmarks */
+    color: #fff;
     font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .membership-benefits li:last-child {
     border-bottom: none;
 }
 
-/* CTA Button using existing button patterns */
+/* CTA Button */
 .membership-cta-btn {
     font-family: 'Maison_Neue_Bold', sans-serif;
     background: transparent;
@@ -163,9 +146,7 @@
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.3s ease;
-    /* Same transition */
     border-radius: 0;
-    /* Sharp corners like site buttons */
     width: 100%;
     margin-top: 1rem;
 }
@@ -174,17 +155,16 @@
     background: #fff;
     color: #000;
     transform: scale(0.98);
-    /* Same scale effect as existing buttons */
 }
 
 .membership-card--featured .membership-cta-btn {
-    border-color: #B8860B;
-    color: #B8860B;
+    border-color: #4A90E2;
+    color: #4A90E2;
 }
 
 .membership-card--featured .membership-cta-btn:hover {
-    background: #B8860B;
-    color: #000;
+    background: #4A90E2;
+    color: #fff;
 }
 
 /* Discount badge */
@@ -192,8 +172,8 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background: #B8860B;
-    color: #000;
+    background: #4A90E2;
+    color: #fff;
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-family: 'Maison_Neue_Mono', monospace;
@@ -237,7 +217,7 @@
 .comparison-table th {
     background: rgba(255, 255, 255, 0.05);
     font-family: 'Maison_Neue_Bold', sans-serif;
-    color: #B8860B;
+    color: #fff;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-size: 0.9rem;
@@ -253,62 +233,12 @@
 }
 
 .comparison-table .comparison-check {
-    color: #B8860B;
+    color: #4A90E2;
     font-weight: bold;
     text-align: center;
 }
 
-/* Mobile responsiveness using existing breakpoints patterns */
-@media (max-width: 768px) {
-    .membership-hero {
-        height: 50vh;
-        /* Менше на мобільних */
-        margin: 4rem 1rem 0;
-        /* Менші margins */
-    }
-
-    .membership-hero-title {
-        font-size: 2.5rem;
-    }
-
-    .membership-hero-subtitle {
-        font-size: 1rem;
-    }
-
-    .membership-section {
-        padding: 4rem 0 2rem 0;
-    }
-
-    .membership-title {
-        font-size: 1.8rem;
-        margin-bottom: 2rem;
-    }
-
-    .membership-cards-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        padding: 0 1rem;
-    }
-
-    .membership-card {
-        padding: 2rem 1.5rem;
-    }
-
-    .membership-price {
-        font-size: 2.5rem;
-    }
-
-    .comparison-table {
-        font-size: 0.9rem;
-    }
-
-    .comparison-table th,
-    .comparison-table td {
-        padding: 1rem 0.5rem;
-    }
-}
-
-/* Membership hero section (override private-hero for membership) */
+/* Membership hero section */
 .membership-hero {
     position: relative;
     height: 60vh;
@@ -327,7 +257,6 @@
     object-position: center;
     filter: brightness(0.7);
 }
-
 
 /* Membership hero overlay styles */
 .membership-hero-overlay {
@@ -349,12 +278,15 @@
     font-family: 'Maison_Neue_Bold', sans-serif;
     font-size: 3rem;
     margin-bottom: 1rem;
-    color: #B8860B;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
 }
 
 .membership-hero-subtitle {
     font-family: 'Maison_Neue_Book', sans-serif;
     font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 /* Service overlay styles for membership cards */
@@ -368,18 +300,20 @@
 }
 
 .membership-preview-overlay--featured {
-    background: rgba(184, 134, 11, 0.8);
+    background: rgba(74, 144, 226, 0.6);
 }
 
 .membership-preview-title {
-    color: #B8860B;
+    color: #fff;
     font-family: 'Maison_Neue_Bold', sans-serif;
     font-size: 2rem;
     margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
 }
 
 .membership-preview-overlay--featured .membership-preview-title {
-    color: #000;
+    color: #fff;
 }
 
 .membership-preview-price {
@@ -390,36 +324,43 @@
 }
 
 .membership-preview-overlay--featured .membership-preview-price {
-    color: #000;
+    color: #fff;
 }
 
 .membership-preview-benefit {
-    color: #B8860B;
+    color: rgba(255, 255, 255, 0.9);
     font-family: 'Maison_Neue_Mono', monospace;
     font-size: 0.9rem;
     letter-spacing: 0.2em;
 }
 
 .membership-preview-overlay--featured .membership-preview-benefit {
-    color: #000;
+    color: #fff;
 }
 
 .membership-preview-badge {
-    background: #000;
-    color: #B8860B;
+    background: #fff;
+    color: #000;
     padding: 0.3rem 1rem;
     font-size: 0.7rem;
     margin-bottom: 1rem;
     font-family: 'Maison_Neue_Mono', monospace;
     letter-spacing: 0.2em;
+    font-weight: bold;
 }
 
 .membership-preview-btn--featured {
-    background: #B8860B;
-    color: #000;
+    background: #4A90E2;
+    color: #fff;
+    border-color: #4A90E2;
 }
 
-/* Modal styles (no inline styles) */
+.membership-preview-btn--featured:hover {
+    background: #357ABD;
+    border-color: #357ABD;
+}
+
+/* Modal styles */
 .modal {
     position: fixed;
     z-index: 9999;
@@ -463,6 +404,9 @@
     color: #fff;
     margin-bottom: 0.5rem;
     font-family: 'Maison_Neue_Book', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
 }
 
 .form-group input {
@@ -477,11 +421,11 @@
 
 .form-group input:focus {
     outline: none;
-    border-color: #B8860B;
+    border-color: #4A90E2;
 }
 
 /* ================================ */
-/* AI ASSISTANT WIDGET STYLES (Requirements) */
+/* AI ASSISTANT WIDGET - Minimalist */
 /* ================================ */
 
 .ai-widget {
@@ -491,7 +435,7 @@
     width: 350px;
     max-height: 500px;
     background: #1a1a1a;
-    border: 1px solid #B8860B;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     z-index: 10000;
@@ -500,8 +444,8 @@
 }
 
 .ai-widget-header {
-    background: #B8860B;
-    color: #000;
+    background: #4A90E2;
+    color: #fff;
     padding: 1rem;
     display: flex;
     justify-content: space-between;
@@ -512,6 +456,8 @@
     font-family: 'Maison_Neue_Bold', sans-serif;
     font-size: 0.9rem;
     font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .ai-icon {
@@ -521,7 +467,7 @@
 .ai-widget-close {
     background: none;
     border: none;
-    color: #000;
+    color: #fff;
     font-size: 1.5rem;
     cursor: pointer;
     line-height: 1;
@@ -544,8 +490,8 @@
 }
 
 .ai-message--bot .ai-message-content {
-    background: rgba(184, 134, 11, 0.1);
-    border: 1px solid rgba(184, 134, 11, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff;
     padding: 0.8rem;
     border-radius: 8px;
@@ -555,8 +501,8 @@
 }
 
 .ai-message--user .ai-message-content {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(74, 144, 226, 0.2);
+    border: 1px solid rgba(74, 144, 226, 0.3);
     color: #fff;
     padding: 0.8rem;
     border-radius: 8px;
@@ -583,19 +529,24 @@
 
 .ai-input:focus {
     outline: none;
-    border-color: #B8860B;
+    border-color: #4A90E2;
 }
 
 .ai-send-btn {
-    background: #B8860B;
+    background: #4A90E2;
     border: none;
-    color: #000;
+    color: #fff;
     padding: 0.8rem 1rem;
     border-radius: 4px;
     cursor: pointer;
     font-family: 'Maison_Neue_Bold', sans-serif;
     font-size: 0.8rem;
     font-weight: bold;
+    text-transform: uppercase;
+}
+
+.ai-send-btn:hover {
+    background: #357ABD;
 }
 
 .ai-fallback {
@@ -624,6 +575,7 @@
     font-size: 0.9rem;
     text-decoration: none;
     display: inline-block;
+    text-transform: uppercase;
 }
 
 .whatsapp-btn:hover {
@@ -635,12 +587,12 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: #B8860B;
-    color: #000;
+    background: #4A90E2;
+    color: #fff;
     padding: 1rem;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 4px 16px rgba(184, 134, 11, 0.3);
+    box-shadow: 0 4px 16px rgba(74, 144, 226, 0.3);
     z-index: 9999;
     display: flex;
     align-items: center;
@@ -648,36 +600,20 @@
     font-family: 'Maison_Neue_Bold', sans-serif;
     font-size: 0.9rem;
     transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .ai-widget-toggle:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(184, 134, 11, 0.4);
+    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
 }
 
 .ai-toggle-icon {
     font-size: 1.2rem;
 }
 
-/* iOS Safari specific optimizations */
-@supports (-webkit-touch-callout: none) {
-    .membership-card {
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-    }
-
-    .membership-cta-btn {
-        -webkit-appearance: none;
-        appearance: none;
-    }
-
-    .ai-widget {
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-/* AMENITIES CAROUSEL - повне відображення без обрізання */
+/* AMENITIES CAROUSEL */
 .amenities-carousel {
     position: relative;
     max-width: 1200px;
@@ -765,9 +701,53 @@
     color: #000;
 }
 
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .membership-hero {
+        height: 50vh;
+        margin: 4rem 1rem 0;
+    }
 
-/* Tablet optimizations */
-@media (max-width: 1024px) {
+    .membership-hero-title {
+        font-size: 2.5rem;
+    }
+
+    .membership-hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .membership-section {
+        padding: 4rem 0 2rem 0;
+    }
+
+    .membership-title {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+
+    .membership-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+
+    .membership-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .membership-price {
+        font-size: 2.5rem;
+    }
+
+    .comparison-table {
+        font-size: 0.9rem;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+        padding: 1rem 0.5rem;
+    }
+
     .amenities-carousel {
         padding: 0 3rem;
     }
@@ -776,21 +756,8 @@
         flex: 0 0 calc(50% - 0.5rem);
         height: 180px;
     }
-
-    .membership-hero .private-hero-image {
-        max-height: 60vh;
-    }
-
-    .carousel-prev {
-        left: 0.5rem;
-    }
-
-    .carousel-next {
-        right: 0.5rem;
-    }
 }
 
-/* Extra responsive breakpoint */
 @media (max-width: 480px) {
     .membership-title {
         font-size: 1.5rem;
@@ -813,26 +780,22 @@
         flex: 0 0 100%;
         height: 160px;
     }
+}
 
-    .membership-hero .private-hero-image {
-        max-height: 50vh;
+/* iOS Safari specific optimizations */
+@supports (-webkit-touch-callout: none) {
+    .membership-card {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
     }
 
-    .carousel-nav {
-        width: 40px;
-        height: 40px;
+    .membership-cta-btn {
+        -webkit-appearance: none;
+        appearance: none;
     }
 
-    .carousel-nav svg {
-        width: 16px;
-        height: 16px;
-    }
-
-    .carousel-prev {
-        left: 0.25rem;
-    }
-
-    .carousel-next {
-        right: 0.25rem;
+    .ai-widget {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
     }
 }
