@@ -562,6 +562,46 @@ body {
     .nav-menu {
         display: none
     }
+    
+    .nav-menu.active {
+        display: flex;
+        position: fixed;
+        top: 6.5rem;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        flex-direction: column;
+        transform: none;
+        justify-content: flex-start;
+        background: rgba(0, 0, 0, 0.98);
+        padding: 2rem 1rem;
+        max-width: none;
+        z-index: 999;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .nav-left,
+    .nav-right {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+    }
+    
+    .nav-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 1.2rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        opacity: 1;
+        animation: none;
+        min-height: 56px;
+        font-size: 1rem;
+    }
+    
+    .nav-btn:active {
+        background: rgba(255, 255, 255, 0.1);
+    }
 
     .services-grid {
         gap: 2rem
@@ -596,11 +636,14 @@ body {
 
     .burger-menu {
         right: 1rem;
-        padding: 8px
+        padding: 12px;
+        background: rgba(245, 245, 220, 0.05);
+        border-radius: 4px;
     }
 
     .burger-line {
-        width: 28px
+        width: 32px;
+        height: 3px
     }
 
     .hero-title {
@@ -693,11 +736,12 @@ body {
 @media(max-width:480px) {
     .burger-menu {
         right: .5rem;
-        padding: 6px
+        padding: 10px
     }
 
     .burger-line {
-        width: 25px
+        width: 28px;
+        height: 3px
     }
 
     .hero-title {
