@@ -121,7 +121,7 @@ body {
 .nav-left {
     display: flex;
     flex-direction: row;
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: center;
     justify-content: flex-start;
 }
@@ -129,7 +129,7 @@ body {
 .nav-right {
     display: flex;
     flex-direction: row;
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: center;
     justify-content: flex-end;
 }
@@ -208,7 +208,7 @@ body {
 }
 
 .header.menu-open .header-logo-img {
-    height: 49px
+    height: 34px
 }
 
 @keyframes gentleBlink {
@@ -561,10 +561,6 @@ body {
 @media(max-width:1024px) {
     .nav-menu {
         display: none
-    }
-
-    .header.menu-open .header-logo-img {
-        height: 70px
     }
 
     .services-grid {

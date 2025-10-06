@@ -620,9 +620,10 @@ body {
     border: 1px solid rgba(0, 0, 0, 0.1);
     color: #333;
     font-family: 'Maison_Neue_Book', sans-serif;
-    font-size: 1rem;
+    font-size: 16px;
     border-radius: 0;
     transition: all 0.3s ease;
+    min-height: 44px;
 }
 
 .form-input:focus {
