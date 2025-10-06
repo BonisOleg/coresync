@@ -154,6 +154,10 @@ body {
     justify-content: center;
 }
 
+.nav-btn:hover {
+    opacity: 0.7;
+}
+
 .nav-menu.active .nav-btn {
     animation: gentleBlink 1.2s ease both
 }
@@ -593,14 +597,27 @@ body {
         justify-content: center;
         padding: 1.2rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        opacity: 1;
-        animation: none;
+        opacity: 1 !important;
+        animation: none !important;
         min-height: 56px;
         font-size: 1rem;
+        visibility: visible !important;
     }
 
     .nav-btn:active {
         background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Override gentleBlink animation on mobile */
+    .nav-menu.active .nav-btn {
+        opacity: 1 !important;
+        animation: none !important;
+    }
+
+    .nav-menu.active .nav-left .nav-btn,
+    .nav-menu.active .nav-right .nav-btn {
+        animation: none !important;
+        opacity: 1 !important;
     }
 
     .services-grid {
