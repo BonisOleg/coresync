@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const burgerMenu = document.getElementById('burger-menu');
     const navMenu = document.getElementById('nav-menu');
     const header = document.querySelector('.header');
+    const headerLogo = document.querySelector('.header-logo');
     const footerBtn = document.querySelector('.footer-btn');
     const heroImage = document.querySelector('.hero-image');
 
@@ -28,29 +29,47 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Burger menu toggle with smooth animation
+    // Function to toggle menu (used by both burger and logo)
+    function toggleMenu() {
+        const isActive = navMenu.classList.contains('active');
+
+        if (!isActive) {
+            // Open menu
+            if (burgerMenu) burgerMenu.classList.add('active');
+            header.classList.add('menu-open');
+
+            setTimeout(() => {
+                navMenu.classList.add('active');
+            }, 200);
+        } else {
+            // Close menu
+            if (burgerMenu) burgerMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+            header.classList.remove('menu-open');
+        }
+    }
+
+    // Burger menu toggle (for desktop/tablet)
     if (burgerMenu && navMenu) {
         burgerMenu.addEventListener('click', function () {
-            const isActive = this.classList.contains('active');
-
-            if (!isActive) {
-                // Open menu with logo animation first
-                this.classList.add('active');
-                header.classList.add('menu-open');
-
-                // Slight delay for logo animation to start first
-                setTimeout(() => {
-                    navMenu.classList.add('active');
-                }, 200);
-            } else {
-                // Close menu immediately
-                this.classList.remove('active');
-                navMenu.classList.remove('active');
-                header.classList.remove('menu-open');
-            }
+            toggleMenu();
         });
+    }
 
-        // Navigation button handlers with smooth transition
+    // Logo click handler for mobile (<=768px)
+    if (headerLogo && navMenu) {
+        headerLogo.addEventListener('click', function (e) {
+            // Only on mobile screens
+            if (window.innerWidth <= 768) {
+                e.preventDefault(); // Prevent navigation to home
+                toggleMenu();
+            }
+            // On desktop, allow normal link behavior (go to home)
+        });
+    }
+
+    // Navigation button handlers with smooth transition
+    if (navMenu) {
         document.querySelectorAll('.nav-btn').forEach(btn => {
             btn.addEventListener('click', function () {
                 const link = this.getAttribute('data-link');
@@ -60,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     // Close menu with animation
                     setTimeout(() => {
-                        burgerMenu.classList.remove('active');
+                        if (burgerMenu) burgerMenu.classList.remove('active');
                         navMenu.classList.remove('active');
                         header.classList.remove('menu-open');
                         navMenu.style.opacity = '1';

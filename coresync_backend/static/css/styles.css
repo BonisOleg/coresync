@@ -562,7 +562,7 @@ body {
     .nav-menu {
         display: none
     }
-    
+
     .nav-menu.active {
         display: flex;
         position: fixed;
@@ -580,14 +580,14 @@ body {
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
     }
-    
+
     .nav-left,
     .nav-right {
         flex-direction: column;
         width: 100%;
         gap: 0;
     }
-    
+
     .nav-btn {
         width: 100%;
         justify-content: center;
@@ -598,7 +598,7 @@ body {
         min-height: 56px;
         font-size: 1rem;
     }
-    
+
     .nav-btn:active {
         background: rgba(255, 255, 255, 0.1);
     }
@@ -634,11 +634,21 @@ body {
         padding: 0 1rem
     }
 
+    /* Hide burger menu on mobile - logo becomes the menu trigger */
     .burger-menu {
-        right: 1rem;
-        padding: 12px;
-        background: rgba(245, 245, 220, 0.05);
-        border-radius: 4px;
+        display: none;
+    }
+
+    /* Make logo clickable and add visual feedback */
+    .header-logo {
+        cursor: pointer;
+        z-index: 1001;
+        position: relative;
+        transition: transform 0.3s ease;
+    }
+
+    .header-logo:active {
+        transform: scale(0.95);
     }
 
     .burger-line {
