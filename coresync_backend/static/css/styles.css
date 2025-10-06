@@ -671,7 +671,7 @@ body {
 
 @media(max-width:768px) {
     .container {
-        padding: 0 1rem
+        padding: 0 0rem
     }
 
     /* Hide burger menu on mobile - logo becomes the menu trigger */
