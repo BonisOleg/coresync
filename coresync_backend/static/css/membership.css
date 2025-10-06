@@ -251,6 +251,27 @@
     text-align: center;
     margin-top: 6.5rem;
     margin-bottom: 4rem;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.membership-hero .private-hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.7);
+    z-index: 1;
+}
+
+.membership-hero-overlay {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 2rem;
 }
 
 .membership-hero-title {
@@ -716,10 +737,21 @@
         min-height: 300px;
         margin-top: 5.5rem;
         margin-bottom: 2rem;
+        overflow: hidden;
     }
 
     .membership-hero-overlay {
-        padding: 0 1rem;
+        padding: 1rem;
+        max-width: 100%;
+    }
+
+    .membership-hero-title {
+        font-size: 2rem;
+        letter-spacing: 0.2em;
+    }
+
+    .membership-hero-subtitle {
+        font-size: 1rem;
     }
 
     .membership-section {
@@ -739,11 +771,6 @@
 
     .membership-card {
         padding: 2rem 1.5rem;
-    }
-
-    .membership-hero-title {
-        font-size: 2rem;
-        letter-spacing: 0.2em;
     }
 
     .membership-preview-title {
@@ -792,16 +819,25 @@
         height: 35vh;
         min-height: 250px;
         margin-top: 5rem;
+        overflow: hidden;
+    }
+
+    .membership-hero-overlay {
+        padding: 0.5rem;
+    }
+
+    .membership-hero-title {
+        font-size: 1.6rem;
+        letter-spacing: 0.1em;
+    }
+
+    .membership-hero-subtitle {
+        font-size: 0.9rem;
     }
 
     .membership-title {
         font-size: 1.5rem;
         letter-spacing: 0.2em;
-    }
-
-    .membership-hero-title {
-        font-size: 1.8rem;
-        letter-spacing: 0.1em;
     }
 
     .membership-preview-title {
