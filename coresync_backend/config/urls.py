@@ -49,11 +49,12 @@ urlpatterns = [
     path('signup/', TemplateView.as_view(template_name='auth/signup.html'), name='signup'),
     path('password-reset/', TemplateView.as_view(template_name='auth/password_reset.html'), name='password_reset'),
     
-    # Dashboard pages (protected)
+    # Dashboard pages (open for demo, add login_required later)
     path('dashboard/', TemplateView.as_view(template_name='dashboard/overview.html'), name='dashboard_overview'),
     path('dashboard/bookings/', TemplateView.as_view(template_name='dashboard/bookings.html'), name='dashboard_bookings'),
     path('dashboard/membership/', TemplateView.as_view(template_name='dashboard/membership.html'), name='dashboard_membership'),
     path('dashboard/profile/', TemplateView.as_view(template_name='dashboard/profile.html'), name='dashboard_profile'),
+    path('logout/', TemplateView.as_view(template_name='dashboard/logout.html'), name='logout'),
     
     # Admin panel (PRESERVED!)
     path('admin/', admin.site.urls),

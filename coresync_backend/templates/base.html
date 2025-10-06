@@ -28,6 +28,11 @@
                 <div class="nav-left">
                     <button class="nav-btn" data-link="{% url 'membership' %}">Membership</button>
                     <button class="nav-btn" data-link="{% url 'contacts' %}">Contacts</button>
+                    {% if user.is_authenticated %}
+                    <button class="nav-btn" data-link="/dashboard/">Dashboard</button>
+                    {% else %}
+                    <button class="nav-btn" data-link="/login/">Login</button>
+                    {% endif %}
                 </div>
                 <div class="nav-right">
                     <button class="nav-btn" data-link="{% url 'menssuite' %}">Mensuite</button>
