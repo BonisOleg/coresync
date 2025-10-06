@@ -29,9 +29,10 @@
                     <button class="nav-btn" data-link="{% url 'membership' %}">Membership</button>
                     <button class="nav-btn" data-link="{% url 'contacts' %}">Contacts</button>
                     {% if user.is_authenticated %}
-                    <button class="nav-btn" data-link="/dashboard/">Dashboard</button>
+                    <button class="nav-btn" data-link="/dashboard/">My Account</button>
                     {% else %}
-                    <button class="nav-btn" data-link="/login/">Login</button>
+                    <button class="nav-btn" data-link="/signup/">Sign Up</button>
+                    <button class="nav-btn" data-link="/login/">Sign In</button>
                     {% endif %}
                 </div>
                 <div class="nav-right">
