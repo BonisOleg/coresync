@@ -1,0 +1,85 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block dashboard_content %}
+<section class="privacy-section" style="padding-top: 0;">
+    <div class="container">
+        <h2 class="privacy-title">My Membership</h2>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <div class="membership-card membership-card--featured">
+                <h3 class="membership-card-title" style="margin-bottom: 2rem;">
+                    {{ membership.plan.name|default:"Premium Tier" }}
+                </h3>
+
+                <div class="membership-price">
+                    ${{ membership.plan.price|default:"700" }}<span
+                        style="font-size: 1rem; font-weight: normal; color: rgba(255,255,255,0.7);">/month</span>
+                </div>
+
+                <div style="margin: 2rem 0;">
+                    <div
+                        style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-family: 'Maison_Neue_Book', sans-serif;">
+                        <span style="color: rgba(255,255,255,0.7);">Member Since:</span>
+                        <span style="color: #F5F5DC; font-family: 'Maison_Neue_Mono', monospace;">{{
+                            membership.start_date|default:"Jan 1, 2025" }}</span>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-family: 'Maison_Neue_Book', sans-serif;">
+                        <span style="color: rgba(255,255,255,0.7);">Renewal Date:</span>
+                        <span style="color: #F5F5DC; font-family: 'Maison_Neue_Mono', monospace;">{{
+                            membership.end_date|default:"Dec 31, 2025" }}</span>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; padding: 1rem 0; font-family: 'Maison_Neue_Book', sans-serif;">
+                        <span style="color: rgba(255,255,255,0.7);">Days Remaining:</span>
+                        <span style="color: #F5F5DC; font-family: 'Maison_Neue_Bold', sans-serif; font-size: 1.2rem;">{{
+                            membership.days_remaining|default:"90" }}</span>
+                    </div>
+                </div>
+
+                <div class="membership-benefits">
+                    <li>Priority booking (2-3 months advance)</li>
+                    <li>{{ membership.plan.discount_percentage|default:"35" }}% discount on all services</li>
+                    <li>Free AI Massage Bed sessions</li>
+                    <li>Birthday month perks</li>
+                    <li>VIP customer support</li>
+                </div>
+
+                <button class="membership-cta-btn"
+                    style="margin-top: 2rem; background: #F5F5DC; color: #000; border-color: #F5F5DC;"
+                    onclick="window.location.href='/membership/'">
+                    View All Plans
+                </button>
+            </div>
+
+            <div class="membership-card" style="margin-top: 2rem;">
+                <h3 class="membership-card-title" style="margin-bottom: 1.5rem;">
+                    Usage This Month
+                </h3>
+
+                <div style="margin-bottom: 2rem;">
+                    <div
+                        style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Maison_Neue_Book', sans-serif; color: rgba(255,255,255,0.7);">
+                        <span>Services Used:</span>
+                        <span style="color: #F5F5DC;">{{ membership.services_used_this_month|default:"2" }} /
+                            Unlimited</span>
+                    </div>
+                    <div style="height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+                        <div style="height: 100%; width: 20%; background: #F5F5DC; transition: width 0.3s ease;"></div>
+                    </div>
+                </div>
+
+                <div
+                    style="text-align: center; color: rgba(255,255,255,0.6); font-family: 'Maison_Neue_Book', sans-serif; font-size: 0.9rem;">
+                    <p>Monthly savings: <span style="color: #F5F5DC; font-weight: bold;">$245</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

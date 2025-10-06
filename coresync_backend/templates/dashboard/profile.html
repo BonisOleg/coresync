@@ -1,0 +1,94 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block dashboard_content %}
+<section class="privacy-section" style="padding-top: 0;">
+    <div class="container">
+        <h2 class="privacy-title">Profile & Settings</h2>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="membership-card">
+                <h3 class="membership-card-title" style="margin-bottom: 2rem;">
+                    Personal Information
+                </h3>
+
+                <form id="profile-form">
+                    {% csrf_token %}
+
+                    <div style="display: flex; gap: 1rem;">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">First Name</label>
+                            <input type="text" name="first_name" class="form-input" value="{{ user.first_name }}"
+                                style="font-size: 16px;">
+                        </div>
+
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" name="last_name" class="form-input" value="{{ user.last_name }}"
+                                style="font-size: 16px;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-input" value="{{ user.email }}"
+                            style="font-size: 16px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Phone</label>
+                        <input type="tel" name="phone" class="form-input" value="{{ user.phone }}"
+                            style="font-size: 16px;">
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <button type="submit" class="membership-cta-btn"
+                            style="flex: 1; background: #F5F5DC; color: #000; border-color: #F5F5DC;">
+                            Save Changes
+                        </button>
+                        <button type="reset" class="membership-cta-btn btn-secondary" style="flex: 1;">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="membership-card" style="margin-top: 2rem;">
+                <h3 class="membership-card-title" style="margin-bottom: 2rem;">
+                    Change Password
+                </h3>
+
+                <form id="password-form">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label class="form-label">Current Password</label>
+                        <input type="password" name="current_password" class="form-input" required
+                            style="font-size: 16px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">New Password</label>
+                        <input type="password" name="new_password" class="form-input" required style="font-size: 16px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Confirm New Password</label>
+                        <input type="password" name="confirm_password" class="form-input" required
+                            style="font-size: 16px;">
+                    </div>
+
+                    <button type="submit" class="membership-cta-btn"
+                        style="width: 100%; background: #F5F5DC; color: #000; border-color: #F5F5DC;">
+                        Update Password
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

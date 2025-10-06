@@ -36,6 +36,25 @@ urlpatterns = [
     path('contacts/', TemplateView.as_view(template_name='contacts.html'), name='contacts'),
     path('book/', TemplateView.as_view(template_name='booking_calendar.html'), name='booking_calendar'),
     
+    # Services pages
+    path('services/', TemplateView.as_view(template_name='services/list.html'), name='services_list'),
+    path('services/<slug:slug>/', TemplateView.as_view(template_name='services/detail.html'), name='service_detail'),
+    
+    # Content pages
+    path('about/', TemplateView.as_view(template_name='pages/about.html'), name='about'),
+    path('technologies/', TemplateView.as_view(template_name='pages/technologies.html'), name='technologies'),
+    
+    # Authentication pages
+    path('login/', TemplateView.as_view(template_name='auth/login.html'), name='login'),
+    path('signup/', TemplateView.as_view(template_name='auth/signup.html'), name='signup'),
+    path('password-reset/', TemplateView.as_view(template_name='auth/password_reset.html'), name='password_reset'),
+    
+    # Dashboard pages (protected)
+    path('dashboard/', TemplateView.as_view(template_name='dashboard/overview.html'), name='dashboard_overview'),
+    path('dashboard/bookings/', TemplateView.as_view(template_name='dashboard/bookings.html'), name='dashboard_bookings'),
+    path('dashboard/membership/', TemplateView.as_view(template_name='dashboard/membership.html'), name='dashboard_membership'),
+    path('dashboard/profile/', TemplateView.as_view(template_name='dashboard/profile.html'), name='dashboard_profile'),
+    
     # Admin panel (PRESERVED!)
     path('admin/', admin.site.urls),
     
@@ -48,7 +67,7 @@ urlpatterns = [
     path('', include('services.urls')),      # Services API
     path('', include('memberships.urls')),   # Memberships API  
     path('', include('users.urls')),         # Users API
-    # path('', include('services.booking_urls')),  # Booking Calendar API - DISABLED FOR INITIAL DEPLOY
+    path('', include('services.booking_urls')),  # Booking Calendar API - ENABLED!
     # path('', include('payments.urls')),      # Payments & QuickBooks API - DISABLED FOR INITIAL DEPLOY
 ]
 

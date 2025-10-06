@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/membership.css' %}">
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <aside class="dashboard-sidebar">
+        <nav class="dashboard-nav">
+            <a href="/dashboard/" class="dashboard-nav-item {% if request.path == '/dashboard/' %}active{% endif %}">
+                <span class="dashboard-nav-icon">📊</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="/dashboard/bookings/"
+                class="dashboard-nav-item {% if 'bookings' in request.path %}active{% endif %}">
+                <span class="dashboard-nav-icon">📅</span>
+                <span>My Bookings</span>
+            </a>
+            <a href="/dashboard/membership/"
+                class="dashboard-nav-item {% if 'membership' in request.path %}active{% endif %}">
+                <span class="dashboard-nav-icon">💎</span>
+                <span>Membership</span>
+            </a>
+            <a href="/dashboard/profile/"
+                class="dashboard-nav-item {% if 'profile' in request.path %}active{% endif %}">
+                <span class="dashboard-nav-icon">👤</span>
+                <span>Profile</span>
+            </a>
+            <a href="/logout/" class="dashboard-nav-item">
+                <span class="dashboard-nav-icon">🚪</span>
+                <span>Logout</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="dashboard-main">
+        {% block dashboard_content %}{% endblock %}
+    </main>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}

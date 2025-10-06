@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/membership.css' %}">
+<link rel="stylesheet" href="{% static 'css/private.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="membership-hero">
+    <img src="{% static 'images/Hiro_converted.png' %}" alt="About CoreSync" class="private-hero-image">
+    <div class="membership-hero-overlay">
+        <h1 class="membership-hero-title">ABOUT CORESYNC</h1>
+        <p class="membership-hero-subtitle">The Future of Wellness Experiences</p>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <h2 class="privacy-title">OUR STORY</h2>
+
+        <div class="privacy-content-new">
+            <div class="privacy-left-block">
+                CoreSync represents the next evolution in wellness experiences. We blend cutting-edge technology
+                with traditional spa therapy to create truly transformative moments. Our mission is to provide a
+                sanctuary where innovation meets relaxation, where every detail is designed for your ultimate comfort.
+            </div>
+
+            <div class="privacy-right-block">
+                <div class="privacy-item-line">Founded in 2024</div>
+                <div class="privacy-item-line">Brooklyn, NY</div>
+                <div class="privacy-item-line">AI-Powered Wellness</div>
+                <div class="privacy-item">Premium Experience</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <h3 class="privacy-title" style="font-size: 1.8rem;">OUR VISION</h3>
+
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <p
+                style="font-family: 'Maison_Neue_Book', sans-serif; font-size: 1.2rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 2rem;">
+                To revolutionize the wellness industry by seamlessly integrating advanced technology with
+                personalized care, creating spaces where every member feels valued, understood, and transformed.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <h3 class="privacy-title" style="font-size: 1.8rem;">CORE VALUES</h3>
+
+        <div class="membership-cards-grid">
+            <div class="membership-card">
+                <h4 class="membership-card-title" style="font-size: 1rem;">
+                    Innovation
+                </h4>
+                <p style="color: rgba(255,255,255,0.7); font-family: 'Maison_Neue_Book', sans-serif; line-height: 1.6;">
+                    Embracing cutting-edge technology to enhance traditional wellness practices
+                </p>
+            </div>
+
+            <div class="membership-card">
+                <h4 class="membership-card-title" style="font-size: 1rem;">
+                    Excellence
+                </h4>
+                <p style="color: rgba(255,255,255,0.7); font-family: 'Maison_Neue_Book', sans-serif; line-height: 1.6;">
+                    Delivering premium experiences through attention to every detail
+                </p>
+            </div>
+
+            <div class="membership-card">
+                <h4 class="membership-card-title" style="font-size: 1rem;">
+                    Personalization
+                </h4>
+                <p style="color: rgba(255,255,255,0.7); font-family: 'Maison_Neue_Book', sans-serif; line-height: 1.6;">
+                    Tailoring each experience to your unique preferences and needs
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <h3 class="privacy-title" style="font-size: 1.8rem;">JOIN OUR TEAM</h3>
+
+        <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+            <p
+                style="font-family: 'Maison_Neue_Book', sans-serif; font-size: 1.1rem; color: rgba(255,255,255,0.7); margin-bottom: 2rem; line-height: 1.6;">
+                We're always looking for talented individuals who share our passion for wellness and innovation.
+            </p>
+            <a href="/contacts/" class="membership-cta-btn"
+                style="display: inline-block; width: auto; padding: 1.2rem 3rem; background: #F5F5DC; color: #000; border-color: #F5F5DC;">
+                Contact Us
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

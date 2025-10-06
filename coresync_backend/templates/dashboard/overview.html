@@ -1,0 +1,64 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block dashboard_content %}
+<section class="privacy-section" style="padding-top: 0;">
+    <div class="container">
+        <h2 class="privacy-title">Welcome back, {{ user.first_name|default:"Member" }}! 👋</h2>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <div class="membership-cards-grid">
+            <div class="membership-card" style="text-align: center; padding: 2rem;">
+                <div class="stats-value" id="services-count">-</div>
+                <div class="stats-label">Services This Month</div>
+            </div>
+
+            <div class="membership-card" style="text-align: center; padding: 2rem;">
+                <div class="stats-value" id="total-spent">$-</div>
+                <div class="stats-label">Total Spent</div>
+            </div>
+
+            <div class="membership-card" style="text-align: center; padding: 2rem;">
+                <div class="stats-value" id="days-remaining">-</div>
+                <div class="stats-label">Membership Days</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <h3 class="membership-title" style="font-size: 1.5rem; margin-bottom: 2rem;">
+            Next Appointment
+        </h3>
+        <div id="next-appointment-container"></div>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <h3 class="membership-title" style="font-size: 1.5rem; margin-bottom: 2rem;">
+            🤖 AI Recommendations
+        </h3>
+        <div id="recommendations-container" class="membership-cards-grid"></div>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <h3 class="membership-title" style="font-size: 1.5rem; margin-bottom: 2rem;">
+            📅 Recent Services
+        </h3>
+        <div id="bookings-preview-container" class="membership-cards-grid"></div>
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="/dashboard/bookings/" class="membership-cta-btn"
+                style="display: inline-block; width: auto; padding: 1rem 3rem;">
+                View All Bookings
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

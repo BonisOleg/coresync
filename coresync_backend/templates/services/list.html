@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/membership.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="membership-hero">
+    <img src="{% static 'images/Hiro_converted.png' %}" alt="Services" class="private-hero-image">
+    <div class="membership-hero-overlay">
+        <h1 class="membership-hero-title">OUR SERVICES</h1>
+        <p class="membership-hero-subtitle">Premium Wellness Experiences</p>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <h2 class="privacy-title">MENSUITE SERVICES</h2>
+
+        <div class="membership-cards-grid">
+            <div class="membership-card">
+                <h3 class="membership-card-title">Swedish Massage</h3>
+                <div class="membership-price" style="font-size: 1.8rem;">$180<span
+                        style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">/60 min</span></div>
+                <div class="membership-discount">30% OFF Members</div>
+                <ul class="membership-benefits" style="margin: 1.5rem 0;">
+                    <li>Relaxation therapy</li>
+                    <li>Stress relief</li>
+                    <li>Member price: $126</li>
+                </ul>
+                <a href="/book/" class="membership-cta-btn"
+                    style="background: #F5F5DC; color: #000; border-color: #F5F5DC;">
+                    Book Now
+                </a>
+            </div>
+
+            <div class="membership-card">
+                <h3 class="membership-card-title">Deep Tissue Massage</h3>
+                <div class="membership-price" style="font-size: 1.8rem;">$240<span
+                        style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">/50 min</span></div>
+                <div class="membership-discount">30% OFF Members</div>
+                <ul class="membership-benefits" style="margin: 1.5rem 0;">
+                    <li>Muscle tension relief</li>
+                    <li>Sports recovery</li>
+                    <li>Member price: $168</li>
+                </ul>
+                <a href="/book/" class="membership-cta-btn"
+                    style="background: #F5F5DC; color: #000; border-color: #F5F5DC;">
+                    Book Now
+                </a>
+            </div>
+
+            <div class="membership-card">
+                <h3 class="membership-card-title">Sports Massage</h3>
+                <div class="membership-price" style="font-size: 1.8rem;">$290<span
+                        style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">/80 min</span></div>
+                <div class="membership-discount">30% OFF Members</div>
+                <ul class="membership-benefits" style="margin: 1.5rem 0;">
+                    <li>Athletic performance</li>
+                    <li>Injury prevention</li>
+                    <li>Member price: $203</li>
+                </ul>
+                <a href="/book/" class="membership-cta-btn"
+                    style="background: #F5F5DC; color: #000; border-color: #F5F5DC;">
+                    Book Now
+                </a>
+            </div>
+
+            <div class="membership-card">
+                <h3 class="membership-card-title">Reflexology</h3>
+                <div class="membership-price" style="font-size: 1.8rem;">$115<span
+                        style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">/30 min</span></div>
+                <div class="membership-discount">30% OFF Members</div>
+                <ul class="membership-benefits" style="margin: 1.5rem 0;">
+                    <li>Foot & hand therapy</li>
+                    <li>Pressure point healing</li>
+                    <li>Member price: $80</li>
+                </ul>
+                <a href="/book/" class="membership-cta-btn"
+                    style="background: #F5F5DC; color: #000; border-color: #F5F5DC;">
+                    Book Now
+                </a>
+            </div>
+
+            <div class="membership-card">
+                <h3 class="membership-card-title">Relaxation Massage</h3>
+                <div class="membership-price" style="font-size: 1.8rem;">$120<span
+                        style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">/50 min</span></div>
+                <div class="membership-discount">30% OFF Members</div>
+                <ul class="membership-benefits" style="margin: 1.5rem 0;">
+                    <li>Full body relaxation</li>
+                    <li>Stress reduction</li>
+                    <li>Member price: $84</li>
+                </ul>
+                <a href="/book/" class="membership-cta-btn"
+                    style="background: #F5F5DC; color: #000; border-color: #F5F5DC;">
+                    Book Now
+                </a>
+            </div>
+
+            <div class="membership-card membership-card--featured">
+                <h3 class="membership-card-title">AI Massage Bed</h3>
+                <div class="membership-price" style="font-size: 1.8rem;">$150<span
+                        style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">/60 min</span></div>
+                <div class="membership-discount">Premium Members FREE</div>
+                <ul class="membership-benefits" style="margin: 1.5rem 0;">
+                    <li>AI-guided therapy</li>
+                    <li>Personalized programs</li>
+                    <li>Deep relaxation</li>
+                    <li>Athletic recovery</li>
+                </ul>
+                <a href="/book/" class="membership-cta-btn">
+                    Book Now
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <p
+                style="font-family: 'Maison_Neue_Book', sans-serif; font-size: 1.1rem; color: rgba(255,255,255,0.7); margin-bottom: 2rem; line-height: 1.6;">
+                Become a member today and save up to 40% on all services
+            </p>
+            <a href="/membership/" class="membership-cta-btn"
+                style="display: inline-block; width: auto; padding: 1.2rem 3rem; background: #F5F5DC; color: #000; border-color: #F5F5DC;">
+                View Membership Plans
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

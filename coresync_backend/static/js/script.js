@@ -1,10 +1,13 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const serviceCards = document.querySelectorAll('.service-card'),
-        burgerMenu = document.getElementById('burger-menu'),
-        navMenu = document.getElementById('nav-menu'),
-        header = document.querySelector('.header'),
-        heroImage = document.querySelector('.hero-image'),
-        footerBtn = document.querySelector('.footer-btn');
+// ===================================
+// NAVIGATION & UI INTERACTION
+// ===================================
+
+document.addEventListener('DOMContentLoaded', function () {
+    const burgerMenu = document.getElementById('burger-menu');
+    const navMenu = document.getElementById('nav-menu');
+    const header = document.querySelector('.header');
+    const footerBtn = document.querySelector('.footer-btn');
+    const heroImage = document.querySelector('.hero-image');
 
     document.querySelectorAll('.service-btn').forEach(btn => btn.addEventListener('click', function () {
         this.style.transform = 'scale(0.98)';
@@ -18,52 +21,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (heroImage) window.addEventListener('scroll', () => heroImage.style.transform = `translateY(${pageYOffset * -.5}px)`);
 
-    serviceCards.forEach(card => {
-        card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-8px)');
-        card.addEventListener('mouseleave', () => card.style.transform = 'translateY(0)');
+    document.querySelectorAll('.service-card').forEach(card => {
         card.addEventListener('click', function () {
             const link = this.getAttribute('data-link');
-            if (link) {
-                this.style.opacity = '.7';
-                location.href = link;
-            }
+            if (link) window.location.href = link;
         });
     });
 
+    // Burger menu toggle with smooth animation
     if (burgerMenu && navMenu) {
-        burgerMenu.addEventListener('click', () => {
-            // Only activate navigation on desktop
-            if (window.innerWidth <= 1024) {
-                burgerMenu.classList.toggle('active');
-                return;
-            }
+        burgerMenu.addEventListener('click', function () {
+            const isActive = this.classList.contains('active');
 
-            const isMenuOpen = burgerMenu.classList.contains('active');
-
-            if (isMenuOpen) {
-                // Close menu
-                burgerMenu.classList.remove('active');
-                navMenu.classList.remove('active');
-                header.classList.remove('menu-open');
-            } else {
-                // Open menu
-                burgerMenu.classList.add('active');
+            if (!isActive) {
+                // Open menu with logo animation first
+                this.classList.add('active');
                 header.classList.add('menu-open');
 
                 // Slight delay for logo animation to start first
                 setTimeout(() => {
                     navMenu.classList.add('active');
                 }, 200);
+            } else {
+                // Close menu immediately
+                this.classList.remove('active');
+                navMenu.classList.remove('active');
+                header.classList.remove('menu-open');
             }
         });
 
-        // Navigation buttons functionality
+        // Navigation button handlers with smooth transition
         document.querySelectorAll('.nav-btn').forEach(btn => {
             btn.addEventListener('click', function () {
                 const link = this.getAttribute('data-link');
                 if (link) {
-                    // Add gentle fade out animation
-                    navMenu.style.transition = 'opacity 0.8s ease';
+                    // Fade out menu
                     navMenu.style.opacity = '0';
 
                     // Close menu with animation
@@ -71,8 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         burgerMenu.classList.remove('active');
                         navMenu.classList.remove('active');
                         header.classList.remove('menu-open');
-                        navMenu.style.transition = '';
-                        navMenu.style.opacity = '';
+                        navMenu.style.opacity = '1';
                     }, 400);
 
                     // Navigate after animation
@@ -84,12 +75,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (header) window.addEventListener('scroll', () => header.style.background = scrollY > 100 ? 'rgba(0,0,0,.95)' : 'rgba(0,0,0,.9)');
-
-    document.querySelectorAll('img').forEach(img => img.addEventListener('error', () => console.warn('Image failed to load:', img.src)));
-
-    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-        document.body.style.cursor = 'pointer';
+    // iOS viewport height fix for dynamic vh units
+    if (typeof CSS !== 'undefined' && CSS.supports('height', '100dvh')) {
+        document.documentElement.style.setProperty('--vh', '1dvh');
+    } else {
         const fix = () => document.documentElement.style.setProperty('--vh', `${innerHeight * .01}px`);
         fix();
         addEventListener('resize', fix);
@@ -178,7 +167,7 @@ class CoreSyncBookingCalendar {
                     </div>
                     
                     <div class="booking-actions">
-                        <button id="check-availability-btn" class="check-btn">CHECK</button>
+                        <button id="check-availability-btn" class="check-btn">CHECK AVAILABILITY</button>
                     </div>
                 </div>
             </div>
@@ -246,17 +235,18 @@ class CoreSyncBookingCalendar {
 
         const days = [];
         const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-        // Generate 6 weeks (42 days)
         for (let i = 0; i < 42; i++) {
             const currentDate = new Date(startDate);
             currentDate.setDate(startDate.getDate() + i);
 
             const isCurrentMonth = currentDate.getMonth() === month;
-            const isToday = currentDate.toDateString() === today.toDateString();
-            const canBook = this.canBookDate(currentDate, userPrivileges);
+            const dateStr = currentDate.toISOString().split('T')[0];
+            const canBook = this.canUserBookDate(currentDate, userPrivileges);
             const isPriorityPeriod = this.isPriorityPeriod(currentDate);
-            const isSelected = this.bookingData.date === currentDate.toISOString().split('T')[0];
+            const isToday = currentDate.getTime() === today.getTime();
+            const isSelected = this.selectedDates.includes(dateStr);
 
             let dayClass = 'calendar-day';
             if (!isCurrentMonth) dayClass += ' other-month';
@@ -267,9 +257,7 @@ class CoreSyncBookingCalendar {
             if (isSelected) dayClass += ' selected';
 
             days.push(`
-                <div class="${dayClass}" 
-                     data-date="${currentDate.toISOString().split('T')[0]}"
-                     ${canBook && isCurrentMonth ? 'tabindex="0"' : ''}>
+                <div class="${dayClass}" data-date="${dateStr}">
                     ${currentDate.getDate()}
                 </div>
             `);
@@ -279,28 +267,24 @@ class CoreSyncBookingCalendar {
     }
 
     renderProgressiveOptions() {
-        if (!this.bookingData.date || !this.bookingData.time) {
-            return '<div class="no-selection">Select date and time to see more options</div>';
+        // ВИПРАВЛЕНО: Показуємо повідомлення тільки якщо немає дати
+        if (!this.bookingData.date) {
+            return '<div class="no-selection">📅 Please select a date from the calendar to see available time slots</div>';
         }
 
         const options = [];
 
-        // Step 1: Time slots (after date selection)
+        // Step 1: Time slots (показується одразу після вибору дати)
         if (this.bookingData.date && !this.bookingData.time) {
+            const availableSlots = this.getAvailableTimeSlots();
             options.push(`
                 <div class="option-group progressive-option" data-step="1">
-                    <label class="option-label">AVAILABLE TIME SLOTS</label>
+                    <label class="option-label">⏰ AVAILABLE TIME SLOTS</label>
                     <select id="time-slot" class="booking-dropdown">
                         <option value="">Select time</option>
-                        <option value="09:00">9:00 AM</option>
-                        <option value="10:00">10:00 AM</option>
-                        <option value="11:00">11:00 AM</option>
-                        <option value="12:00">12:00 PM</option>
-                        <option value="14:00">2:00 PM</option>
-                        <option value="15:00">3:00 PM</option>
-                        <option value="16:00">4:00 PM</option>
-                        <option value="17:00">5:00 PM</option>
+                        ${availableSlots.map(slot => `<option value="${slot.value}">${slot.label}</option>`).join('')}
                     </select>
+                    <p class="option-hint">Selected: ${this.formatDate(this.bookingData.date)}</p>
                 </div>
             `);
         }
@@ -309,7 +293,7 @@ class CoreSyncBookingCalendar {
         if (this.bookingData.date && this.bookingData.time && !this.bookingData.technician) {
             options.push(`
                 <div class="option-group progressive-option" data-step="2">
-                    <label class="option-label">PREFERRED TECHNICIAN</label>
+                    <label class="option-label">👤 PREFERRED TECHNICIAN</label>
                     <select id="technician-select" class="booking-dropdown">
                         <option value="">Choose your technician</option>
                         <option value="sarah">Sarah Johnson - Facial & Skincare Specialist</option>
@@ -326,7 +310,7 @@ class CoreSyncBookingCalendar {
         if (this.bookingData.technician && !this.bookingData.timePreference) {
             options.push(`
                 <div class="option-group progressive-option" data-step="3">
-                    <label class="option-label">TIME PREFERENCE</label>
+                    <label class="option-label">🕐 SESSION PREFERENCE</label>
                     <select id="time-preference" class="booking-dropdown">
                         <option value="">Select preference</option>
                         <option value="morning">Morning Session (Energizing)</option>
@@ -342,7 +326,7 @@ class CoreSyncBookingCalendar {
         if (this.bookingData.timePreference && !this.bookingData.massageType) {
             options.push(`
                 <div class="option-group progressive-option" data-step="4">
-                    <label class="option-label">TYPE OF MASSAGE</label>
+                    <label class="option-label">💆 TYPE OF MASSAGE</label>
                     <select id="massage-type" class="booking-dropdown">
                         <option value="">Choose massage type</option>
                         <option value="swedish">Swedish Massage - Classic Relaxation</option>
@@ -377,20 +361,19 @@ class CoreSyncBookingCalendar {
                             <select id="temperature" class="booking-dropdown">
                                 <option value="">Select temperature</option>
                                 <option value="cool">Cool (68-70°F)</option>
-                                <option value="moderate">Moderate (72-74°F)</option>
-                                <option value="warm">Warm (76-78°F)</option>
+                                <option value="moderate">Moderate (71-73°F)</option>
+                                <option value="warm">Warm (74-76°F)</option>
                             </select>
                         </div>
                         
                         <div class="option-group">
                             <label class="option-label">MUSIC PREFERENCE</label>
-                            <select id="music-preference" class="booking-dropdown">
+                            <select id="music" class="booking-dropdown">
                                 <option value="">Select music</option>
                                 <option value="nature">Nature Sounds</option>
                                 <option value="classical">Classical Music</option>
-                                <option value="ambient">Ambient/Electronic</option>
-                                <option value="meditation">Meditation Music</option>
-                                <option value="silence">Peaceful Silence</option>
+                                <option value="ambient">Ambient/Meditation</option>
+                                <option value="silence">Silence/No Music</option>
                             </select>
                         </div>
                         
@@ -398,10 +381,9 @@ class CoreSyncBookingCalendar {
                             <label class="option-label">AROMATHERAPY</label>
                             <select id="aromatherapy" class="booking-dropdown">
                                 <option value="">Select scent</option>
-                                <option value="lavender">Lavender - Relaxation</option>
-                                <option value="eucalyptus">Eucalyptus - Energizing</option>
-                                <option value="peppermint">Peppermint - Refreshing</option>
-                                <option value="chamomile">Chamomile - Soothing</option>
+                                <option value="lavender">Lavender (Calming)</option>
+                                <option value="eucalyptus">Eucalyptus (Refreshing)</option>
+                                <option value="peppermint">Peppermint (Energizing)</option>
                                 <option value="none">No Aromatherapy</option>
                             </select>
                         </div>
@@ -410,14 +392,40 @@ class CoreSyncBookingCalendar {
             `);
         }
 
-        return options.join('');
+        return options.join('') || '<div class="no-selection">Complete selections to continue</div>';
     }
 
-    // This method is now integrated into renderCalendar() - removing to avoid duplication
+    // Генерація доступних слотів часу
+    getAvailableTimeSlots() {
+        const slots = [
+            { value: '09:00', label: '9:00 AM - Morning Start' },
+            { value: '10:00', label: '10:00 AM - Mid Morning' },
+            { value: '11:00', label: '11:00 AM - Late Morning' },
+            { value: '12:00', label: '12:00 PM - Noon' },
+            { value: '13:00', label: '1:00 PM - Early Afternoon' },
+            { value: '14:00', label: '2:00 PM - Afternoon' },
+            { value: '15:00', label: '3:00 PM - Mid Afternoon' },
+            { value: '16:00', label: '4:00 PM - Late Afternoon' },
+            { value: '17:00', label: '5:00 PM - Early Evening' },
+            { value: '18:00', label: '6:00 PM - Evening' },
+        ];
+
+        // TODO: В майбутньому можна додати API запит для перевірки доступності
+        return slots;
+    }
+
+    // Форматування дати
+    formatDate(dateStr) {
+        const date = new Date(dateStr);
+        return date.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    }
 
     getUserPrivileges() {
-        // In real app, this would come from server/auth
-        // For demo, detect from URL params or localStorage
         const urlParams = new URLSearchParams(window.location.search);
         const membershipLevel = urlParams.get('membership') || localStorage.getItem('membershipLevel') || 'none';
 
@@ -457,19 +465,22 @@ class CoreSyncBookingCalendar {
         }
     }
 
-    isPriorityPeriod(date) {
-        // Priority period is anything more than 3 days ahead
+    canUserBookDate(date, userPrivileges) {
         const today = new Date();
-        const daysDiff = Math.ceil((date - today) / (1000 * 60 * 60 * 24));
-        return daysDiff > 3;
-    }
+        today.setHours(0, 0, 0, 0);
 
-    canBookDate(date, userPrivileges) {
-        const today = new Date();
-        const daysDiff = Math.ceil((date - today) / (1000 * 60 * 60 * 24));
+        const targetDate = new Date(date);
+        targetDate.setHours(0, 0, 0, 0);
 
-        // Check max advance days
-        if (daysDiff > userPrivileges.maxAdvanceDays) {
+        // Can't book past dates
+        if (targetDate < today) {
+            return false;
+        }
+
+        const daysInAdvance = Math.floor((targetDate - today) / (1000 * 60 * 60 * 24));
+
+        // Check if within allowed booking window
+        if (daysInAdvance > userPrivileges.maxAdvanceDays) {
             return false;
         }
 
@@ -481,16 +492,21 @@ class CoreSyncBookingCalendar {
         return true;
     }
 
-    // Old step rendering methods removed - now using progressive dropdown system
+    isPriorityPeriod(date) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const targetDate = new Date(date);
+        targetDate.setHours(0, 0, 0, 0);
+        const daysInAdvance = Math.floor((targetDate - today) / (1000 * 60 * 60 * 24));
+
+        // Priority period is 30+ days in advance
+        return daysInAdvance >= 30;
+    }
 
     bindEvents() {
-        // Date selection events
         this.bindDateEvents();
-
-        // Progressive dropdown events
         this.bindProgressiveDropdownEvents();
 
-        // Check availability button
         const checkBtn = document.getElementById('check-availability-btn');
         if (checkBtn) {
             checkBtn.addEventListener('click', () => this.handleBookingSubmission());
@@ -598,20 +614,20 @@ class CoreSyncBookingCalendar {
         // Service preferences
         this.bindProgressiveDropdown('pressure-level', 'servicePreferences.pressure');
         this.bindProgressiveDropdown('temperature', 'servicePreferences.temperature');
-        this.bindProgressiveDropdown('music-preference', 'servicePreferences.music');
+        this.bindProgressiveDropdown('music', 'servicePreferences.music');
         this.bindProgressiveDropdown('aromatherapy', 'servicePreferences.aromatherapy');
     }
 
-    bindProgressiveDropdown(elementId, dataKey) {
+    bindProgressiveDropdown(elementId, dataPath) {
         const element = document.getElementById(elementId);
         if (element) {
             element.addEventListener('change', (e) => {
-                // Handle nested object keys like 'servicePreferences.pressure'
-                if (dataKey.includes('.')) {
-                    const [parent, child] = dataKey.split('.');
+                // Handle nested properties
+                if (dataPath.includes('.')) {
+                    const [parent, child] = dataPath.split('.');
                     this.bookingData[parent][child] = e.target.value;
                 } else {
-                    this.bookingData[dataKey] = e.target.value;
+                    this.bookingData[dataPath] = e.target.value;
                 }
 
                 // Add smooth animation
@@ -630,36 +646,36 @@ class CoreSyncBookingCalendar {
 
     updateProgressiveOptions() {
         const progressiveContainer = document.getElementById('progressive-options');
-        if (progressiveContainer) {
-            // Add fade out animation
-            progressiveContainer.style.opacity = '0.5';
-            progressiveContainer.style.transform = 'translateY(-10px)';
+        if (!progressiveContainer) return;
 
-            setTimeout(() => {
-                progressiveContainer.innerHTML = this.renderProgressiveOptions();
+        // Fade out
+        progressiveContainer.style.opacity = '0.5';
+        progressiveContainer.style.transform = 'translateY(-10px)';
 
-                // Re-bind events for new elements
-                this.bindProgressiveDropdownEvents();
+        setTimeout(() => {
+            progressiveContainer.innerHTML = this.renderProgressiveOptions();
 
-                // Add fade in animation
-                progressiveContainer.style.opacity = '1';
-                progressiveContainer.style.transform = 'translateY(0)';
-            }, 300);
-        }
+            // Re-bind events for new elements
+            this.bindProgressiveDropdownEvents();
+
+            // Fade in
+            progressiveContainer.style.opacity = '1';
+            progressiveContainer.style.transform = 'translateY(0)';
+        }, 300);
     }
 
-    // Old step navigation methods removed - now using progressive dropdown system
+    async handleBookingSubmission() {
+        // Validate data
+        if (!this.validateBookingData()) {
+            return;
+        }
 
-    async submitBooking() {
         // Show loading state
-        const nextBtn = document.getElementById('booking-next-btn');
-        nextBtn.textContent = 'BOOKING...';
-        nextBtn.disabled = true;
+        const checkBtn = document.getElementById('check-availability-btn');
+        checkBtn.disabled = true;
+        checkBtn.textContent = 'CHECKING...';
 
         try {
-            // Get CSRF token
-            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
-
             // Prepare booking data
             const bookingPayload = {
                 service_id: this.getServiceId(this.bookingData.service),
@@ -668,19 +684,18 @@ class CoreSyncBookingCalendar {
                 room_id: 1, // Will be determined by service type
                 technician_preference: this.bookingData.technician,
                 addons: this.bookingData.addons.map(addon => ({
-                    id: this.getAddonId(addon),
+                    addon_id: this.getAddonId(addon),
                     quantity: 1
                 })),
-                special_requests: '',
-                scene_preferences: {}
+                notes: this.generateSpecialRequests()
             };
 
-            // Make API call
+            // Call API
             const response = await fetch('/api/bookings/create/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
                 },
                 body: JSON.stringify(bookingPayload)
             });
@@ -688,25 +703,26 @@ class CoreSyncBookingCalendar {
             const result = await response.json();
 
             if (response.ok) {
-                // Success
-                this.showSuccessMessage(result);
-                this.reset();
+                // Show success
+                this.showSuccessScreen(result);
             } else {
-                // Error
-                this.showErrorMessage(result.error || 'Booking failed');
+                // Show error
+                this.showMessage(result.error || 'Booking failed. Please try again.', 'error');
+                checkBtn.disabled = false;
+                checkBtn.textContent = 'CHECK AVAILABILITY';
             }
+
         } catch (error) {
             console.error('Booking error:', error);
-            this.showErrorMessage('Network error. Please try again.');
-        } finally {
-            nextBtn.textContent = 'BOOK NOW';
-            nextBtn.disabled = false;
+            this.showMessage('An error occurred. Please try again.', 'error');
+            checkBtn.disabled = false;
+            checkBtn.textContent = 'CHECK AVAILABILITY';
         }
     }
 
-    showSuccessMessage(result) {
-        const message = `
-            <div style="background: rgba(0,255,0,0.1); border: 1px solid #00ff00; color: #00ff00; 
+    showSuccessScreen(result) {
+        this.container.innerHTML = `
+            <div class="booking-success" style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
                         padding: 2rem; text-align: center; font-family: 'Maison_Neue_Book', sans-serif;">
                 <h3 style="color: #00ff00; margin-bottom: 1rem;">Booking Confirmed!</h3>
                 <p>Booking Reference: <strong>${result.booking_reference}</strong></p>
@@ -714,39 +730,46 @@ class CoreSyncBookingCalendar {
                 <p>Total: $${result.pricing.final_total}</p>
                 <div style="margin-top: 1.5rem;">
                     <button onclick="window.location.reload()" 
-                            style="background: #00ff00; color: #000; border: none; padding: 1rem 2rem; 
-                                   font-family: 'Maison_Neue_Bold', sans-serif; cursor: pointer;">
-                        BOOK ANOTHER SERVICE
+                        style="background: #F5F5DC; color: #000; border: none; padding: 1rem 2rem; 
+                        border-radius: 4px; cursor: pointer; font-family: 'Maison_Neue_Bold', sans-serif;">
+                        BOOK ANOTHER
                     </button>
                 </div>
             </div>
         `;
-        this.container.innerHTML = message;
     }
 
-    showErrorMessage(error) {
-        alert(`Booking failed: ${error}`);
+    showMessage(message, type = 'info') {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `booking-message ${type}`;
+        messageDiv.textContent = message;
+
+        const container = document.querySelector('.booking-options-container');
+        container.insertBefore(messageDiv, container.firstChild);
+
+        setTimeout(() => {
+            messageDiv.style.opacity = '0';
+            setTimeout(() => messageDiv.remove(), 300);
+        }, 5000);
     }
 
     getServiceId(serviceName) {
-        // Map service names to IDs
         const serviceMap = {
-            'AI Massage Therapy': 1,
-            'Facial Treatment': 2,
-            'Laser Hair Removal': 3,
-            'Deep Tissue Massage': 4,
-            'Relaxation Package': 5
+            'swedish': 1,
+            'deep-tissue': 2,
+            'hot-stone': 3,
+            'ai-massage': 4,
+            'couples': 5,
+            'prenatal': 6
         };
         return serviceMap[serviceName] || 1;
     }
 
     getAddonId(addonName) {
-        // Map addon names to IDs
         const addonMap = {
-            'LED Light Therapy': 1,
-            'Aromatherapy': 2,
-            'Hot Stone Add-on': 3,
-            'Oxygen Treatment': 4
+            'aromatherapy': 1,
+            'hot-stone': 2,
+            'deep-tissue': 3
         };
         return addonMap[addonName] || 1;
     }
@@ -759,27 +782,26 @@ class CoreSyncBookingCalendar {
         return `${hours}:${minutes || '00'}`;
     }
 
-    async handleBookingSubmission() {
-        // Validate required fields
+    validateBookingData() {
         if (!this.bookingData.date) {
             this.showMessage('Please select a date', 'error');
-            return;
+            return false;
         }
 
         if (!this.bookingData.time) {
             this.showMessage('Please select a time slot', 'error');
+            return false;
+        }
+
+        return true;
+    }
+
+    async submitBooking() {
+        if (!this.validateBookingData()) {
             return;
         }
 
-        const checkBtn = document.getElementById('check-availability-btn');
-        checkBtn.textContent = 'PROCESSING...';
-        checkBtn.disabled = true;
-
         try {
-            // Get CSRF token
-            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
-
-            // Prepare comprehensive booking data
             const bookingPayload = {
                 service_id: this.getServiceId(this.bookingData.massageType || 'swedish'),
                 date: this.bookingData.date,
@@ -787,33 +809,30 @@ class CoreSyncBookingCalendar {
                 room_id: 1,
                 technician_preference: this.bookingData.technician || 'any',
                 special_requests: this.generateSpecialRequests(),
-                scene_preferences: this.bookingData.servicePreferences || {},
-                addons: []
+                traveling_persons: this.bookingData.travelingPersons || '1',
+                children: this.bookingData.children || 'none'
             };
 
-            // Make API call
-            const response = await fetch('/api/bookings/create/', {
+            const response = await fetch('/api/bookings/availability/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
                 },
                 body: JSON.stringify(bookingPayload)
             });
 
             const result = await response.json();
 
-            if (response.ok) {
-                this.showBookingSuccess(result);
+            if (result.available) {
+                this.showSuccessMessage(result);
             } else {
-                this.showMessage(result.error || 'Booking failed', 'error');
+                this.showMessage('Selected time slot is not available. Please choose another time.', 'error');
             }
+
         } catch (error) {
-            console.error('Booking error:', error);
-            this.showMessage('Network error. Please try again.', 'error');
-        } finally {
-            checkBtn.textContent = 'CHECK';
-            checkBtn.disabled = false;
+            console.error('Error:', error);
+            this.showMessage('An error occurred. Please try again.', 'error');
         }
     }
 
@@ -827,74 +846,26 @@ class CoreSyncBookingCalendar {
         if (prefs.aromatherapy && prefs.aromatherapy !== 'none') {
             requests.push(`Aromatherapy: ${prefs.aromatherapy}`);
         }
+
         if (this.bookingData.timePreference) {
-            requests.push(`Time preference: ${this.bookingData.timePreference}`);
+            requests.push(`Session: ${this.bookingData.timePreference}`);
         }
 
-        return requests.join(', ');
+        return requests.join('; ');
     }
 
-    showBookingSuccess(result) {
-        const container = this.container;
-        container.innerHTML = `
-            <div class="booking-success">
-                <div class="success-icon">✅</div>
-                <h2 class="success-title">Booking Confirmed!</h2>
-                <div class="success-details">
-                    <p><strong>Booking Reference:</strong> ${result.booking_reference}</p>
-                    <p><strong>Date:</strong> ${new Date(result.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                    <p><strong>Time:</strong> ${result.start_time} - ${result.end_time}</p>
-                    <p><strong>Service:</strong> ${result.service.name}</p>
-                    <p><strong>Total:</strong> $${result.pricing.final_total}</p>
-                </div>
-                <div class="success-actions">
-                    <button class="success-btn primary" onclick="window.location.reload()">
-                        BOOK ANOTHER SERVICE
-                    </button>
-                    <button class="success-btn secondary" onclick="window.location.href='/'">
-                        RETURN HOME
-                    </button>
-                </div>
-            </div>
-        `;
-    }
-
-    showMessage(message, type = 'info') {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `booking-message ${type}`;
-        messageDiv.textContent = message;
-
-        this.container.prepend(messageDiv);
-
-        setTimeout(() => {
-            messageDiv.remove();
-        }, 5000);
-    }
-
-    getServiceId(serviceType) {
-        const serviceMap = {
-            'swedish': 1,
-            'deep-tissue': 2,
-            'hot-stone': 3,
-            'ai-massage': 1,
-            'couples': 4,
-            'prenatal': 5
-        };
-        return serviceMap[serviceType] || 1;
-    }
-
-    reset() {
-        this.currentDropdown = 0;
-        this.bookingData = {
-            date: '',
-            time: '',
-            technician: '',
-            service: '',
-            addons: []
-        };
-        this.render();
-        this.bindEvents();
+    showSuccessMessage(data) {
+        this.showMessage(`✓ Time slot available! Booking confirmed for ${data.date} at ${data.time}`, 'success');
     }
 }
 
-// Removed duplicate booking calendar initialization - use dedicated /book/ page
+// Auto-initialize on page load if calendar container exists
+document.addEventListener('DOMContentLoaded', () => {
+    const calendarContainer = document.getElementById('booking-calendar-container');
+    if (calendarContainer && typeof CoreSyncBookingCalendar !== 'undefined') {
+        // Check if not already initialized
+        if (!calendarContainer.querySelector('.progressive-booking-calendar')) {
+            new CoreSyncBookingCalendar('booking-calendar-container');
+        }
+    }
+});

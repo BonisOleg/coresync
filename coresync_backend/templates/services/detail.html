@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/membership.css' %}">
+<link rel="stylesheet" href="{% static 'css/private.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="private-hero">
+    <img src="{% static 'images/Hiro_converted.png' %}" alt="Service" class="private-hero-image">
+    <div class="private-hero-overlay">
+        <img src="{% static 'images/menu.png' %}" alt="CoreSync" style="max-width: 300px;">
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <h2 class="privacy-title">SWEDISH MASSAGE</h2>
+
+        <div class="privacy-content-new">
+            <div class="privacy-left-block">
+                Experience the ultimate relaxation with our signature Swedish massage. This gentle yet effective
+                technique uses long, flowing strokes to ease tension, improve circulation, and promote deep relaxation.
+                Perfect for stress relief and overall wellness.
+            </div>
+
+            <div class="privacy-right-block">
+                <div class="privacy-item-line">Duration: 60 minutes</div>
+                <div class="privacy-item-line">Non-Member: $180</div>
+                <div class="privacy-item-line">Base Member: $126 (30% off)</div>
+                <div class="privacy-item">Premium Member: $108 (40% off)</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="amenities-section">
+    <div class="container">
+        <h3 class="amenities-title">WHAT'S INCLUDED</h3>
+        <div class="membership-cards-grid">
+            <div class="membership-card">
+                <h4 class="membership-card-title" style="font-size: 1rem; margin-bottom: 1rem;">
+                    🧘 Relaxation Therapy
+                </h4>
+                <p style="color: rgba(255,255,255,0.7); font-family: 'Maison_Neue_Book', sans-serif; line-height: 1.6;">
+                    Gentle strokes for deep relaxation and stress relief
+                </p>
+            </div>
+
+            <div class="membership-card">
+                <h4 class="membership-card-title" style="font-size: 1rem; margin-bottom: 1rem;">
+                    💆 Muscle Tension Release
+                </h4>
+                <p style="color: rgba(255,255,255,0.7); font-family: 'Maison_Neue_Book', sans-serif; line-height: 1.6;">
+                    Targets specific muscle groups to release tension
+                </p>
+            </div>
+
+            <div class="membership-card">
+                <h4 class="membership-card-title" style="font-size: 1rem; margin-bottom: 1rem;">
+                    🌿 Aromatherapy
+                </h4>
+                <p style="color: rgba(255,255,255,0.7); font-family: 'Maison_Neue_Book', sans-serif; line-height: 1.6;">
+                    Essential oils enhance your relaxation experience
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <h3 class="privacy-title" style="font-size: 1.8rem;">AVAILABLE ADD-ONS</h3>
+
+        <div class="treatments-grid">
+            <div class="treatment-item">
+                <span class="treatment-name">LED Light Therapy</span>
+                <span class="treatment-price">+ $50</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Hot Stone Enhancement</span>
+                <span class="treatment-price">+ $40</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">CBD Oil Treatment</span>
+                <span class="treatment-price">+ $35</span>
+            </div>
+            <div class="treatment-item">
+                <span class="treatment-name">Extended Session +30min</span>
+                <span class="treatment-price">+ $60</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+            <p
+                style="font-family: 'Maison_Neue_Book', sans-serif; font-size: 1.1rem; color: rgba(255,255,255,0.7); margin-bottom: 2rem; line-height: 1.6;">
+                Ready to experience ultimate relaxation?
+            </p>
+            <a href="/book/" class="membership-cta-btn"
+                style="display: inline-block; width: auto; padding: 1.2rem 3rem; background: #F5F5DC; color: #000; border-color: #F5F5DC;">
+                Book This Service
+            </a>
+            <div style="margin-top: 1.5rem;">
+                <a href="/services/"
+                    style="color: #F5F5DC; text-decoration: none; font-family: 'Maison_Neue_Book', sans-serif; font-size: 0.9rem;">
+                    ← Back to All Services
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

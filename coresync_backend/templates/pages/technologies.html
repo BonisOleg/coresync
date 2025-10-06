@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/membership.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="membership-hero">
+    <img src="{% static 'images/Hiro_converted.png' %}" alt="Technologies" class="private-hero-image">
+    <div class="membership-hero-overlay">
+        <h1 class="membership-hero-title">INNOVATIONS</h1>
+        <p class="membership-hero-subtitle">Technology Meets Wellness</p>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <h2 class="privacy-title">OUR TECHNOLOGY</h2>
+
+        <div class="membership-cards-grid">
+            <div class="membership-card membership-card--featured">
+                <h3 class="membership-card-title">AI Massage Bed</h3>
+                <ul class="membership-benefits">
+                    <li>Personalized massage programs</li>
+                    <li>Body analysis technology</li>
+                    <li>Adaptive pressure control</li>
+                    <li>Real-time adjustments</li>
+                </ul>
+                <button class="membership-cta-btn" onclick="window.location.href='/book/'">
+                    Book Session
+                </button>
+            </div>
+
+            <div class="membership-card">
+                <h3 class="membership-card-title">Smart Mirror</h3>
+                <ul class="membership-benefits">
+                    <li>Skin analysis</li>
+                    <li>Health metrics tracking</li>
+                    <li>Personalized recommendations</li>
+                    <li>Progress visualization</li>
+                </ul>
+                <button class="membership-cta-btn" onclick="window.location.href='/book/'">
+                    Experience It
+                </button>
+            </div>
+
+            <div class="membership-card">
+                <h3 class="membership-card-title">Meditation Pods</h3>
+                <ul class="membership-benefits">
+                    <li>AI-guided breathwork</li>
+                    <li>Custom meditation programs</li>
+                    <li>Biometric feedback</li>
+                    <li>Immersive sound therapy</li>
+                </ul>
+                <button class="membership-cta-btn" onclick="window.location.href='/book/'">
+                    Try It
+                </button>
+            </div>
+
+            <div class="membership-card">
+                <h3 class="membership-card-title">Immersive Screens</h3>
+                <ul class="membership-benefits">
+                    <li>4K visual experiences</li>
+                    <li>Custom scene selection</li>
+                    <li>Personal content upload</li>
+                    <li>Mood-synchronized lighting</li>
+                </ul>
+                <button class="membership-cta-btn" onclick="window.location.href='/book/'">
+                    Explore
+                </button>
+            </div>
+
+            <div class="membership-card">
+                <h3 class="membership-card-title">IoT Environment Control</h3>
+                <ul class="membership-benefits">
+                    <li>Temperature control</li>
+                    <li>Lighting customization</li>
+                    <li>Aromatherapy selection</li>
+                    <li>Music playlists</li>
+                </ul>
+                <button class="membership-cta-btn" onclick="window.location.href='/book/'">
+                    Customize
+                </button>
+            </div>
+
+            <div class="membership-card">
+                <h3 class="membership-card-title">LED Light Therapy</h3>
+                <ul class="membership-benefits">
+                    <li>Skin rejuvenation</li>
+                    <li>Collagen production</li>
+                    <li>Multiple wavelengths</li>
+                    <li>Professional-grade equipment</li>
+                </ul>
+                <button class="membership-cta-btn" onclick="window.location.href='/book/'">
+                    Book Now
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="privacy-section">
+    <div class="container">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <h3 class="membership-title" style="font-size: 1.5rem; margin-bottom: 2rem;">
+                EXPERIENCE THE FUTURE
+            </h3>
+            <p
+                style="font-family: 'Maison_Neue_Book', sans-serif; font-size: 1.1rem; color: rgba(255,255,255,0.7); margin-bottom: 2rem; line-height: 1.6;">
+                Our technology enhances every aspect of your wellness journey. Become a member to unlock full access.
+            </p>
+            <a href="/membership/" class="membership-cta-btn"
+                style="display: inline-block; width: auto; padding: 1.2rem 3rem; background: #F5F5DC; color: #000; border-color: #F5F5DC;">
+                Explore Membership
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
