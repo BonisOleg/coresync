@@ -29,6 +29,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // Handle data-href navigation
+    document.querySelectorAll('[data-href]').forEach(element => {
+        element.addEventListener('click', function (e) {
+            e.preventDefault();
+            const href = this.getAttribute('data-href');
+            if (href) window.location.href = href;
+        });
+    });
+
     // Function to toggle menu (used by both burger and logo)
     function toggleMenu() {
         const isActive = navMenu.classList.contains('active');

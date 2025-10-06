@@ -33,7 +33,7 @@
                     <img src="{% static 'images/private.png' %}" alt="Private Spa" class="service-bg">
                     <img src="{% static 'images/private1.png' %}" alt="CORESYNC Private" class="service-overlay">
                 </div>
-                <button class="service-btn" onclick="window.location.href='{% url 'booking_calendar' %}'">
+                <button class="service-btn" data-href="{% url 'booking_calendar' %}">
                     BOOK HERE YOUR PRIVATE ESCAPE
                 </button>
             </div>
@@ -44,7 +44,7 @@
                     <img src="{% static 'images/menssuite.png' %}" alt="Menssuite" class="service-bg">
                     <img src="{% static 'images/menssuite1.png' %}" alt="Menssuite Logo" class="service-overlay">
                 </div>
-                <button class="service-btn" onclick="window.location.href='{% url 'booking_calendar' %}'">
+                <button class="service-btn" data-href="{% url 'booking_calendar' %}">
                     BOOK HERE YOUR SYSTEM RESET
                 </button>
             </div>
@@ -67,7 +67,7 @@
                         <p class="membership-preview-benefit">25% OFF ALL SERVICES</p>
                     </div>
                 </div>
-                <button class="service-btn" onclick="window.location.href='{% url 'membership' %}'">
+                <button class="service-btn" data-href="{% url 'membership' %}">
                     START YOUR MEMBERSHIP
                 </button>
             </div>
@@ -83,8 +83,7 @@
                         <p class="membership-preview-benefit">FREE SERVICES INCLUDED</p>
                     </div>
                 </div>
-                <button class="service-btn membership-preview-btn--featured"
-                    onclick="window.location.href='{% url 'membership' %}'">
+                <button class="service-btn membership-preview-btn--featured" data-href="{% url 'membership' %}">
                     UNLOCK PREMIUM ACCESS
                 </button>
             </div>

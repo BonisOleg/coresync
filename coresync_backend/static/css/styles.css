@@ -893,3 +893,321 @@ body {
         transform: translateY(0)
     }
 }
+
+/* ================================ */
+/* BOOKING CALENDAR UTILITIES */
+/* Added: 2025-10-06 */
+/* ================================ */
+
+.booking-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    padding: 10rem 0 4rem 0;
+}
+
+.booking-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.booking-title {
+    color: #fff;
+    font-family: 'Maison_Neue_Bold', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+}
+
+.booking-subtitle {
+    color: rgba(255,255,255,0.7);
+    font-family: 'Maison_Neue_Book', sans-serif;
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.membership-status {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 2rem;
+    margin-bottom: 3rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.status-label {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.status-value {
+    color: #F5F5DC;
+    font-family: 'Maison_Neue_Bold', sans-serif;
+    font-size: 1.3rem;
+    margin-left: 1rem;
+}
+
+.booking-container {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 3rem;
+    min-height: 600px;
+}
+
+.info-card {
+    background: rgba(255,255,255,0.05);
+    padding: 2.5rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(245,245,220,0.3);
+}
+
+.info-card-title {
+    color: #F5F5DC;
+    font-family: 'Maison_Neue_Bold', sans-serif;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+}
+
+.info-list {
+    color: rgba(255,255,255,0.8);
+    font-family: 'Maison_Neue_Book', sans-serif;
+    list-style: none;
+    padding: 0;
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.info-list-item {
+    padding-left: 1.5rem;
+    position: relative;
+    margin-bottom: 0.8rem;
+}
+
+.info-list-item::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #F5F5DC;
+}
+
+.demo-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.demo-btn {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.8rem 1.5rem;
+    font-family: 'Maison_Neue_Book', sans-serif;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.demo-btn:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.5);
+}
+
+.demo-btn--vip {
+    background: #F5F5DC;
+    color: #000;
+    border: 1px solid #F5F5DC;
+    font-family: 'Maison_Neue_Bold', sans-serif;
+}
+
+.demo-btn--vip:hover {
+    background: #E6E6D4;
+}
+
+.membership-demo {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.demo-label {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* ================================ */
+/* CONTENT PAGES UTILITIES */
+/* Added: 2025-10-06 */
+/* ================================ */
+
+.content-centered-600 {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.content-centered-800 {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.content-centered-1000 {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.section-title-large {
+    font-size: 1.8rem;
+}
+
+.section-description {
+    font-family: 'Maison_Neue_Book', sans-serif;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.section-description--large {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.8;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    padding: 2rem;
+    text-align: center;
+}
+
+.feature-title {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.feature-description {
+    color: rgba(255,255,255,0.7);
+    font-family: 'Maison_Neue_Book', sans-serif;
+    line-height: 1.6;
+}
+
+.cta-inline {
+    display: inline-block;
+    width: auto;
+    padding: 1.2rem 3rem;
+}
+
+.link-subtle {
+    color: #F5F5DC;
+    text-decoration: none;
+    font-family: 'Maison_Neue_Book', sans-serif;
+    font-size: 0.9rem;
+}
+
+.link-subtle:hover {
+    opacity: 0.8;
+}
+
+.img-medium {
+    max-width: 300px;
+}
+
+/* ================================ */
+/* UTILITY CLASSES */
+/* Added: 2025-10-06 */
+/* ================================ */
+
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mt-3 { margin-top: 3rem; }
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+.mb-3 { margin-bottom: 3rem; }
+.pt-0 { padding-top: 0; }
+.pb-0 { padding-bottom: 0; }
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.d-flex { display: flex; }
+.d-grid { display: grid; }
+.d-block { display: block; }
+.d-inline-block { display: inline-block; }
+.d-none { display: none; }
+
+.flex-column { flex-direction: column; }
+.flex-row { flex-direction: row; }
+.gap-1 { gap: 1rem; }
+.gap-2 { gap: 2rem; }
+.justify-center { justify-content: center; }
+.align-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.flex-1 { flex: 1; }
+
+.w-full { width: 100%; }
+.w-auto { width: auto; }
+.max-w-480 { max-width: 480px; }
+.max-w-600 { max-width: 600px; }
+.max-w-800 { max-width: 800px; }
+.max-w-900 { max-width: 900px; }
+.max-w-1000 { max-width: 1000px; }
+
+.mx-auto { margin-left: auto; margin-right: auto; }
+.my-auto { margin-top: auto; margin-bottom: auto; }
+
+/* Responsive utilities for booking page */
+@media (max-width: 768px) {
+    .booking-page {
+        padding: 8rem 0 2rem 0;
+    }
+    
+    .booking-title {
+        font-size: 2rem;
+    }
+    
+    .booking-container {
+        padding: 1.5rem;
+    }
+    
+    .section-title-large {
+        font-size: 1.5rem;
+    }
+    
+    .section-description {
+        font-size: 1rem;
+    }
+    
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
