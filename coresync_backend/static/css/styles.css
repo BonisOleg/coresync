@@ -570,17 +570,20 @@ body {
     .nav-menu.active {
         display: flex;
         position: fixed;
-        top: 6.5rem;
+        top: 0;
         left: 0;
         right: 0;
         bottom: 0;
+        width: 100vw;
+        height: 100vh;
         flex-direction: column;
         transform: none;
-        justify-content: flex-start;
+        justify-content: center;
+        align-items: center;
         background: rgba(0, 0, 0, 0.98);
-        padding: 2rem 1rem;
+        padding: 8rem 2rem 4rem 2rem;
         max-width: none;
-        z-index: 999;
+        z-index: 998;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
     }
@@ -589,23 +592,30 @@ body {
     .nav-right {
         flex-direction: column;
         width: 100%;
+        max-width: 500px;
         gap: 0;
     }
 
     .nav-btn {
         width: 100%;
         justify-content: center;
-        padding: 1.2rem;
+        padding: 1.5rem 2rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         opacity: 1 !important;
         animation: none !important;
         min-height: 56px;
-        font-size: 1rem;
+        font-size: 1.1rem;
+        letter-spacing: 0.15em;
         visibility: visible !important;
+        color: #fff !important;
     }
 
     .nav-btn:active {
         background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-btn:first-child {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     /* Override gentleBlink animation on mobile */
@@ -618,6 +628,19 @@ body {
     .nav-menu.active .nav-right .nav-btn {
         animation: none !important;
         opacity: 1 !important;
+    }
+
+    /* Logo stays on top when menu open */
+    .header {
+        z-index: 999;
+    }
+
+    .header.menu-open {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.95);
     }
 
     .services-grid {
@@ -666,6 +689,17 @@ body {
 
     .header-logo:active {
         transform: scale(0.95);
+    }
+
+    /* Ensure fullscreen menu on small mobile */
+    .nav-menu.active {
+        padding: 7rem 1.5rem 3rem 1.5rem;
+        justify-content: flex-start;
+    }
+
+    .nav-btn {
+        font-size: 1rem;
+        padding: 1.3rem 1.5rem;
     }
 
     .burger-line {
