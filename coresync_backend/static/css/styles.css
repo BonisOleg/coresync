@@ -354,7 +354,10 @@ body {
     width: 100%;
     aspect-ratio: 16/14;
     border-radius: 8px;
-    overflow: hidden
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .service-image::before {
@@ -378,8 +381,10 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    position: relative;
-    z-index: 2
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
 
 .service-overlay {
@@ -400,40 +405,47 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 1.5rem;
     z-index: 3;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .membership-preview-overlay--featured {
-    background: rgba(245, 245, 220, 0.85);
+    background: rgba(245, 245, 220, 0.92);
 }
 
 .membership-preview-badge {
     background: #000;
     color: #F5F5DC;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 20px;
     font-family: 'Maison_Neue_Mono', monospace;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: bold;
     letter-spacing: 0.1em;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .membership-preview-title {
     color: #fff;
     font-family: 'Maison_Neue_Bold', sans-serif;
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    word-wrap: break-word;
+    max-width: 100%;
 }
 
 .membership-preview-overlay--featured .membership-preview-title {
@@ -443,8 +455,9 @@ body {
 .membership-preview-price {
     color: #fff;
     font-family: 'Maison_Neue_Book', sans-serif;
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+    white-space: nowrap;
 }
 
 .membership-preview-overlay--featured .membership-preview-price {
@@ -453,10 +466,11 @@ body {
 }
 
 .membership-preview-benefit {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95);
     font-family: 'Maison_Neue_Book', sans-serif;
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    margin-bottom: 0;
+    white-space: nowrap;
 }
 
 .membership-preview-overlay--featured .membership-preview-benefit {
@@ -565,6 +579,71 @@ body {
     height: 120px;
     width: auto;
     object-fit: contain
+}
+
+/* Великі екрани - збільшуємо контент */
+@media(min-width:1441px) {
+    .membership-preview-title {
+        font-size: 2.2rem;
+    }
+
+    .membership-preview-price {
+        font-size: 1.3rem;
+    }
+
+    .membership-preview-benefit {
+        font-size: 1.1rem;
+    }
+
+    .membership-preview-badge {
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* Середні екрани - планшети в landscape */
+@media(max-width:1024px) and (min-width:769px) {
+    .membership-preview-title {
+        font-size: 1.6rem;
+    }
+
+    .membership-preview-overlay {
+        padding: 1.5rem 1rem;
+    }
+
+    .membership-preview-badge {
+        font-size: 0.68rem;
+    }
+}
+
+/* Мобільна landscape орієнтація */
+@media(max-height:500px) and (orientation:landscape) {
+    .membership-section {
+        padding: 2rem 0 3rem 0;
+    }
+
+    .membership-preview-title {
+        font-size: 1rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .membership-preview-price {
+        font-size: 0.8rem;
+    }
+
+    .membership-preview-benefit {
+        font-size: 0.7rem;
+    }
+
+    .membership-preview-badge {
+        font-size: 0.55rem;
+        padding: 0.25rem 0.5rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .membership-preview-overlay {
+        padding: 0.8rem;
+    }
 }
 
 @media(max-width:1024px) {
@@ -754,16 +833,29 @@ body {
         gap: 1.5rem
     }
 
+    .membership-preview-overlay {
+        padding: 1.2rem;
+    }
+
+    .membership-preview-badge {
+        font-size: 0.65rem;
+        padding: 0.35rem 0.7rem;
+        margin-bottom: 0.8rem;
+    }
+
     .membership-preview-title {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+        letter-spacing: 0.08em;
+        margin-bottom: 0.6rem;
     }
 
     .membership-preview-price {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        margin-bottom: 0.3rem;
     }
 
     .membership-preview-benefit {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
 
     .footer {
@@ -837,8 +929,29 @@ body {
         letter-spacing: 0.2em;
     }
 
+    .membership-preview-overlay {
+        padding: 1rem;
+    }
+
+    .membership-preview-badge {
+        font-size: 0.6rem;
+        padding: 0.3rem 0.6rem;
+        margin-bottom: 0.6rem;
+    }
+
     .membership-preview-title {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.5rem;
+    }
+
+    .membership-preview-price {
+        font-size: 0.85rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .membership-preview-benefit {
+        font-size: 0.75rem;
     }
 
     .footer {
@@ -865,6 +978,53 @@ body {
     }
 }
 
+/* Дуже малі екрани (iPhone SE, старі Android) */
+@media(max-width:375px) {
+    .membership-section {
+        padding: 2.5rem 0 3.5rem 0;
+    }
+
+    .membership-title {
+        font-size: 1.3rem;
+        letter-spacing: 0.15em;
+        margin-bottom: 2rem;
+    }
+
+    .membership-preview-overlay {
+        padding: 0.8rem;
+    }
+
+    .membership-preview-badge {
+        font-size: 0.55rem;
+        padding: 0.25rem 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .membership-preview-title {
+        font-size: 1.1rem;
+        letter-spacing: 0.03em;
+        margin-bottom: 0.4rem;
+    }
+
+    .membership-preview-price {
+        font-size: 0.8rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .membership-preview-benefit {
+        font-size: 0.7rem;
+    }
+
+    .service-btn {
+        font-size: 0.75rem;
+        padding: 0.7rem 1.2rem;
+    }
+
+    .service-card {
+        gap: 1.2rem;
+    }
+}
+
 @supports(-webkit-touch-callout:none) {
     .hero {
         height: -webkit-fill-available;
@@ -874,12 +1034,22 @@ body {
     .hero-image,
     .burger-menu,
     .burger-line,
-    .footer-logo-img {
-        transform: translateZ(0)
+    .footer-logo-img,
+    .service-image,
+    .membership-preview-overlay {
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
     }
 
     .burger-menu {
         -webkit-tap-highlight-color: transparent
+    }
+
+    /* Виправлення для iOS для membership оверлеїв */
+    .membership-preview-overlay {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
     }
 }
 
