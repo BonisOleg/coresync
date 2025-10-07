@@ -240,6 +240,50 @@
     flex: 1;
 }
 
+/* Dashboard stat cards */
+.stat-card {
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Section subtitle */
+.section-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Filter buttons */
+.filter-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    width: auto;
+    padding: 0.8rem 2rem;
+}
+
+.filter-btn.active {
+    background: rgba(245, 245, 220, 0.1);
+    border-color: #F5F5DC;
+    color: #F5F5DC;
+}
+
+/* Loading card */
+.full-width-card {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 3rem;
+}
+
+.loading-text {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Maison_Neue_Book', sans-serif;
+}
+
 /* ================================ */
 /* DASHBOARD LOGOUT PAGE */
 /* Added: 2025-10-06 */

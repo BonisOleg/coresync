@@ -6,55 +6,52 @@
 {% endblock %}
 
 {% block content %}
-<section class="membership-section"
-    style="min-height: 100vh; display: flex; align-items: center; padding: 10rem 0 4rem 0;">
+<section class="membership-section auth-section">
     <div class="container">
-        <div style="max-width: 580px; margin: 0 auto;">
+        <div class="auth-container">
             <div class="membership-card">
-                <h2 class="membership-card-title" style="text-align: center; margin-bottom: 2rem;">
+                <h2 class="membership-card-title text-center mb-2">
                     Create Account
                 </h2>
 
                 <form id="signup-form" method="post" action="/api/auth/register/">
                     {% csrf_token %}
 
-                    <div style="display: flex; gap: 1rem;">
-                        <div class="form-group" style="flex: 1;">
+                    <div class="form-row">
+                        <div class="form-col">
                             <label class="form-label">First Name</label>
-                            <input type="text" name="first_name" class="form-input" required style="font-size: 16px;">
+                            <input type="text" name="first_name" class="form-input" required>
                         </div>
 
-                        <div class="form-group" style="flex: 1;">
+                        <div class="form-col">
                             <label class="form-label">Last Name</label>
-                            <input type="text" name="last_name" class="form-input" required style="font-size: 16px;">
+                            <input type="text" name="last_name" class="form-input" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-input" required style="font-size: 16px;">
+                        <input type="email" name="email" class="form-input" required>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Phone</label>
-                        <input type="tel" name="phone" class="form-input" required style="font-size: 16px;"
-                            placeholder="+1 (555) 123-4567">
+                        <input type="tel" name="phone" class="form-input" required placeholder="+1 (555) 123-4567">
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Password</label>
-                        <input type="password" name="password" class="form-input" required style="font-size: 16px;">
+                        <input type="password" name="password" class="form-input" required>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Confirm Password</label>
-                        <input type="password" name="password_confirm" class="form-input" required
-                            style="font-size: 16px;">
+                        <input type="password" name="password_confirm" class="form-input" required>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Interested in Membership</label>
-                        <select name="membership_plan" class="form-input" style="font-size: 16px;">
+                        <select name="membership_plan" class="form-input">
                             <option value="">Select a plan (optional)</option>
                             <option value="base">Base Tier - $375/month</option>
                             <option value="premium">Premium Tier - $700/month</option>
@@ -62,31 +59,25 @@
                         </select>
                     </div>
 
-                    <div class="form-group" style="margin-top: 1rem;">
-                        <label
-                            style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; color: rgba(255,255,255,0.7);">
-                            <input type="checkbox" name="terms" required style="width: auto; margin-top: 0.3rem;">
-                            <span class="form-label"
-                                style="margin: 0; display: inline; text-transform: none; line-height: 1.5;">
+                    <div class="form-group mt-1">
+                        <label class="form-checkbox-label">
+                            <input type="checkbox" name="terms" required>
+                            <span class="form-label">
                                 I agree to the Terms of Service and Privacy Policy
                             </span>
                         </label>
                     </div>
 
-                    <button type="submit" class="membership-cta-btn"
-                        style="width: 100%; margin-top: 2rem; background: #F5F5DC; color: #000; border-color: #F5F5DC;">
+                    <button type="submit" class="membership-cta-btn btn-primary-beige w-full mt-2">
                         Create Account
                     </button>
                 </form>
 
-                <div
-                    style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                    <p
-                        style="color: rgba(255,255,255,0.6); margin-bottom: 1rem; font-family: 'Maison_Neue_Book', sans-serif;">
+                <div class="auth-footer">
+                    <p class="auth-helper-text">
                         Already have an account?
                     </p>
-                    <a href="/login/" class="membership-cta-btn btn-secondary"
-                        style="display: inline-block; width: auto; padding: 1rem 2rem;">
+                    <a href="/login/" class="membership-cta-btn btn-secondary cta-inline">
                         Login
                     </a>
                 </div>

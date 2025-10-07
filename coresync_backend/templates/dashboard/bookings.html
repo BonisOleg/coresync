@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block dashboard_content %}
-<section class="privacy-section" style="padding-top: 0;">
+<section class="privacy-section pt-0">
     <div class="container">
         <h2 class="privacy-title">My Bookings</h2>
     </div>
@@ -10,20 +10,18 @@
 
 <section class="privacy-section">
     <div class="container">
-        <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 3rem; flex-wrap: wrap;">
-            <button data-filter="upcoming" class="membership-cta-btn btn-secondary active"
-                style="width: auto; padding: 0.8rem 2rem; background: rgba(245,245,220,0.1); border-color: #F5F5DC; color: #F5F5DC;">
+        <div class="filter-buttons">
+            <button data-filter="upcoming" class="membership-cta-btn btn-secondary filter-btn active">
                 Upcoming
             </button>
-            <button data-filter="past" class="membership-cta-btn btn-secondary"
-                style="width: auto; padding: 0.8rem 2rem;">
+            <button data-filter="past" class="membership-cta-btn btn-secondary filter-btn">
                 Past
             </button>
         </div>
 
         <div id="all-bookings-container" class="membership-cards-grid">
-            <div class="membership-card" style="grid-column: 1/-1; text-align: center; padding: 3rem;">
-                <p style="color: rgba(255,255,255,0.5); font-family: 'Maison_Neue_Book', sans-serif;">
+            <div class="membership-card full-width-card">
+                <p class="loading-text">
                     Loading bookings...
                 </p>
             </div>
