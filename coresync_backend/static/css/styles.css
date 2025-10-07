@@ -624,7 +624,7 @@ body {
 /* Середні екрани - зменшити відступи меню */
 @media(max-width:1440px) {
     .nav-left {
-        padding-right: 2.5rem;
+        padding-left: 2.5rem;
         gap: 1.5rem;
     }
 
