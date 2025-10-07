@@ -48,14 +48,17 @@ body {
 .header .container {
     position: relative;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .header-logo {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 1002;
+    flex-shrink: 0;
 }
 
 .header-logo-img {
@@ -98,20 +101,17 @@ body {
 }
 
 .nav-menu {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    width: calc(100% - 100px);
-    max-width: 1200px;
+    gap: 4rem;
+    max-width: 1400px;
+    width: 100%;
+    padding: 0 2rem;
     opacity: 0;
     visibility: hidden;
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
-    padding: 0 2rem;
 }
 
 .nav-menu.active {
@@ -125,9 +125,8 @@ body {
     flex-direction: row;
     gap: 2rem;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-end;
     flex: 1;
-    padding-right: 3rem;
 }
 
 .nav-right {
@@ -135,9 +134,8 @@ body {
     flex-direction: row;
     gap: 2rem;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     flex: 1;
-    padding-left: 3rem;
 }
 
 .nav-btn {
@@ -622,18 +620,14 @@ body {
 
 /* Середні екрани - зменшити відступи меню */
 @media(max-width:1440px) {
-    .nav-left {
-        padding-right: 2.5rem;
-        gap: 1.5rem;
-    }
-
-    .nav-right {
-        padding-left: 2.5rem;
-        gap: 1.5rem;
-    }
-
     .nav-menu {
+        gap: 3rem;
         padding: 0 1.5rem;
+    }
+
+    .nav-left,
+    .nav-right {
+        gap: 1.5rem;
     }
 
     .burger-menu {
@@ -642,18 +636,14 @@ body {
 }
 
 @media(max-width:1280px) {
-    .nav-left {
-        padding-right: 2rem;
-        gap: 1.2rem;
-    }
-
-    .nav-right {
-        padding-left: 2rem;
-        gap: 1.2rem;
-    }
-
     .nav-menu {
+        gap: 2.5rem;
         padding: 0 1rem;
+    }
+
+    .nav-left,
+    .nav-right {
+        gap: 1.2rem;
     }
 
     .nav-btn {
@@ -711,7 +701,7 @@ body {
         width: 100vw;
         height: 100vh;
         flex-direction: column;
-        transform: none;
+        gap: 2rem;
         justify-content: center;
         align-items: center;
         background: rgba(0, 0, 0, 0.98);
@@ -729,6 +719,19 @@ body {
         gap: 0;
         flex: none;
         padding: 0;
+    }
+
+    .nav-menu.active .header-logo {
+        order: 0;
+        margin: 2rem 0;
+    }
+
+    .nav-menu.active .nav-left {
+        order: -1;
+    }
+
+    .nav-menu.active .nav-right {
+        order: 1;
     }
 
     .burger-menu {
@@ -818,19 +821,19 @@ body {
         display: none;
     }
 
-    /* Make logo clickable and add visual feedback */
+    /* Extract logo from nav-menu on mobile */
     .header-logo {
-        cursor: pointer;
-        z-index: 1001;
-        position: absolute;
+        position: fixed;
         left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        top: 2rem;
+        transform: translateX(-50%);
+        cursor: pointer;
+        z-index: 1003;
         transition: transform 0.3s ease;
     }
 
     .header-logo:active {
-        transform: translate(-50%, -50%) scale(0.95);
+        transform: translateX(-50%) scale(0.95);
     }
 
     /* Ensure fullscreen menu on small mobile */
