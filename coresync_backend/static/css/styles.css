@@ -100,13 +100,13 @@ body {
 .nav-menu {
     position: absolute;
     top: 50%;
-    left: 0;
+    left: 80px;
     right: 80px;
     transform: translateY(-50%);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: calc(100% - 80px);
+    width: calc(100% - 160px);
     max-width: none;
     opacity: 0;
     visibility: hidden;
@@ -635,8 +635,9 @@ body {
 
     .nav-menu {
         padding: 0 1.5rem;
+        left: 70px;
         right: 70px;
-        width: calc(100% - 70px);
+        width: calc(100% - 140px);
     }
 
     .burger-menu {
@@ -657,8 +658,9 @@ body {
 
     .nav-menu {
         padding: 0 1rem;
+        left: 60px;
         right: 60px;
-        width: calc(100% - 60px);
+        width: calc(100% - 120px);
     }
 
     .nav-btn {
