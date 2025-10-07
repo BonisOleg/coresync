@@ -682,9 +682,7 @@ body {
 
 @media(max-width:1024px) {
     .nav-menu {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
+        display: none;
     }
 
     .nav-menu.active {
@@ -705,9 +703,6 @@ body {
         z-index: 998;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
     }
 
     .nav-left,
@@ -733,8 +728,20 @@ body {
         order: 1;
     }
 
+    .header-logo {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1002;
+    }
+
     .burger-menu {
+        position: absolute;
         right: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1003;
     }
 
     .nav-btn {
@@ -820,25 +827,29 @@ body {
         display: none;
     }
 
-    /* Extract logo from nav-menu on mobile */
+    /* Logo outside nav-menu on mobile - becomes menu trigger */
     .header-logo {
-        position: fixed;
+        position: absolute;
         left: 50%;
-        top: 2rem;
-        transform: translateX(-50%);
+        top: 50%;
+        transform: translate(-50%, -50%);
         cursor: pointer;
         z-index: 1003;
         transition: transform 0.3s ease;
     }
 
     .header-logo:active {
-        transform: translateX(-50%) scale(0.95);
+        transform: translate(-50%, -50%) scale(0.95);
     }
 
     /* Ensure fullscreen menu on small mobile */
     .nav-menu.active {
         padding: 7rem 1.5rem 3rem 1.5rem;
         justify-content: flex-start;
+    }
+
+    .nav-menu.active .header-logo {
+        display: none;
     }
 
     .nav-btn {
