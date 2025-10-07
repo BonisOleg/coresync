@@ -369,6 +369,11 @@ body {
     pointer-events: none
 }
 
+/* Виключаємо ::before для service-image, які містять membership-preview-overlay */
+.service-image:has(.membership-preview-overlay)::before {
+    display: none;
+}
+
 .service-bg {
     width: 100%;
     height: 100%;
