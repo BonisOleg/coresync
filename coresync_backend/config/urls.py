@@ -40,9 +40,21 @@ urlpatterns = [
     path('services/', TemplateView.as_view(template_name='services/list.html'), name='services_list'),
     path('services/<slug:slug>/', TemplateView.as_view(template_name='services/detail.html'), name='service_detail'),
     
+    # Shop pages (NEW)
+    path('shop/', TemplateView.as_view(template_name='shop/index.html'), name='shop_index'),
+    path('shop/cart/', TemplateView.as_view(template_name='shop/cart.html'), name='shop_cart'),
+    
+    # Concierge pages (NEW)
+    path('concierge/', TemplateView.as_view(template_name='concierge/request.html'), name='concierge_request'),
+    
     # Content pages
     path('about/', TemplateView.as_view(template_name='pages/about.html'), name='about'),
     path('technologies/', TemplateView.as_view(template_name='pages/technologies.html'), name='technologies'),
+    
+    # Legal pages (NEW)
+    path('privacy-policy/', TemplateView.as_view(template_name='legal/privacy_policy.html'), name='privacy_policy'),
+    path('terms/', TemplateView.as_view(template_name='legal/terms.html'), name='terms'),
+    path('refund-policy/', TemplateView.as_view(template_name='legal/refund_policy.html'), name='refund_policy'),
     
     # Authentication pages
     path('login/', TemplateView.as_view(template_name='auth/login.html'), name='login'),
@@ -64,11 +76,19 @@ urlpatterns = [
     path('health/', api_health, name='health_check'),  # For Render health check
     path('api/test/', api_test, name='api_test'),
     
+    # SEO
+    path('sitemap.xml', TemplateView.as_view(
+        template_name='sitemap.xml',
+        content_type='application/xml'
+    ), name='sitemap'),
+    
     # NEW API ROUTES (FIXED INTEGRATION)
     path('', include('services.urls')),      # Services API
     path('', include('memberships.urls')),   # Memberships API  
     path('', include('users.urls')),         # Users API
     path('', include('services.booking_urls')),  # Booking Calendar API - ENABLED!
+    path('', include('shop.urls')),          # Shop API - NEW!
+    path('', include('concierge.urls')),     # Concierge API - NEW!
     # path('', include('payments.urls')),      # Payments & QuickBooks API - DISABLED FOR INITIAL DEPLOY
 ]
 

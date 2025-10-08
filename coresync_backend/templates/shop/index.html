@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Curated Spa Shop - CoreSync{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Shop-specific styles */
+    .shop-hero {
+        padding: 8rem 0 4rem;
+        text-align: center;
+    }
+
+    .filter-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+    }
+
+    .filter-btn {
+        padding: 0.75rem 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: transparent;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-radius: 4px;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+        background: #B8860B;
+        border-color: #B8860B;
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+    }
+
+    .product-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .product-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .product-info {
+        padding: 1.5rem;
+    }
+
+    .product-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .product-description {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+    }
+
+    .product-pricing {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .price-original {
+        text-decoration: line-through;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .price-member {
+        color: #B8860B;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .pickup-notice {
+        background: rgba(184, 134, 11, 0.1);
+        padding: 2rem;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    /* Cart badge */
+    .cart-badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #B8860B;
+        color: #000;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: bold;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="shop-hero">
+    <div class="container">
+        <h1 class="heading-xlarge">Curated Spa Shop</h1>
+        <p class="body-large">Premium wellness products, ready for pickup on your next visit</p>
+
+        <!-- Cart Button -->
+        <div style="position: relative; display: inline-block; margin-top: 2rem;">
+            <a href="{% url 'shop_cart' %}" class="btn-secondary" id="cart-link">
+                View Pickup List
+                <span class="cart-badge" id="cart-badge" style="display: none;">0</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <!-- Category Filters -->
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-category="all">All Products</button>
+            <button class="filter-btn" data-category="skincare">Skincare</button>
+            <button class="filter-btn" data-category="wellness">Wellness Tech</button>
+            <button class="filter-btn" data-category="accessories">Accessories</button>
+            <button class="filter-btn" data-category="supplements">Supplements</button>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading" style="text-align: center; padding: 4rem;">
+            <p>Loading products...</p>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="products-grid" style="display: none;">
+            <!-- Products loaded via JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" style="display: none; text-align: center; padding: 4rem;">
+            <p style="color: rgba(255, 255, 255, 0.5);">No products found.</p>
+        </div>
+
+        <!-- Pickup Notice -->
+        <div class="pickup-notice">
+            <h3>💝 Pickup Only</h3>
+            <p>All products are prepared and waiting for you on your next spa visit. No shipping required!</p>
+        </div>
+    </div>
+</section>
+
+<!-- Toast Notification Container -->
+<div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/shop.js' %}"></script>
+<script>
+    // Initialize shop on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof CoreSyncShop !== 'undefined') {
+            window.shop = new CoreSyncShop();
+        }
+    });
+</script>
+{% endblock %}

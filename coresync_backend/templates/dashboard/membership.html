@@ -12,66 +12,94 @@
     <div class="container">
         <div class="dashboard-content-wide">
             <div class="membership-card membership-card--featured">
-                <h3 class="membership-card-title mb-2">
-                    {{ membership.plan.name|default:"Premium Tier" }}
+                <h3 class="membership-card-title mb-2" id="membership-plan-name">
+                    Loading...
                 </h3>
 
                 <div class="membership-price">
-                    ${{ membership.plan.price|default:"700" }}<span class="membership-price-period">/month</span>
+                    <span id="membership-status" style="font-size: 1rem; color: #10B981;">Active</span>
                 </div>
 
                 <div class="mt-2 mb-2">
                     <div class="info-row">
                         <span class="info-label">Member Since:</span>
-                        <span class="info-value">{{
-                            membership.start_date|default:"Jan 1, 2025" }}</span>
+                        <span class="info-value" id="member-since">Loading...</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Renewal Date:</span>
-                        <span class="info-value">{{
-                            membership.end_date|default:"Dec 31, 2025" }}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Days Remaining:</span>
-                        <span class="info-value--large">{{
-                            membership.days_remaining|default:"90" }}</span>
+                        <span class="info-value" id="renewal-date">Loading...</span>
                     </div>
                 </div>
 
-                <div class="membership-benefits">
-                    <li>Priority booking (2-3 months advance)</li>
-                    <li>{{ membership.plan.discount_percentage|default:"35" }}% discount on all services</li>
-                    <li>Free AI Massage Bed sessions</li>
-                    <li>Birthday month perks</li>
-                    <li>VIP customer support</li>
-                </div>
-
-                <button class="membership-cta-btn btn-primary-beige mt-2" data-href="/membership/">
+                <button class="membership-cta-btn btn-primary-beige mt-2" onclick="window.location.href='/membership/'">
                     View All Plans
                 </button>
             </div>
+        </div>
+    </div>
+</section>
 
-            <div class="membership-card mt-2">
-                <h3 class="membership-card-title mb-1">
-                    Usage This Month
-                </h3>
+<!-- Usage Analytics -->
+<section class="privacy-section">
+    <div class="container">
+        <h3 class="privacy-title">Your Usage This Month</h3>
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
+            <div style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 3rem; color: #B8860B; font-weight: bold;" id="services-used">0</div>
+                <div style="color: rgba(255,255,255,0.7); margin-top: 0.5rem;">Services Used</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 3rem; color: #10B981; font-weight: bold;" id="total-savings">$0</div>
+                <div style="color: rgba(255,255,255,0.7); margin-top: 0.5rem;">Total Savings</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 3rem; color: #3B82F6; font-weight: bold;" id="visit-count">0</div>
+                <div style="color: rgba(255,255,255,0.7); margin-top: 0.5rem;">Spa Visits</div>
+            </div>
+        </div>
+    </div>
+</section>
 
-                <div class="progress-container">
-                    <div class="progress-header">
-                        <span>Services Used:</span>
-                        <span class="info-value">{{ membership.services_used_this_month|default:"2" }} /
-                            Unlimited</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill"></div>
-                    </div>
-                </div>
+<!-- Benefits List -->
+<section class="privacy-section">
+    <div class="container">
+        <h3 class="privacy-title">Your Active Benefits</h3>
+        <div id="benefits-list" style="margin-top: 2rem;">
+            <!-- Loaded via JavaScript -->
+        </div>
+    </div>
+</section>
 
-                <div class="savings-text">
-                    <p>Monthly savings: <span class="savings-amount">$245</span></p>
+<!-- Upgrade Option -->
+<section class="privacy-section">
+    <div class="container">
+        <div
+            style="padding: 3rem; background: linear-gradient(135deg, rgba(184,134,11,0.1), rgba(184,134,11,0.05)); border-radius: 12px;">
+            <div style="text-align: center;">
+                <h3 class="privacy-title">Unlock More Benefits</h3>
+                <p style="margin: 1rem 0; color: rgba(255,255,255,0.8);">Upgrade to enjoy additional perks and services
+                </p>
+                <div id="upgrade-options" style="margin-top: 2rem;">
+                    <!-- Loaded via JavaScript -->
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Toast Container -->
+<div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/membership-detail.js' %}"></script>
+<script>
+    // Initialize membership detail
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof MembershipDetail !== 'undefined') {
+            window.membershipDetail = new MembershipDetail();
+        }
+    });
+</script>
 {% endblock %}

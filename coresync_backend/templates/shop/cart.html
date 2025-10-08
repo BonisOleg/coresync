@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Shopping Cart - CoreSync{% endblock %}
+
+{% block extra_css %}
+<style>
+    .cart-hero {
+        padding: 8rem 0 4rem;
+        text-align: center;
+    }
+
+    .cart-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: 2rem;
+    }
+
+    .cart-items {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        padding: 2rem;
+    }
+
+    .cart-item {
+        display: grid;
+        grid-template-columns: 100px 1fr auto;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+
+    .cart-item-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    .cart-item-info {
+        flex: 1;
+    }
+
+    .cart-item-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .cart-item-price {
+        color: #B8860B;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .quantity-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .quantity-btn {
+        width: 32px;
+        height: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: transparent;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .quantity-btn:hover {
+        background: #B8860B;
+        border-color: #B8860B;
+    }
+
+    .quantity-display {
+        padding: 0 1rem;
+        font-weight: bold;
+    }
+
+    .remove-btn {
+        color: #EF4444;
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+        border: 1px solid #EF4444;
+        background: transparent;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+    .remove-btn:hover {
+        background: #EF4444;
+        color: #fff;
+    }
+
+    .cart-summary {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        padding: 2rem;
+        height: fit-content;
+        position: sticky;
+        top: 100px;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .summary-total {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #B8860B;
+    }
+
+    .empty-cart {
+        text-align: center;
+        padding: 4rem;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    @media (max-width: 768px) {
+        .cart-container {
+            grid-template-columns: 1fr;
+        }
+
+        .cart-item {
+            grid-template-columns: 80px 1fr;
+        }
+
+        .cart-item-actions {
+            grid-column: 1 / -1;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="cart-hero">
+    <div class="container">
+        <h1 class="heading-xlarge">Your Pickup List</h1>
+        <p class="body-large">Ready for pickup on your next spa visit</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="cart-container">
+        <!-- Cart Items -->
+        <div class="cart-items">
+            <h2 style="margin-bottom: 2rem;">Items</h2>
+
+            <div id="cart-items-list">
+                <!-- Items loaded via JavaScript -->
+            </div>
+
+            <div id="empty-cart" class="empty-cart" style="display: none;">
+                <p style="font-size: 1.25rem; margin-bottom: 1rem;">Your cart is empty</p>
+                <a href="{% url 'shop:index' %}" class="btn-primary">Continue Shopping</a>
+            </div>
+        </div>
+
+        <!-- Cart Summary -->
+        <div class="cart-summary" id="cart-summary" style="display: none;">
+            <h2 style="margin-bottom: 2rem;">Summary</h2>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="subtotal">$0.00</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Tax (8%)</span>
+                <span id="tax">$0.00</span>
+            </div>
+
+            <div class="summary-row" style="border-bottom: 2px solid rgba(255, 255, 255, 0.2);">
+                <span class="summary-total">Total</span>
+                <span class="summary-total" id="total">$0.00</span>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <label class="form-label">Pickup Date (optional)</label>
+                <input type="date" id="pickup-date" class="form-input">
+            </div>
+
+            <div style="margin-top: 1.5rem;">
+                <label class="form-label">Special Requests (optional)</label>
+                <textarea id="customer-notes" class="form-textarea" rows="3"
+                    placeholder="Any special instructions..."></textarea>
+            </div>
+
+            <button id="checkout-btn" class="btn-primary" style="width: 100%; margin-top: 2rem;">
+                Complete Order
+            </button>
+
+            <p style="margin-top: 1rem; font-size: 0.875rem; text-align: center; color: rgba(255, 255, 255, 0.6);">
+                Items will be ready for pickup at your next visit
+            </p>
+        </div>
+    </div>
+</section>
+
+<div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/shop.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof CoreSyncCart !== 'undefined') {
+            window.cart = new CoreSyncCart();
+        }
+    });
+</script>
+{% endblock %}

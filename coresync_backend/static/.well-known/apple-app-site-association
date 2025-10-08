@@ -1,0 +1,27 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "TEAM_ID.life.coresync.coresync",
+                "paths": [
+                    "/app/*",
+                    "/services/*",
+                    "/booking/*",
+                    "/membership/*",
+                    "/shop/*",
+                    "/concierge/*",
+                    "/dashboard/*"
+                ]
+            }
+        ]
+    },
+    "webcredentials": {
+        "apps": [
+            "TEAM_ID.life.coresync.coresync"
+        ]
+    },
+    "appclips": {
+        "apps": []
+    }
+}

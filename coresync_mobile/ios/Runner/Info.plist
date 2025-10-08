@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- App Info -->
+	<key>CFBundleDisplayName</key>
+	<string>CoreSync</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleName</key>
+	<string>CoreSync</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	
+	<!-- Privacy Permissions -->
+	<key>NSCameraUsageDescription</key>
+	<string>CoreSync uses camera for face recognition login and capturing memories of your wellness journey.</string>
+	
+	<key>NSFaceIDUsageDescription</key>
+	<string>CoreSync uses Face ID for secure and convenient authentication to your account.</string>
+	
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>CoreSync needs photo access to upload custom content for personalized immersive experiences.</string>
+	
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>CoreSync uses your location to provide nearby spa services and enhance your experience.</string>
+	
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>CoreSync uses Bluetooth to connect with spa IoT devices for personalized environmental control.</string>
+	
+	<key>NSMicrophoneUsageDescription</key>
+	<string>CoreSync may use microphone for voice-controlled spa features.</string>
+	
+	<!-- URL Schemes -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>coresync</string>
+			</array>
+		</dict>
+	</array>
+	
+	<!-- Universal Links -->
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:coresync.life</string>
+		<string>applinks:www.coresync.life</string>
+	</array>
+	
+	<!-- Capabilities -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+	
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+</dict>
+</plist>
+

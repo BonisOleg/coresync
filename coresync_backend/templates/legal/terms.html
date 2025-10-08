@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Terms of Service - CoreSync{% endblock %}
+
+{% block content %}
+<section class="legal-page" style="padding: 8rem 2rem 4rem;">
+    <div class="container" style="max-width: 900px;">
+        <h1 class="heading-xlarge">Terms of Service</h1>
+        <p class="last-updated" style="color: rgba(255,255,255,0.6); margin-bottom: 3rem;">
+            Last Updated: October 8, 2025
+        </p>
+
+        <div class="legal-content" style="line-height: 1.8;">
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">1. Acceptance of Terms</h2>
+                <p>
+                    By accessing and using CoreSync's facilities, website, or mobile application, you agree to be bound
+                    by these
+                    Terms of Service. If you do not agree to these terms, please do not use our services.
+                </p>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">2. Membership</h2>
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">2.1 Membership Types</h3>
+                <p>CoreSync offers three membership tiers:</p>
+                <ul style="padding-left: 2rem;">
+                    <li><strong>Mensuite:</strong> Access to men's spa facilities and services</li>
+                    <li><strong>CoreSync Private:</strong> Access to couple's spa experiences</li>
+                    <li><strong>Unlimited:</strong> Full access to all amenities and services</li>
+                </ul>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">2.2 Payment Terms</h3>
+                <ul style="padding-left: 2rem;">
+                    <li>Memberships are billed monthly on the date of signup</li>
+                    <li>All payments are processed through Stripe</li>
+                    <li>Members must maintain a valid payment method on file</li>
+                    <li>Failed payments may result in service suspension</li>
+                </ul>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">2.3 Cancellation</h3>
+                <p>
+                    Members may cancel their membership at any time through the dashboard or by contacting us.
+                    Cancellations take effect at the end of the current billing period. No partial refunds are provided
+                    for unused time within a billing period.
+                </p>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">3. Booking and Services</h2>
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">3.1 Reservations</h3>
+                <ul style="padding-left: 2rem;">
+                    <li>Bookings can be made through our website or mobile app</li>
+                    <li>Members receive priority booking access</li>
+                    <li>Non-members can book up to 3 days in advance</li>
+                    <li>Members can book up to 30 days in advance</li>
+                </ul>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">3.2 Cancellation Policy</h3>
+                <ul style="padding-left: 2rem;">
+                    <li>Cancellations must be made at least 24 hours in advance</li>
+                    <li>Late cancellations may incur a fee</li>
+                    <li>No-shows will be charged the full service amount</li>
+                    <li>Unlimited members: 2 late cancellations result in temporary booking restrictions</li>
+                </ul>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">3.3 Service Modifications</h3>
+                <p>
+                    We reserve the right to modify service offerings, pricing, and availability. Members will be
+                    notified of significant changes at least 30 days in advance.
+                </p>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">4. Facility Rules</h2>
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">4.1 Code of Conduct</h3>
+                <ul style="padding-left: 2rem;">
+                    <li>Maintain a peaceful and respectful environment</li>
+                    <li>Follow staff instructions regarding equipment and facilities</li>
+                    <li>No photography or recording without explicit permission</li>
+                    <li>Appropriate attire required in common areas</li>
+                    <li>Arrive on time for scheduled appointments</li>
+                </ul>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">4.2 Health and Safety</h3>
+                <ul style="padding-left: 2rem;">
+                    <li>Disclose any health conditions to staff before services</li>
+                    <li>Follow posted safety guidelines</li>
+                    <li>Report any accidents or injuries immediately</li>
+                    <li>We reserve the right to refuse service for health or safety reasons</li>
+                </ul>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">5. Biometric Data & Face Recognition</h2>
+                <p>
+                    Use of face recognition for facility access is optional and requires explicit consent:
+                </p>
+                <ul style="padding-left: 2rem;">
+                    <li>Facial data is encrypted and stored securely</li>
+                    <li>Data is used solely for authentication purposes</li>
+                    <li>You may withdraw consent and delete data at any time</li>
+                    <li>Alternative access methods are always available</li>
+                    <li>Data is never shared with third parties</li>
+                </ul>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">6. Shop & Concierge Services</h2>
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">6.1 Shop Orders</h3>
+                <ul style="padding-left: 2rem;">
+                    <li>All shop products are for pickup only (no shipping)</li>
+                    <li>Orders must be picked up within 30 days</li>
+                    <li>Unclaimed orders may be restocked after 30 days</li>
+                    <li>Refunds available for unopened products within 14 days</li>
+                </ul>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">6.2 Concierge Requests</h3>
+                <ul style="padding-left: 2rem;">
+                    <li>Available for Premium and Unlimited members only</li>
+                    <li>Requests reviewed within 24 hours</li>
+                    <li>Approval based on availability and budget</li>
+                    <li>Payment required upon approval</li>
+                    <li>Age verification required for alcohol purchases</li>
+                </ul>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">7. Intellectual Property</h2>
+                <p>
+                    All content, including text, graphics, logos, and software, is the property of CoreSync and
+                    protected by copyright laws. Unauthorized use is prohibited.
+                </p>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">8. Limitation of Liability</h2>
+                <p>
+                    CoreSync is not liable for any indirect, incidental, or consequential damages arising from
+                    use of our services. Our liability is limited to the amount paid for services in the past 12 months.
+                </p>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">9. Dispute Resolution</h2>
+                <p>
+                    Any disputes arising from these terms will be resolved through binding arbitration in Brooklyn, New
+                    York,
+                    under the rules of the American Arbitration Association.
+                </p>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">10. Changes to Terms</h2>
+                <p>
+                    We reserve the right to modify these terms at any time. Continued use of our services after
+                    changes constitutes acceptance of the modified terms.
+                </p>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">11. Contact Information</h2>
+                <p>For questions about these terms, contact us at:</p>
+                <ul style="list-style: none; padding-left: 0; margin-top: 1rem;">
+                    <li><strong>Email:</strong> legal@coresync.life</li>
+                    <li><strong>Phone:</strong> +1 (551) 574-2281</li>
+                    <li><strong>Address:</strong> 1544 71st Street, Brooklyn, NY 11228</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+</section>
+{% endblock %}

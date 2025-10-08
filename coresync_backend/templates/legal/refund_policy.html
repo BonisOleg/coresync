@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Refund Policy - CoreSync{% endblock %}
+
+{% block content %}
+<section class="legal-page" style="padding: 8rem 2rem 4rem;">
+    <div class="container" style="max-width: 900px;">
+        <h1 class="heading-xlarge">Refund Policy</h1>
+        <p class="last-updated" style="color: rgba(255,255,255,0.6); margin-bottom: 3rem;">
+            Last Updated: October 8, 2025
+        </p>
+
+        <div class="legal-content" style="line-height: 1.8;">
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">1. Overview</h2>
+                <p>
+                    At CoreSync, we strive for complete customer satisfaction. This refund policy outlines the terms
+                    and conditions for refunds across our various services and products.
+                </p>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">2. Membership Refunds</h2>
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">2.1 Monthly Memberships</h3>
+                <ul style="padding-left: 2rem;">
+                    <li>No refunds for partial months</li>
+                    <li>Cancellations take effect at the end of the current billing period</li>
+                    <li>Members retain access through the paid period</li>
+                    <li>No refunds for unused services within a billing period</li>
+                </ul>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">2.2 First-Time Members</h3>
+                <ul style="padding-left: 2rem;">
+                    <li>30-day satisfaction guarantee for new members</li>
+                    <li>Full refund if cancelled within 30 days of first payment</li>
+                    <li>Applies only to first-time memberships</li>
+                    <li>Must not have used more than 2 services</li>
+                </ul>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">2.3 Annual Memberships</h3>
+                <ul style="padding-left: 2rem;">
+                    <li>Pro-rated refund available within first 60 days</li>
+                    <li>After 60 days, no refunds for early cancellation</li>
+                    <li>Discount rate acknowledged when calculating refunds</li>
+                </ul>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">3. Service Booking Refunds</h2>
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">3.1 Cancellation Timeline</h3>
+                <ul style="padding-left: 2rem;">
+                    <li><strong>24+ hours before:</strong> Full refund</li>
+                    <li><strong>12-24 hours before:</strong> 50% refund</li>
+                    <li><strong>Less than 12 hours:</strong> No refund</li>
+                    <li><strong>No-show:</strong> Full charge, no refund</li>
+                </ul>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">3.2 Service Issues</h3>
+                <p>
+                    If you're unsatisfied with a service, please notify us immediately. We will:
+                </p>
+                <ul style="padding-left: 2rem;">
+                    <li>Offer to redo the service at no charge</li>
+                    <li>Provide a credit for future services</li>
+                    <li>Issue a full refund if neither option is satisfactory</li>
+                </ul>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">4. Shop Product Refunds</h2>
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">4.1 Return Conditions</h3>
+                <ul style="padding-left: 2rem;">
+                    <li>Products must be unopened and unused</li>
+                    <li>Original packaging must be intact</li>
+                    <li>Returns accepted within 14 days of pickup</li>
+                    <li>Proof of purchase required</li>
+                </ul>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">4.2 Non-Returnable Items</h3>
+                <ul style="padding-left: 2rem;">
+                    <li>Opened skincare products (hygiene reasons)</li>
+                    <li>Used supplements or consumables</li>
+                    <li>Final sale or clearance items</li>
+                    <li>Custom or personalized items</li>
+                </ul>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">4.3 Refund Process</h3>
+                <p>
+                    Approved returns are refunded to the original payment method within 5-7 business days.
+                </p>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">5. Concierge Service Refunds</h2>
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">5.1 Request Cancellation</h3>
+                <ul style="padding-left: 2rem;">
+                    <li><strong>Before approval:</strong> Full refund of any deposits</li>
+                    <li><strong>After approval, before processing:</strong> 90% refund (10% processing fee)</li>
+                    <li><strong>During processing:</strong> 50% refund</li>
+                    <li><strong>Ready for pickup:</strong> No refund (item is sourced)</li>
+                </ul>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">5.2 Declined Requests</h3>
+                <p>
+                    If we cannot fulfill your concierge request, any deposits or payments will be fully refunded.
+                </p>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">6. Refund Processing</h2>
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">6.1 Timeline</h3>
+                <ul style="padding-left: 2rem;">
+                    <li>Refund requests processed within 2 business days</li>
+                    <li>Stripe refunds appear in 5-10 business days</li>
+                    <li>Bank processing times may vary</li>
+                </ul>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">6.2 Method</h3>
+                <ul style="padding-left: 2rem;">
+                    <li>All refunds issued to original payment method</li>
+                    <li>Cannot split refunds across multiple payment methods</li>
+                    <li>Store credit available as alternative option</li>
+                </ul>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">7. Exceptions</h2>
+                <p>
+                    We reserve the right to deny refunds in cases of:
+                </p>
+                <ul style="padding-left: 2rem;">
+                    <li>Violation of facility rules</li>
+                    <li>Fraudulent activity or chargebacks</li>
+                    <li>Abuse of refund policy</li>
+                    <li>Damage to property or equipment</li>
+                </ul>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">8. Gift Certificates</h2>
+                <ul style="padding-left: 2rem;">
+                    <li>Non-refundable and non-exchangeable for cash</li>
+                    <li>Valid for 12 months from purchase date</li>
+                    <li>Can be transferred to another person</li>
+                    <li>Cannot be combined with other promotions</li>
+                </ul>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">9. Disputes</h2>
+                <p>
+                    If you have concerns about a charge or refund, please contact us first. We are committed to
+                    resolving issues fairly and promptly. If we cannot reach a resolution, the matter will be
+                    handled according to the dispute resolution process outlined in our Terms of Service.
+                </p>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">10. Contact for Refunds</h2>
+                <p>To request a refund or discuss concerns, contact us at:</p>
+                <ul style="list-style: none; padding-left: 0; margin-top: 1rem;">
+                    <li><strong>Email:</strong> refunds@coresync.life</li>
+                    <li><strong>Phone:</strong> +1 (551) 574-2281</li>
+                    <li><strong>Address:</strong> 1544 71st Street, Brooklyn, NY 11228</li>
+                    <li><strong>Hours:</strong> Monday-Friday, 9 AM - 6 PM EST</li>
+                </ul>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">11. Policy Changes</h2>
+                <p>
+                    This refund policy may be updated periodically. Members will be notified of significant changes
+                    via email. Continued use of our services after changes constitutes acceptance of the updated policy.
+                </p>
+            </section>
+        </div>
+    </div>
+</section>
+{% endblock %}

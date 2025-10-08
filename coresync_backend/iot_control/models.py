@@ -172,7 +172,9 @@ class ControlLog(models.Model):
     device = models.ForeignKey(
         IoTDevice,
         on_delete=models.CASCADE,
-        related_name='control_logs'
+        related_name='control_logs',
+        null=True,
+        blank=True
     )
     scene = models.ForeignKey(
         Scene,
@@ -216,7 +218,9 @@ class SensorReading(models.Model):
     device = models.ForeignKey(
         IoTDevice,
         on_delete=models.CASCADE,
-        related_name='sensor_readings'
+        related_name='sensor_readings',
+        null=True,
+        blank=True
     )
     
     # Reading data

@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Personal Concierge Service - CoreSync{% endblock %}
+
+{% block extra_css %}
+<style>
+    .concierge-hero {
+        padding: 8rem 0 4rem;
+        text-align: center;
+    }
+
+    .concierge-form {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    .form-notice {
+        background: rgba(184, 134, 11, 0.1);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 2rem 0;
+    }
+
+    .request-card {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .status-pending {
+        background: rgba(251, 191, 36, 0.2);
+        color: #FCD34D;
+    }
+
+    .status-approved {
+        background: rgba(16, 185, 129, 0.2);
+        color: #10B981;
+    }
+
+    .status-processing {
+        background: rgba(59, 130, 246, 0.2);
+        color: #3B82F6;
+    }
+
+    .status-ready {
+        background: rgba(16, 185, 129, 0.3);
+        color: #34D399;
+    }
+
+    .status-completed {
+        background: rgba(107, 114, 128, 0.2);
+        color: #9CA3AF;
+    }
+
+    .status-declined {
+        background: rgba(239, 68, 68, 0.2);
+        color: #EF4444;
+    }
+
+    .status-cancelled {
+        background: rgba(107, 114, 128, 0.2);
+        color: #6B7280;
+    }
+
+    @media (max-width: 768px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="concierge-hero">
+    <div class="container">
+        <h1 class="heading-xlarge">Personal Concierge</h1>
+        <p class="body-large">
+            Special requests for premium members. We'll source and prepare anything for your next visit.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container concierge-form">
+        <form id="concierge-form">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label class="form-label">Request Type *</label>
+                <select id="request_type" class="form-input" required>
+                    <option value="">Select type...</option>
+                    <option value="alcohol">Premium Alcohol 🥃</option>
+                    <option value="flowers">Fresh Flowers 🌹</option>
+                    <option value="food">Gourmet Food 🍽️</option>
+                    <option value="jewelry">Jewelry & Accessories 💎</option>
+                    <option value="luxury">Luxury Items ✨</option>
+                    <option value="gift">Gift Items 🎁</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Title *</label>
+                <input type="text" id="title" class="form-input" placeholder="Brief description of your request..."
+                    required maxlength="200">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Detailed Description *</label>
+                <textarea id="description" class="form-textarea" rows="5"
+                    placeholder="Tell us exactly what you're looking for..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Product Link (optional)</label>
+                <input type="url" id="product_link" class="form-input" placeholder="https://example.com/product">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Budget Minimum ($) *</label>
+                    <input type="number" id="budget_min" class="form-input" placeholder="0.00" min="0" step="0.01"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Budget Maximum ($) *</label>
+                    <input type="number" id="budget_max" class="form-input" placeholder="0.00" min="0" step="0.01"
+                        required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Preferred Pickup Date *</label>
+                <input type="date" id="pickup_date" class="form-input" required>
+            </div>
+
+            <div class="form-notice">
+                <p style="font-weight: bold; margin-bottom: 0.5rem;">📌 Important Notes:</p>
+                <ul style="padding-left: 1.5rem; margin: 0;">
+                    <li>Available for Premium & Unlimited members only</li>
+                    <li>We'll review and approve within 24 hours</li>
+                    <li>Items will be ready on your selected pickup date</li>
+                    <li>Age verification required for alcohol purchases</li>
+                </ul>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%;">
+                Submit Request
+            </button>
+        </form>
+
+        <!-- My Requests -->
+        <div id="my-requests" style="margin-top: 4rem;">
+            <h2 style="margin-bottom: 2rem;">My Requests</h2>
+            <div id="requests-list">
+                <!-- Loaded via JavaScript -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/concierge.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof CoreSyncConcierge !== 'undefined') {
+            window.concierge = new CoreSyncConcierge();
+        }
+    });
+</script>
+{% endblock %}
