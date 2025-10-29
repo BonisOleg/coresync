@@ -53,6 +53,8 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'rest_framework',
     'corsheaders',
+    # 'django_celery_beat',  # TODO: Activate після pip install
+    # 'channels',  # TODO: Activate після pip install
 ]
 
 LOCAL_APPS = [
@@ -67,9 +69,30 @@ LOCAL_APPS = [
     'analytics',
     'shop',
     'concierge',
+    'ai_agent',  # NEW: AI agent з multithreading
+    'technicians',  # NEW: Technician portal
+    'notifications',  # NEW: Email automation
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+# AWS Configuration for Face Recognition
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', default='')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY', default='')
+AWS_REGION = config('AWS_REGION', default='us-east-1')
+AWS_REKOGNITION_COLLECTION_ID = config('AWS_REKOGNITION_COLLECTION_ID', default='coresync-members')
+
+# Face Recognition Settings
+FACE_RECOGNITION_PROVIDER = config('FACE_PROVIDER', default='local')  # 'aws' or 'local'
+FACE_SIMILARITY_THRESHOLD = float(config('FACE_SIMILARITY_THRESHOLD', default='90.0'))
+FACE_QUALITY_THRESHOLD = float(config('FACE_QUALITY_THRESHOLD', default='70.0'))
+FACE_MAX_IMAGE_SIZE_MB = int(config('FACE_MAX_IMAGE_SIZE_MB', default='5'))
+
+# IoT Control Settings
+IOT_CONTROL_ENABLED = config('IOT_CONTROL_ENABLED', default=True, cast=bool)
+IOT_WEBSOCKET_TIMEOUT = int(config('IOT_WEBSOCKET_TIMEOUT', default='300'))
+IOT_MAX_DEVICES_PER_LOCATION = int(config('IOT_MAX_DEVICES_PER_LOCATION', default='50'))
+IOT_COMMAND_RATE_LIMIT = int(config('IOT_COMMAND_RATE_LIMIT', default='100'))  # commands per minute
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -216,7 +239,12 @@ CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND', default='redis://localho
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
+CELERY_TIMEZONE = 'America/New_York'  # EST timezone
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60  # 30 minutes max per task
+
+# Celery Beat uses database scheduler
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 # Celery Beat Schedule for QuickBooks auto-sync
 CELERY_BEAT_SCHEDULE = {
@@ -235,11 +263,15 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-# Email Configuration
+# Email Configuration - SendGrid
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
-EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = config('SENDGRID_API_KEY', default='')
+DEFAULT_FROM_EMAIL = 'info@coresync.life'
+SERVER_EMAIL = 'info@coresync.life'
 
 # QuickBooks API Configuration
 QUICKBOOKS_CLIENT_ID = config('QUICKBOOKS_CLIENT_ID', default='')
@@ -248,8 +280,30 @@ QUICKBOOKS_ACCESS_TOKEN = config('QUICKBOOKS_ACCESS_TOKEN', default='')
 QUICKBOOKS_REFRESH_TOKEN = config('QUICKBOOKS_REFRESH_TOKEN', default='')
 QUICKBOOKS_COMPANY_ID = config('QUICKBOOKS_COMPANY_ID', default='')
 QUICKBOOKS_SANDBOX = config('QUICKBOOKS_SANDBOX', default=True, cast=bool)  # Set to False for production
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+
+# Atlas AI Configuration
+ATLAS_API_KEY = config('ATLAS_API_KEY', default='')
+ATLAS_WEBHOOK_SECRET = config('ATLAS_WEBHOOK_SECRET', default='')
+ATLAS_BASE_URL = config('ATLAS_BASE_URL', default='https://api.youratlas.com/v1')
+
+# Google Services Configuration (будуть додані коли payment card готовий)
+GOOGLE_CALENDAR_SERVICE_ACCOUNT_FILE = config('GOOGLE_CALENDAR_SERVICE_ACCOUNT_FILE', default='')
+GOOGLE_SHEETS_SERVICE_ACCOUNT_FILE = config('GOOGLE_SHEETS_SERVICE_ACCOUNT_FILE', default='')
+
+# Sentry Monitoring
+SENTRY_DSN = config('SENTRY_DSN', default='')
+if SENTRY_DSN:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+    from sentry_sdk.integrations.celery import CeleryIntegration
+    
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        integrations=[DjangoIntegration(), CeleryIntegration()],
+        traces_sample_rate=0.1,
+        send_default_pii=True,
+        environment='production' if not DEBUG else 'development',
+    )
 
 # Security settings for production
 if not DEBUG:

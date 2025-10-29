@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #0a0a0a;
+            border: 1px solid #1a1a1a;
+        }
+        .header {
+            background-color: #000000;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #ffffff;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 300;
+            margin: 0 0 20px 0;
+            color: #ffffff;
+        }
+        .booking-details {
+            background-color: #111111;
+            border: 1px solid #222222;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .detail-row {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            width: 120px;
+            color: #888888;
+            font-size: 14px;
+        }
+        .detail-value {
+            flex: 1;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .button {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 16px 40px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .info-box {
+            background-color: #0d1117;
+            border-left: 3px solid #ffffff;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .footer {
+            background-color: #000000;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #1a1a1a;
+            color: #666666;
+            font-size: 13px;
+        }
+        .footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">C.</div>
+        </div>
+        
+        <div class="content">
+            <h1>Booking Confirmed</h1>
+            <p style="color: #cccccc; line-height: 1.6;">
+                Вітаємо, {{ user.first_name }}! Ваше бронювання підтверджено. 
+                Ми з нетерпінням чекаємо на зустріч з вами в CoreSync.
+            </p>
+            
+            <div class="booking-details">
+                <div class="detail-row">
+                    <div class="detail-label">Service</div>
+                    <div class="detail-value">{{ service.name }}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Date</div>
+                    <div class="detail-value">{{ date|date:"l, F j, Y" }}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Time</div>
+                    <div class="detail-value">{{ time|time:"g:i A" }}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Duration</div>
+                    <div class="detail-value">{{ booking.service.duration }} minutes</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Location</div>
+                    <div class="detail-value">{{ location }}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Reference</div>
+                    <div class="detail-value">{{ booking.booking_reference }}</div>
+                </div>
+            </div>
+            
+            <center>
+                <a href="https://coresync.life/dashboard/bookings/" class="button">
+                    View Booking Details
+                </a>
+            </center>
+            
+            <div class="info-box">
+                <h3 style="margin: 0 0 15px 0; font-size: 16px; font-weight: 600;">What to Bring</h3>
+                <p style="margin: 0; color: #cccccc; line-height: 1.6;">
+                    {{ what_to_bring }}
+                </p>
+            </div>
+            
+            <div class="info-box">
+                <h3 style="margin: 0 0 15px 0; font-size: 16px; font-weight: 600;">Parking Information</h3>
+                <p style="margin: 0; color: #cccccc; line-height: 1.6;">
+                    {{ parking_info }}
+                </p>
+            </div>
+            
+            <p style="color: #888888; font-size: 13px; margin-top: 30px;">
+                Need to make changes? 
+                <a href="https://coresync.life/dashboard/bookings/" style="color: #ffffff;">Manage your booking</a>
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p>CoreSync Luxury Spa</p>
+            <p>1544 71st Street, Brooklyn, NY</p>
+            <p>
+                <a href="tel:5515742281">(551) 574-2281</a> | 
+                <a href="mailto:info@coresync.life">info@coresync.life</a>
+            </p>
+            <p style="margin-top: 20px;">
+                <a href="https://coresync.life/privacy-policy/">Privacy Policy</a> | 
+                <a href="https://coresync.life/terms/">Terms of Service</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

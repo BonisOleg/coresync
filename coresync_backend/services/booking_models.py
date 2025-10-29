@@ -208,6 +208,37 @@ class Booking(BaseModel):
     assigned_technician = models.CharField(max_length=100, blank=True)
     technician_notes = models.TextField(blank=True)
     
+    # NEW: Technician ForeignKey (згідно Full100.md Day 1)
+    technician = models.ForeignKey(
+        'technicians.Technician',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='bookings',
+        help_text="Assigned technician (new portal integration)"
+    )
+    
+    # NEW: AI Agent tracking (згідно Full100.md Day 1)
+    ai_session_id = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="AI conversation session ID (trace conversation)"
+    )
+    
+    # NEW: Google Calendar sync (згідно Full100.md Day 1)
+    google_calendar_event_id = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Google Calendar event ID (sync reference)"
+    )
+    
+    # NEW: Atlas AI phone booking (згідно Full100.md Day 1)
+    atlas_call_id = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Atlas AI phone booking call ID (trace)"
+    )
+    
     # QuickBooks sync
     quickbooks_synced = models.BooleanField(default=False)
     quickbooks_invoice_id = models.CharField(max_length=100, blank=True)
@@ -221,6 +252,8 @@ class Booking(BaseModel):
             models.Index(fields=['user', 'booking_date']),
             models.Index(fields=['booking_date', 'start_time']),
             models.Index(fields=['status', 'booking_date']),
+            models.Index(fields=['technician', 'booking_date']),  # NEW: Для technician dashboard
+            models.Index(fields=['technician', 'status', 'booking_date']),  # NEW: Фільтрування
         ]
 
     def save(self, *args, **kwargs):

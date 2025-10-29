@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Booking Assignment</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #0a0a0a;
+            border: 1px solid #1a1a1a;
+        }
+        .header {
+            background-color: #000000;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #ffffff;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .alert-box {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d1117 100%);
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .booking-details {
+            background-color: #111111;
+            border: 1px solid #222222;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .detail-row {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            width: 140px;
+            color: #888888;
+            font-size: 14px;
+        }
+        .detail-value {
+            flex: 1;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .button {
+            display: inline-block;
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 16px 40px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+        .info-box {
+            background-color: #0d1117;
+            border-left: 3px solid #ffc107;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .footer {
+            background-color: #000000;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #1a1a1a;
+            color: #666666;
+            font-size: 13px;
+        }
+        .footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">C.</div>
+        </div>
+        
+        <div class="content">
+            <div class="alert-box">
+                <h2 style="margin: 0; font-size: 20px; color: #28a745;">
+                    ✓ New Booking Assigned
+                </h2>
+            </div>
+            
+            <p style="color: #cccccc; line-height: 1.6; font-size: 16px;">
+                Hi {{ technician.full_name }},
+            </p>
+            
+            <p style="color: #cccccc; line-height: 1.6; font-size: 16px;">
+                You have been assigned a new booking for <strong style="color: #ffffff;">{{ service.name }}</strong>.
+            </p>
+            
+            <div class="booking-details">
+                <div class="detail-row">
+                    <div class="detail-label">Service</div>
+                    <div class="detail-value">{{ service.name }}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Client</div>
+                    <div class="detail-value">{{ client.get_full_name }}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Date</div>
+                    <div class="detail-value">{{ date|date:"l, F j, Y" }}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Time</div>
+                    <div class="detail-value">{{ time|time:"g:i A" }} - {{ end_time|time:"g:i A" }}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Duration</div>
+                    <div class="detail-value">{{ duration }} minutes</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Location</div>
+                    <div class="detail-value">{{ location }}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Reference</div>
+                    <div class="detail-value">{{ booking.booking_reference }}</div>
+                </div>
+            </div>
+            
+            {% if special_requests %}
+            <div class="info-box">
+                <h3 style="margin: 0 0 10px 0; font-size: 16px; font-weight: 600; color: #ffc107;">
+                    ⚠️ Special Requests
+                </h3>
+                <p style="margin: 0; color: #cccccc; line-height: 1.6;">
+                    {{ special_requests }}
+                </p>
+            </div>
+            {% endif %}
+            
+            <center>
+                <a href="https://coresync.life/dashboard/technician/" class="button">
+                    View Full Details
+                </a>
+            </center>
+            
+            <div class="info-box" style="border-left-color: #17a2b8;">
+                <h3 style="margin: 0 0 10px 0; font-size: 16px; font-weight: 600;">
+                    📅 This event has been added to your calendar
+                </h3>
+                <p style="margin: 0; color: #cccccc; line-height: 1.6; font-size: 14px;">
+                    Your Google Calendar has been automatically updated. 
+                    This time slot is now blocked for other bookings.
+                </p>
+            </div>
+            
+            <p style="color: #888888; font-size: 14px; margin-top: 30px;">
+                Please arrive 10 minutes before the appointment to prepare the room and review client preferences.
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p>CoreSync Technician Portal</p>
+            <p>1544 71st Street, Brooklyn, NY</p>
+            <p>
+                <a href="tel:5515742281">(551) 574-2281</a> | 
+                <a href="mailto:info@coresync.life">info@coresync.life</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

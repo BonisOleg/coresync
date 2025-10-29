@@ -17,6 +17,15 @@ dj-database-url==2.2.0
 djangorestframework-simplejwt==5.3.0
 cryptography==42.0.8
 
+# AWS Services (Face Recognition, IoT)
+boto3==1.35.76
+botocore==1.35.76
+
+# Face Recognition (Local Fallback - Optional)
+# deepface==0.0.93
+# opencv-python==4.10.0.84
+# tf-keras==2.16.0
+
 # API Documentation
 drf-spectacular==0.27.2
 
@@ -26,8 +35,22 @@ stripe==10.11.0
 # File Processing
 Pillow==10.4.0
 
-# HTTP Client
+# HTTP Clients
 requests==2.32.3
+httpx==0.25.2
+
+# Date/Time Utilities
+python-dateutil==2.8.2
+
+# Email Service
+sendgrid==6.11.0
+
+# PDF Generation
+reportlab==4.0.7
+
+# Monitoring
+sentry-sdk==1.39.1
+flower==2.0.1
 
 # Environment
 python-dotenv==1.0.1
@@ -35,9 +58,15 @@ python-dotenv==1.0.1
 # Production Server
 gunicorn==22.0.0
 
-# Task Queue (for QuickBooks sync) - DISABLED FOR INITIAL DEPLOY
-# celery==5.3.4
-# redis==5.0.8
+# Task Queue & Async Processing
+celery[redis]==5.3.4
+django-celery-beat==2.5.0
+redis==5.0.1
+
+# WebSocket Support (Django Channels)
+channels==4.0.0
+channels-redis==4.1.0
+daphne==4.0.0
 
 # QuickBooks Integration - DISABLED FOR INITIAL DEPLOY  
 # Will be enabled after successful basic deploy

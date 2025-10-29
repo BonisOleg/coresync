@@ -1,0 +1,503 @@
+/**
+ * IoT Control Dashboard Styles
+ * Responsive для desktop, tablet та mobile (iOS Safari included)
+ */
+
+/* === Base Styles === */
+.iot-dashboard {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    color: #fff;
+}
+
+.iot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.iot-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #B8860B;
+    margin: 0;
+}
+
+.connection-status-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-indicator {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.status-connected {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+    border: 1px solid #22c55e;
+}
+
+.status-disconnected {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border: 1px solid #ef4444;
+}
+
+/* === Tabs === */
+.iot-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.iot-tab {
+    padding: 1rem 1.5rem;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+}
+
+.iot-tab:hover {
+    color: #fff;
+}
+
+.iot-tab.active {
+    color: #B8860B;
+    border-bottom-color: #B8860B;
+}
+
+/* === Tab Panels === */
+.iot-panel {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.iot-panel.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* === Devices Grid === */
+.devices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.device-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.device-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(184, 134, 11, 0.3);
+    transform: translateY(-2px);
+}
+
+.device-card.device-on {
+    border-color: rgba(34, 197, 94, 0.5);
+}
+
+.device-card.device-off {
+    opacity: 0.7;
+}
+
+.device-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.device-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.device-type {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.device-status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.badge-online {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.badge-offline {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+/* === Control Elements === */
+.device-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.control-label {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.slider {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+    transition: all 0.3s ease;
+    -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #B8860B;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #B8860B;
+    cursor: pointer;
+    border: none;
+}
+
+.slider-value {
+    min-width: 50px;
+    text-align: right;
+    font-weight: 600;
+    color: #B8860B;
+}
+
+/* === Color Presets === */
+.color-presets {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.color-preset {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.color-preset:hover {
+    transform: scale(1.1);
+}
+
+.color-preset.active {
+    border-color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* === Buttons === */
+.btn-iot {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: transparent;
+    color: #fff;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-iot:hover {
+    background: rgba(184, 134, 11, 0.1);
+    border-color: #B8860B;
+    color: #B8860B;
+}
+
+.btn-iot-primary {
+    background: #B8860B;
+    border-color: #B8860B;
+    color: #000;
+}
+
+.btn-iot-primary:hover {
+    background: #9a7109;
+    border-color: #9a7109;
+}
+
+/* === Scenes Section === */
+.scenes-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.scene-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.scene-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(184, 134, 11, 0.3);
+}
+
+.scene-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.scene-description {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1rem;
+}
+
+.scene-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.scene-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+/* === Notifications === */
+.notifications {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 400px;
+}
+
+.notification {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.notification.fade-out {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateX(400px);
+    }
+}
+
+.notification-success {
+    background: rgba(34, 197, 94, 0.9);
+    color: #fff;
+}
+
+.notification-error {
+    background: rgba(239, 68, 68, 0.9);
+    color: #fff;
+}
+
+.notification-info {
+    background: rgba(59, 130, 246, 0.9);
+    color: #fff;
+}
+
+/* === Responsive - Tablet === */
+@media (max-width: 1024px) {
+    .iot-dashboard {
+        padding: 1.5rem 1rem;
+    }
+    
+    .iot-title {
+        font-size: 1.75rem;
+    }
+    
+    .devices-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1rem;
+    }
+    
+    .scenes-list {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+/* === Responsive - Mobile === */
+@media (max-width: 768px) {
+    .iot-dashboard {
+        padding: 1rem 0.75rem;
+    }
+    
+    .iot-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .iot-title {
+        font-size: 1.5rem;
+    }
+    
+    .iot-tabs {
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .iot-tab {
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+    }
+    
+    .devices-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .scenes-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .notifications {
+        top: 1rem;
+        right: 1rem;
+        left: 1rem;
+        max-width: none;
+    }
+    
+    .notification {
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* === iOS Safari Specific === */
+@supports (-webkit-touch-callout: none) {
+    .slider {
+        height: 8px;
+    }
+    
+    .slider::-webkit-slider-thumb {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .iot-tabs {
+        padding-bottom: 2px;
+    }
+    
+    .btn-iot {
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+/* === Dark Scrollbars === */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(184, 134, 11, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(184, 134, 11, 0.7);
+}
+

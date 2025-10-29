@@ -1,17 +1,21 @@
 """
-IoT Control URLs for the CoreSync API.
+IoT Control URLs для CoreSync API.
+REST API endpoints для управління IoT пристроями.
 """
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from . import views
 
 app_name = 'iot_control'
 
+# DRF Router для ViewSets
+router = DefaultRouter()
+router.register(r'devices', views.IoTDeviceViewSet, basename='device')
+router.register(r'scenes', views.SceneViewSet, basename='scene')
+router.register(r'logs', views.ControlLogViewSet, basename='control-log')
+router.register(r'sensors', views.SensorReadingViewSet, basename='sensor')
+
 urlpatterns = [
-    # TODO: Add IoT control endpoints
-    # path('devices/', views.DeviceListView.as_view(), name='devices'),
-    # path('scenes/create/', views.CreateSceneView.as_view(), name='create_scene'),
-    # path('scenes/<int:pk>/', views.UpdateSceneView.as_view(), name='update_scene'),
-    # path('lighting/adjust/', views.AdjustLightingView.as_view(), name='adjust_lighting'),
-    # path('scent/adjust/', views.AdjustScentView.as_view(), name='adjust_scent'),
-    # path('temperature/set/', views.SetTemperatureView.as_view(), name='set_temperature'),
-    # path('status/', views.DeviceStatusView.as_view(), name='status'),
+    # ViewSet routes
+    path('', include(router.urls)),
 ]

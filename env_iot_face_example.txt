@@ -1,0 +1,70 @@
+# CoreSync IoT & Face Recognition Environment Variables
+# Додай ці змінні в Render.com Environment Variables
+
+# ===== AWS Configuration =====
+# For Face Recognition with AWS Rekognition
+AWS_ACCESS_KEY_ID=your_aws_access_key_id_here
+AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key_here
+AWS_REGION=us-east-1
+AWS_REKOGNITION_COLLECTION_ID=coresync-members
+
+# ===== Face Recognition Settings =====
+# Provider: 'aws' (production) or 'local' (development/fallback)
+FACE_PROVIDER=local
+# Use 'aws' in production after setting up AWS credentials
+
+# Face similarity threshold (0-100, higher = stricter)
+FACE_SIMILARITY_THRESHOLD=90.0
+
+# Face quality threshold (0-100, higher = stricter)
+FACE_QUALITY_THRESHOLD=70.0
+
+# Maximum face image size in MB
+FACE_MAX_IMAGE_SIZE_MB=5
+
+# ===== IoT Control Settings =====
+# Enable/disable IoT control (useful for maintenance)
+IOT_CONTROL_ENABLED=True
+
+# WebSocket timeout in seconds
+IOT_WEBSOCKET_TIMEOUT=300
+
+# Maximum devices per location
+IOT_MAX_DEVICES_PER_LOCATION=50
+
+# Rate limit: max IoT commands per minute per user
+IOT_COMMAND_RATE_LIMIT=100
+
+# ===== Django Channels (WebSocket) =====
+# Required for real-time IoT control
+# CHANNEL_LAYERS=redis
+
+# Redis URL for Channels (if using Redis)
+# REDIS_URL=redis://localhost:6379/0
+
+# ===== Logging =====
+# Log level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+LOG_LEVEL=INFO
+
+# Enable IoT command logging
+IOT_LOGGING_ENABLED=True
+
+# ===== Security =====
+# Enable rate limiting middleware
+ENABLE_IOT_RATE_LIMIT=True
+
+# Enable IoT security middleware
+ENABLE_IOT_SECURITY=True
+
+# ===== Instructions =====
+# 1. Copy this file to .env in your project root (development)
+# 2. For Render.com: Add each variable in Environment section
+# 3. For AWS Rekognition:
+#    - Create AWS account
+#    - Enable Rekognition service
+#    - Create IAM user with Rekognition permissions
+#    - Generate access keys
+#    - Add keys to environment variables
+# 4. Set FACE_PROVIDER=aws when AWS is configured
+# 5. Start with FACE_PROVIDER=local for development
+

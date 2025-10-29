@@ -1,0 +1,361 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/iot_control.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="iot-dashboard">
+    <!-- Header -->
+    <div class="iot-header">
+        <h1 class="iot-title">IoT Control Dashboard</h1>
+        <div class="connection-status-wrapper">
+            <div id="connection-status" class="status-indicator status-disconnected">
+                Disconnected
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="iot-tabs">
+        <button class="iot-tab active" data-tab="devices">Devices</button>
+        <button class="iot-tab" data-tab="scenes">Scenes</button>
+        <button class="iot-tab" data-tab="lighting">Lighting</button>
+        <button class="iot-tab" data-tab="climate">Climate</button>
+    </div>
+
+    <!-- Devices Panel -->
+    <div class="iot-panel active" id="devices-panel">
+        <div class="devices-grid" id="devices-container">
+            <!-- Devices will be loaded here dynamically -->
+            <div class="device-card device-on" data-device-id="1" data-device-type="lighting">
+                <div class="device-header">
+                    <div>
+                        <h3 class="device-name">Main Lighting</h3>
+                        <p class="device-type">Lighting System</p>
+                    </div>
+                    <span class="device-status-badge badge-online">Online</span>
+                </div>
+                <div class="device-controls">
+                    <div class="control-group">
+                        <label class="control-label">Brightness</label>
+                        <div class="slider-container">
+                            <input type="range" class="slider brightness-slider" min="0" max="100" value="75">
+                            <span class="slider-value">75%</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Color</label>
+                        <div class="color-presets">
+                            <button class="color-preset active" style="background: #ffffff;" data-color="#ffffff"></button>
+                            <button class="color-preset" style="background: #ffd700;" data-color="#ffd700"></button>
+                            <button class="color-preset" style="background: #ff6b6b;" data-color="#ff6b6b"></button>
+                            <button class="color-preset" style="background: #4ecdc4;" data-color="#4ecdc4"></button>
+                            <button class="color-preset" style="background: #95e1d3;" data-color="#95e1d3"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="device-card device-on" data-device-id="2" data-device-type="temperature">
+                <div class="device-header">
+                    <div>
+                        <h3 class="device-name">Climate Control</h3>
+                        <p class="device-type">Temperature Control</p>
+                    </div>
+                    <span class="device-status-badge badge-online">Online</span>
+                </div>
+                <div class="device-controls">
+                    <div class="control-group">
+                        <label class="control-label">Temperature</label>
+                        <div class="slider-container">
+                            <input type="range" class="slider temperature-slider" min="65" max="80" value="72">
+                            <span class="slider-value temperature-display">72°F</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scenes Panel -->
+    <div class="iot-panel" id="scenes-panel">
+        <div class="scenes-list" id="scenes-container">
+            <!-- Scenes will be loaded here dynamically -->
+            <div class="scene-card" data-scene-id="1">
+                <h3 class="scene-name">Relaxation Mode</h3>
+                <p class="scene-description">Dim lighting, comfortable temperature, calming ambiance</p>
+                <div class="scene-meta">
+                    <span>4 devices</span>
+                    <span>Public Scene</span>
+                </div>
+                <div class="scene-actions">
+                    <button class="btn-iot btn-iot-primary activate-scene">Activate</button>
+                    <button class="btn-iot">Edit</button>
+                </div>
+            </div>
+
+            <div class="scene-card" data-scene-id="2">
+                <h3 class="scene-name">Energy Boost</h3>
+                <p class="scene-description">Bright lighting, refreshing temperature, energizing atmosphere</p>
+                <div class="scene-meta">
+                    <span>3 devices</span>
+                    <span>Public Scene</span>
+                </div>
+                <div class="scene-actions">
+                    <button class="btn-iot btn-iot-primary activate-scene">Activate</button>
+                    <button class="btn-iot">Edit</button>
+                </div>
+            </div>
+
+            <div class="scene-card" data-scene-id="3">
+                <h3 class="scene-name">Evening Mode</h3>
+                <p class="scene-description">Warm lighting, cozy temperature, relaxing environment</p>
+                <div class="scene-meta">
+                    <span>5 devices</span>
+                    <span>Custom Scene</span>
+                </div>
+                <div class="scene-actions">
+                    <button class="btn-iot btn-iot-primary activate-scene">Activate</button>
+                    <button class="btn-iot">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lighting Panel -->
+    <div class="iot-panel" id="lighting-panel">
+        <div class="control-section">
+            <h2>Lighting Control</h2>
+            <div class="control-group">
+                <label class="control-label">Select Location</label>
+                <select id="lighting-location" class="form-select">
+                    <option value="mensuite_main">Mensuite - Main Area</option>
+                    <option value="mensuite_meditation">Mensuite - Meditation Room</option>
+                    <option value="coresync_suite">Coresync Private - Main Suite</option>
+                    <option value="coresync_sauna">Coresync Private - Sauna</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Brightness</label>
+                <div class="slider-container">
+                    <input type="range" id="lighting-brightness" class="slider" min="0" max="100" value="75">
+                    <span class="slider-value" id="lighting-brightness-value">75%</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Color Presets</label>
+                <div class="color-presets">
+                    <button class="color-preset" style="background: #ffffff;" data-color="#ffffff" title="White"></button>
+                    <button class="color-preset" style="background: #ffd700;" data-color="#ffd700" title="Warm"></button>
+                    <button class="color-preset" style="background: #ff6b6b;" data-color="#ff6b6b" title="Red"></button>
+                    <button class="color-preset" style="background: #4ecdc4;" data-color="#4ecdc4" title="Cyan"></button>
+                    <button class="color-preset" style="background: #95e1d3;" data-color="#95e1d3" title="Mint"></button>
+                </div>
+            </div>
+            <button id="apply-lighting" class="btn-iot btn-iot-primary">Apply Settings</button>
+        </div>
+    </div>
+
+    <!-- Climate Panel -->
+    <div class="iot-panel" id="climate-panel">
+        <div class="control-section">
+            <h2>Climate Control</h2>
+            <div class="control-group">
+                <label class="control-label">Select Location</label>
+                <select id="climate-location" class="form-select">
+                    <option value="mensuite_main">Mensuite - Main Area</option>
+                    <option value="mensuite_meditation">Mensuite - Meditation Room</option>
+                    <option value="coresync_suite">Coresync Private - Main Suite</option>
+                    <option value="coresync_sauna">Coresync Private - Sauna</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Temperature</label>
+                <div class="slider-container">
+                    <input type="range" id="climate-temperature" class="slider" min="65" max="80" value="72">
+                    <span class="slider-value" id="climate-temperature-value">72°F</span>
+                </div>
+            </div>
+            <button id="apply-climate" class="btn-iot btn-iot-primary">Apply Settings</button>
+        </div>
+    </div>
+</div>
+
+<!-- Notifications Container -->
+<div id="notifications" class="notifications"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/iot_control.js' %}"></script>
+<script>
+    // Initialize IoT Dashboard
+    document.addEventListener('DOMContentLoaded', () => {
+        // Check if user is authenticated
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = '/login/';
+            return;
+        }
+
+        // Initialize IoT Controller
+        const location = 'mensuite_main'; // Default location
+        const controller = initIoTControls(location);
+
+        // Tab switching
+        const tabs = document.querySelectorAll('.iot-tab');
+        const panels = document.querySelectorAll('.iot-panel');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active from all
+                tabs.forEach(t => t.classList.remove('active'));
+                panels.forEach(p => p.classList.remove('active'));
+
+                // Add active to clicked
+                tab.classList.add('active');
+                const panelId = `${tab.dataset.tab}-panel`;
+                document.getElementById(panelId).classList.add('active');
+            });
+        });
+
+        // Device controls
+        document.querySelectorAll('.brightness-slider').forEach(slider => {
+            const valueDisplay = slider.nextElementSibling;
+            
+            slider.addEventListener('input', (e) => {
+                valueDisplay.textContent = `${e.target.value}%`;
+            });
+
+            slider.addEventListener('change', (e) => {
+                const deviceCard = e.target.closest('.device-card');
+                const deviceId = deviceCard.dataset.deviceId;
+                
+                controller.controlDevice(deviceId, 'set_value', {
+                    brightness: parseInt(e.target.value)
+                });
+            });
+        });
+
+        // Temperature controls
+        document.querySelectorAll('.temperature-slider').forEach(slider => {
+            const valueDisplay = slider.nextElementSibling;
+            
+            slider.addEventListener('input', (e) => {
+                valueDisplay.textContent = `${e.target.value}°F`;
+            });
+
+            slider.addEventListener('change', (e) => {
+                const deviceCard = e.target.closest('.device-card');
+                const deviceId = deviceCard.dataset.deviceId;
+                
+                controller.controlDevice(deviceId, 'set_value', {
+                    temperature: parseFloat(e.target.value)
+                });
+            });
+        });
+
+        // Color presets
+        document.querySelectorAll('.color-preset').forEach(preset => {
+            preset.addEventListener('click', (e) => {
+                const parent = e.target.closest('.device-controls') || e.target.closest('.control-section');
+                parent.querySelectorAll('.color-preset').forEach(p => p.classList.remove('active'));
+                e.target.classList.add('active');
+
+                const deviceCard = e.target.closest('.device-card');
+                if (deviceCard) {
+                    const deviceId = deviceCard.dataset.deviceId;
+                    controller.controlDevice(deviceId, 'set_value', {
+                        color: e.target.dataset.color
+                    });
+                }
+            });
+        });
+
+        // Scene activation
+        document.querySelectorAll('.activate-scene').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const sceneCard = e.target.closest('.scene-card');
+                const sceneId = parseInt(sceneCard.dataset.sceneId);
+                controller.activateScene(sceneId);
+            });
+        });
+
+        // Lighting control panel
+        const lightingBrightness = document.getElementById('lighting-brightness');
+        const lightingBrightnessValue = document.getElementById('lighting-brightness-value');
+        
+        lightingBrightness.addEventListener('input', (e) => {
+            lightingBrightnessValue.textContent = `${e.target.value}%`;
+        });
+
+        document.getElementById('apply-lighting').addEventListener('click', async () => {
+            const location = document.getElementById('lighting-location').value;
+            const brightness = parseInt(lightingBrightness.value);
+            const activePreset = document.querySelector('#lighting-panel .color-preset.active');
+            const color = activePreset ? activePreset.dataset.color : null;
+
+            try {
+                const result = await IoTAPI.controlLighting(location, brightness, color);
+                if (result.success) {
+                    showNotification('success', `Lighting updated: ${brightness}% brightness`);
+                } else {
+                    showNotification('error', result.error || 'Failed to update lighting');
+                }
+            } catch (error) {
+                showNotification('error', 'Network error');
+            }
+        });
+
+        // Climate control panel
+        const climateTemp = document.getElementById('climate-temperature');
+        const climateTempValue = document.getElementById('climate-temperature-value');
+        
+        climateTemp.addEventListener('input', (e) => {
+            climateTempValue.textContent = `${e.target.value}°F`;
+        });
+
+        document.getElementById('apply-climate').addEventListener('click', async () => {
+            const location = document.getElementById('climate-location').value;
+            const temperature = parseFloat(climateTemp.value);
+
+            try {
+                const result = await IoTAPI.controlTemperature(location, temperature);
+                if (result.success) {
+                    showNotification('success', `Temperature set to ${temperature}°F`);
+                } else {
+                    showNotification('error', result.error || 'Failed to update temperature');
+                }
+            } catch (error) {
+                showNotification('error', 'Network error');
+            }
+        });
+
+        // Load devices and scenes
+        loadDevices();
+        loadScenes();
+
+        async function loadDevices() {
+            try {
+                const data = await IoTAPI.getDevices();
+                // Render devices (implementation depends on API response structure)
+                console.log('Devices loaded:', data);
+            } catch (error) {
+                console.error('Error loading devices:', error);
+            }
+        }
+
+        async function loadScenes() {
+            try {
+                const data = await IoTAPI.getScenes();
+                // Render scenes
+                console.log('Scenes loaded:', data);
+            } catch (error) {
+                console.error('Error loading scenes:', error);
+            }
+        }
+    });
+</script>
+{% endblock %}
+

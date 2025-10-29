@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Was Your Experience?</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #0a0a0a;
+            border: 1px solid #1a1a1a;
+        }
+        .header {
+            background-color: #000000;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #ffffff;
+        }
+        .content {
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .stars {
+            font-size: 48px;
+            margin: 30px 0;
+        }
+        .button-primary {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 18px 50px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        .incentive-box {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d1117 100%);
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        .incentive-box h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            color: #ffffff;
+        }
+        .incentive-box p {
+            margin: 0;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+        .footer {
+            background-color: #000000;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #1a1a1a;
+            color: #666666;
+            font-size: 13px;
+        }
+        .footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">C.</div>
+        </div>
+        
+        <div class="content">
+            <h1 style="font-size: 28px; font-weight: 300; margin: 0 0 15px 0;">
+                How Was Your Experience?
+            </h1>
+            
+            <p style="color: #cccccc; line-height: 1.6; font-size: 16px;">
+                Hi {{ user.first_name }},
+            </p>
+            
+            <p style="color: #cccccc; line-height: 1.6; font-size: 16px;">
+                Thank you for visiting CoreSync! We hope you enjoyed your 
+                <strong style="color: #ffffff;">{{ service.name }}</strong> service.
+            </p>
+            
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            
+            <p style="color: #cccccc; line-height: 1.6; font-size: 16px; margin-bottom: 30px;">
+                Your feedback helps us maintain the highest standards. 
+                Would you mind sharing your experience?
+            </p>
+            
+            <a href="{{ review_url }}" class="button-primary">
+                Leave a Review
+            </a>
+            
+            <div class="incentive-box">
+                <h3>🎁 Special Thank You</h3>
+                <p>{{ incentive }}</p>
+                <p style="margin-top: 10px; font-size: 13px; color: #888888;">
+                    Discount code will be sent after review submission
+                </p>
+            </div>
+            
+            <p style="color: #888888; font-size: 14px; margin-top: 40px;">
+                Your review will be publicly visible on Google. 
+                If you prefer private feedback, please 
+                <a href="mailto:info@coresync.life?subject=Feedback" style="color: #ffffff;">email us directly</a>.
+            </p>
+            
+            <hr style="border: none; border-top: 1px solid #1a1a1a; margin: 40px 0;">
+            
+            <h3 style="font-size: 18px; font-weight: 400; margin: 0 0 15px 0;">
+                Book Your Next Visit
+            </h3>
+            
+            <p style="color: #cccccc; line-height: 1.6;">
+                Ready to return? Members enjoy priority booking and exclusive discounts.
+            </p>
+            
+            <a href="https://coresync.life/membership/" style="color: #ffffff; text-decoration: none; font-weight: 500;">
+                Explore Membership Benefits →
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>CoreSync Luxury Spa</p>
+            <p>1544 71st Street, Brooklyn, NY</p>
+            <p>
+                <a href="tel:5515742281">(551) 574-2281</a> | 
+                <a href="mailto:info@coresync.life">info@coresync.life</a>
+            </p>
+            <p style="margin-top: 20px;">
+                <a href="https://coresync.life/privacy-policy/">Privacy Policy</a> | 
+                <a href="{% url 'notifications:unsubscribe' %}">Unsubscribe</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

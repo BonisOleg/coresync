@@ -1,10 +1,12 @@
 """
-WebSocket routing for IoT control real-time communication.
+WebSocket routing для IoT control real-time communication.
+Real-time updates для управління пристроями.
 """
-from django.urls import path
+from django.urls import re_path
+from . import consumers
 
-# TODO: Add WebSocket consumers for real-time IoT control
 websocket_urlpatterns = [
-    # path('ws/iot/<str:location>/', consumers.IoTControlConsumer.as_asgi()),
-    # path('ws/sensors/<str:device_id>/', consumers.SensorDataConsumer.as_asgi()),
+    re_path(r'ws/iot/control/(?P<location>[\w_]+)/$', consumers.IoTControlConsumer.as_asgi()),
+    re_path(r'ws/iot/device/(?P<device_id>\d+)/$', consumers.DeviceStatusConsumer.as_asgi()),
+    re_path(r'ws/iot/sensors/(?P<device_id>\d+)/$', consumers.SensorDataConsumer.as_asgi()),
 ]

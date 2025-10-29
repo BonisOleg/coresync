@@ -89,7 +89,12 @@ urlpatterns = [
     path('', include('services.booking_urls')),  # Booking Calendar API - ENABLED!
     path('', include('shop.urls')),          # Shop API - NEW!
     path('', include('concierge.urls')),     # Concierge API - NEW!
+    path('api/ai/', include('ai_agent.urls')),  # AI Agent API - NEW!
+    path('api/iot/', include('iot_control.urls')),  # IoT Control API - NEW!
     # path('', include('payments.urls')),      # Payments & QuickBooks API - DISABLED FOR INITIAL DEPLOY
+    
+    # IoT Dashboard
+    path('iot/', TemplateView.as_view(template_name='iot/dashboard.html'), name='iot_dashboard'),
 ]
 
 # Serve media files in development

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reminder: Your Appointment Tomorrow</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #0a0a0a;
+            border: 1px solid #1a1a1a;
+        }
+        .header {
+            background-color: #000000;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #ffffff;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d1117 100%);
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .time-display {
+            font-size: 48px;
+            font-weight: 300;
+            color: #ffffff;
+            margin: 10px 0;
+        }
+        .date-display {
+            font-size: 18px;
+            color: #888888;
+            margin-bottom: 20px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 16px 40px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+        .info-section {
+            background-color: #111111;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .info-section h3 {
+            margin: 0 0 15px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .info-section p {
+            margin: 0;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+        .footer {
+            background-color: #000000;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #1a1a1a;
+            color: #666666;
+            font-size: 13px;
+        }
+        .footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">C.</div>
+        </div>
+        
+        <div class="content">
+            <h1 style="font-size: 24px; font-weight: 300; margin: 0 0 20px 0;">
+                See You Tomorrow, {{ user.first_name }}
+            </h1>
+            
+            <p style="color: #cccccc; line-height: 1.6;">
+                This is a friendly reminder about your upcoming appointment at CoreSync.
+            </p>
+            
+            <div class="highlight-box">
+                <div class="time-display">{{ time|time:"g:i A" }}</div>
+                <div class="date-display">{{ date|date:"l, F j, Y" }}</div>
+                <div style="color: #ffffff; font-size: 18px; margin-top: 15px;">
+                    {{ service.name }}
+                </div>
+            </div>
+            
+            <center>
+                <a href="{{ directions_url }}" class="button">
+                    Get Directions
+                </a>
+            </center>
+            
+            <div class="info-section">
+                <h3>📍 Location</h3>
+                <p>{{ location }}</p>
+                <p style="margin-top: 10px; font-size: 13px;">
+                    <a href="{{ directions_url }}" style="color: #ffffff;">View on Google Maps →</a>
+                </p>
+            </div>
+            
+            <div class="info-section">
+                <h3>⏰ Arrival Tips</h3>
+                <p>
+                    Please arrive 10 minutes early to complete check-in and prepare for your service.
+                    This ensures you get the full duration of your treatment.
+                </p>
+            </div>
+            
+            <div class="info-section">
+                <h3>🚗 Parking</h3>
+                <p>Street parking available on 71st Street. Additional parking lots nearby.</p>
+            </div>
+            
+            <p style="color: #888888; font-size: 13px; margin-top: 30px; text-align: center;">
+                Need to reschedule? 
+                <a href="https://coresync.life/dashboard/bookings/" style="color: #ffffff;">Manage booking</a>
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p>CoreSync Luxury Spa</p>
+            <p>1544 71st Street, Brooklyn, NY</p>
+            <p>
+                <a href="tel:5515742281">(551) 574-2281</a> | 
+                <a href="mailto:info@coresync.life">info@coresync.life</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

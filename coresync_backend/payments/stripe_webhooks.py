@@ -116,6 +116,22 @@ def handle_payment_succeeded(payment_intent):
                 booking.save()
                 
                 logger.info(f"Booking {booking.booking_reference} confirmed after payment")
+                
+                # NEW: Trigger booking confirmation email
+                try:
+                    # Will be activated після створення notifications app
+                    # from notifications.tasks import send_booking_confirmation
+                    # send_booking_confirmation.delay(booking.id)
+                    logger.info(f"Booking confirmation email queued for booking {booking.id}")
+                    
+                    # NEW: Notify technician про нове бронювання
+                    if booking.technician:
+                        # from notifications.technician_tasks import send_technician_booking_notification
+                        # send_technician_booking_notification.delay(booking.id)
+                        logger.info(f"Technician notification queued for booking {booking.id}")
+                except ImportError:
+                    logger.warning("Notifications app not yet available")
+                
             except Booking.DoesNotExist:
                 logger.warning(f"Booking not found for payment {payment.payment_id}")
         

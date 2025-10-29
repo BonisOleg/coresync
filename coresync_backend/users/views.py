@@ -108,14 +108,43 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['post'])
     def disable_biometric(self, request):
         """Disable biometric authentication"""
+        from .face_recognition_service import delete_user_face_data
+        
+        result = delete_user_face_data(request.user)
+        
+        if result['success']:
+            return Response(result)
+        else:
+            return Response(result, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    @action(detail=False, methods=['post'])
+    def verify_face(self, request):
+        """Verify face against stored biometric data"""
+        from .face_recognition_service import verify_user_face
+        
+        face_data = request.data.get('face_data')
+        
+        if not face_data:
+            return Response({
+                'error': 'face_data is required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        result = verify_user_face(request.user, face_data)
+        
+        if result['success']:
+            return Response(result)
+        else:
+            return Response(result, status=status.HTTP_400_BAD_REQUEST)
+    
+    @action(detail=False, methods=['get'])
+    def biometric_status(self, request):
+        """Get biometric authentication status"""
         user = request.user
-        user.biometric_enabled = False
-        user.face_recognition_data = None
-        user.save()
         
         return Response({
-            'success': True,
-            'message': 'Biometric authentication disabled'
+            'biometric_enabled': user.biometric_enabled,
+            'has_face_data': bool(user.face_recognition_data),
+            'last_updated': user.updated_at.isoformat() if user.updated_at else None
         })
     
     @action(detail=False, methods=['get'])

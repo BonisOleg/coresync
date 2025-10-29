@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to CoreSync Membership</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #0a0a0a;
+            border: 1px solid #1a1a1a;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+            padding: 50px 20px;
+            text-align: center;
+            border-bottom: 1px solid #333333;
+        }
+        .logo {
+            font-size: 40px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        .membership-badge {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .welcome-text {
+            font-size: 28px;
+            font-weight: 300;
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+        .benefits-grid {
+            margin: 30px 0;
+        }
+        .benefit-item {
+            background-color: #111111;
+            border: 1px solid #222222;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            display: flex;
+            align-items: flex-start;
+        }
+        .benefit-icon {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        .benefit-text {
+            flex: 1;
+        }
+        .benefit-text h4 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .benefit-text p {
+            margin: 0;
+            color: #888888;
+            font-size: 14px;
+        }
+        .price-display {
+            text-align: center;
+            background: linear-gradient(135deg, #0d1117 0%, #1a1a1a 100%);
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        .price-amount {
+            font-size: 48px;
+            font-weight: 300;
+            color: #ffffff;
+            margin: 10px 0;
+        }
+        .price-period {
+            color: #888888;
+            font-size: 16px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 16px 40px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+        .info-box {
+            background-color: #0d1117;
+            border-left: 3px solid #ffffff;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .footer {
+            background-color: #000000;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #1a1a1a;
+            color: #666666;
+            font-size: 13px;
+        }
+        .footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">C.</div>
+            <div class="membership-badge">{{ tier|title }} Member</div>
+        </div>
+        
+        <div class="content">
+            <h1 class="welcome-text">
+                Welcome to CoreSync, {{ user.first_name }}
+            </h1>
+            
+            <p style="color: #cccccc; line-height: 1.6; text-align: center; font-size: 16px;">
+                Thank you for joining our exclusive community. 
+                Your membership has been activated and you're ready to experience 
+                luxury wellness like never before.
+            </p>
+            
+            <div class="price-display">
+                <div class="price-amount">${{ monthly_price }}</div>
+                <div class="price-period">per month</div>
+                <p style="color: #888888; margin: 15px 0 0 0; font-size: 14px;">
+                    Billing automatically on the 1st of each month
+                </p>
+            </div>
+            
+            <h3 style="font-size: 20px; font-weight: 400; margin: 30px 0 20px 0;">
+                Your {{ tier|title }} Benefits
+            </h3>
+            
+            <div class="benefits-grid">
+                {% for benefit in benefits %}
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <div class="benefit-text">
+                        <p style="color: #ffffff;">{{ benefit }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <center>
+                <a href="{{ portal_url }}" class="button">
+                    Access Member Portal
+                </a>
+            </center>
+            
+            <div class="info-box">
+                <h4 style="margin: 0 0 10px 0; font-size: 16px;">📅 Priority Booking</h4>
+                <p style="margin: 0; color: #cccccc; line-height: 1.6;">
+                    As a {{ tier|title }} member, you can now book appointments 
+                    {% if tier == 'base' %}2 months{% else %}3 months{% endif %} in advance. 
+                    Log in to your member portal to start booking.
+                </p>
+            </div>
+            
+            <div class="info-box">
+                <h4 style="margin: 0 0 10px 0; font-size: 16px;">💳 Payment Information</h4>
+                <p style="margin: 0; color: #cccccc; line-height: 1.6;">
+                    Your card ending in •••• will be automatically charged monthly. 
+                    You can update payment methods anytime in your portal.
+                </p>
+            </div>
+            
+            <hr style="border: none; border-top: 1px solid #1a1a1a; margin: 40px 0;">
+            
+            <h3 style="font-size: 18px; font-weight: 400; margin: 0 0 15px 0;">
+                Getting Started
+            </h3>
+            
+            <ol style="color: #cccccc; line-height: 2; padding-left: 20px;">
+                <li>Visit your <a href="{{ portal_url }}" style="color: #ffffff;">member portal</a></li>
+                <li>Browse available services and times</li>
+                <li>Book your first appointment with your discount</li>
+                <li>Arrive 10 minutes early to your appointment</li>
+                <li>Enjoy your CoreSync experience</li>
+            </ol>
+            
+            <p style="color: #888888; font-size: 14px; margin-top: 30px; text-align: center;">
+                Questions about your membership? 
+                <a href="mailto:info@coresync.life" style="color: #ffffff;">Contact our concierge team</a>
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p style="font-weight: 600; margin-bottom: 10px;">Thank you for choosing CoreSync</p>
+            <p>1544 71st Street, Brooklyn, NY</p>
+            <p>
+                <a href="tel:5515742281">(551) 574-2281</a> | 
+                <a href="mailto:info@coresync.life">info@coresync.life</a>
+            </p>
+            <p style="margin-top: 20px;">
+                <a href="{{ portal_url }}">Member Portal</a> | 
+                <a href="https://coresync.life/membership/">Membership Info</a> | 
+                <a href="https://coresync.life/terms/">Terms of Service</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

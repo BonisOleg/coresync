@@ -1,5 +1,5 @@
 """
-Authentication URLs for the CoreSync API.
+Authentication URLs для CoreSync API.
 """
 from django.urls import path
 from rest_framework_simplejwt.views import (
@@ -7,6 +7,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
+from users import face_auth_views
 
 app_name = 'authentication'
 
@@ -16,9 +17,7 @@ urlpatterns = [
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('verify/', TokenVerifyView.as_view(), name='token_verify'),
     
-    # TODO: Add custom authentication views
-    # path('register/', views.RegisterView.as_view(), name='register'),
-    # path('logout/', views.LogoutView.as_view(), name='logout'),
-    # path('password/reset/', views.PasswordResetView.as_view(), name='password_reset'),
-    # path('biometric/register/', views.BiometricRegisterView.as_view(), name='biometric_register'),
+    # Face Recognition Authentication
+    path('face/login/', face_auth_views.face_login, name='face_login'),
+    path('face/verify/', face_auth_views.face_verify_check, name='face_verify'),
 ]
