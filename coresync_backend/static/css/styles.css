@@ -126,6 +126,11 @@ body {
     flex: 1;
 }
 
+.nav-spacer {
+    width: 200px;
+    flex-shrink: 0;
+}
+
 .nav-right {
     display: flex;
     flex-direction: row;
@@ -718,6 +723,10 @@ body {
         gap: 0;
         flex: none;
         padding: 0;
+    }
+
+    .nav-spacer {
+        display: none;
     }
 
     .nav-menu.active .header-logo {
