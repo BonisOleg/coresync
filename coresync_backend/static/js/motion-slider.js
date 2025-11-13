@@ -40,12 +40,13 @@
             this.slider = element;
             this.slides = Array.from(element.querySelectorAll('.motion-slide'));
             this.dots = Array.from(element.querySelectorAll('.motion-dot'));
-            this.navCursor = element.querySelector('.motion-nav-cursor');
-            this.progressRing = element.querySelector('.motion-progress-ring');
-            this.progressBar = element.querySelector('.progress-bar');
-            this.arrow = element.querySelector('.motion-arrow');
             this.mobileNavPrev = element.querySelector('.motion-mobile-nav.prev');
             this.mobileNavNext = element.querySelector('.motion-mobile-nav.next');
+
+            // Create custom cursor
+            this.customCursor = this.createCustomCursor();
+            this.progressBar = this.customCursor.querySelector('.progress-bar');
+            this.arrow = this.customCursor.querySelector('.cursor-arrow');
 
             this.currentIndex = 0;
             this.autoTimer = null;
@@ -54,8 +55,30 @@
             this.isMouseInside = false;
             this.touchStartX = 0;
             this.touchEndX = 0;
+            this.isMobile = window.innerWidth <= 768;
 
             this.init();
+        }
+
+        /**
+         * Create custom cursor element
+         * @returns {HTMLElement} - Custom cursor element
+         */
+        createCustomCursor() {
+            const cursor = document.createElement('div');
+            cursor.className = 'motion-custom-cursor';
+            cursor.setAttribute('aria-hidden', 'true');
+            cursor.innerHTML = `
+                <div class="cursor-ring">
+                    <svg viewBox="0 0 36 36">
+                        <circle class="progress-bg" cx="18" cy="18" r="16"></circle>
+                        <circle class="progress-bar" cx="18" cy="18" r="16"></circle>
+                    </svg>
+                    <span class="cursor-arrow"></span>
+                </div>
+            `;
+            document.body.appendChild(cursor);
+            return cursor;
         }
 
         /**
@@ -107,14 +130,12 @@
          * Attach all event listeners
          */
         attachEventListeners() {
-            // Mouse events for cursor navigation
-            this.slider.addEventListener('mousemove', this.handleMouseMove.bind(this));
-            this.slider.addEventListener('mouseenter', this.handleMouseEnter.bind(this));
-            this.slider.addEventListener('mouseleave', this.handleMouseLeave.bind(this));
-
-            // Click on progress ring
-            if (this.progressRing) {
-                this.progressRing.addEventListener('click', this.handleProgressClick.bind(this));
+            // Mouse events for cursor tracking (desktop only)
+            if (!this.isMobile) {
+                this.slider.addEventListener('mousemove', this.handleMouseMove.bind(this));
+                this.slider.addEventListener('mouseenter', this.handleMouseEnter.bind(this));
+                this.slider.addEventListener('mouseleave', this.handleMouseLeave.bind(this));
+                this.slider.addEventListener('click', this.handleSliderClick.bind(this));
             }
 
             // Touch events for mobile swipe
@@ -154,30 +175,29 @@
         }
 
         /**
-         * Handle mouse movement for cursor-based navigation
+         * Handle mouse movement for cursor tracking
          * @param {MouseEvent} e - Mouse event
          */
         handleMouseMove(e) {
-            if (!this.navCursor) return;
+            // Update cursor position
+            this.customCursor.style.left = e.clientX + 'px';
+            this.customCursor.style.top = e.clientY + 'px';
 
+            // Determine direction based on mouse position
             const rect = this.slider.getBoundingClientRect();
             const halfWidth = rect.width / 2;
             const mouseX = e.clientX - rect.left;
             const isLeftSide = mouseX < halfWidth;
 
-            // Position cursor on opposite side
-            this.navCursor.style.left = isLeftSide ? 'auto' : '20px';
-            this.navCursor.style.right = isLeftSide ? '20px' : 'auto';
-
-            // Set direction: left side = forward (1), right side = backward (-1)
-            const newDirection = isLeftSide ? 1 : -1;
+            // Set direction: left side = backward (-1), right side = forward (1)
+            const newDirection = isLeftSide ? -1 : 1;
 
             // Update arrow direction
             if (this.arrow) {
-                if (newDirection === 1) {
-                    this.arrow.classList.remove('left');
-                } else {
+                if (newDirection === -1) {
                     this.arrow.classList.add('left');
+                } else {
+                    this.arrow.classList.remove('left');
                 }
             }
 
@@ -195,8 +215,9 @@
             this.isMouseInside = true;
             this.stopAutoRotation();
 
-            if (this.navCursor) {
-                this.navCursor.classList.add('visible');
+            // Show custom cursor (desktop only)
+            if (!this.isMobile && this.customCursor) {
+                this.customCursor.classList.add('visible');
             }
 
             this.startProgressTimer();
@@ -208,8 +229,9 @@
         handleMouseLeave() {
             this.isMouseInside = false;
 
-            if (this.navCursor) {
-                this.navCursor.classList.remove('visible');
+            // Hide custom cursor
+            if (this.customCursor) {
+                this.customCursor.classList.remove('visible');
             }
 
             this.stopProgressTimer();
@@ -217,9 +239,9 @@
         }
 
         /**
-         * Handle progress ring click
+         * Handle slider click
          */
-        handleProgressClick() {
+        handleSliderClick() {
             this.navigate(this.currentDirection);
             this.startProgressTimer();
         }
@@ -427,10 +449,16 @@
             this.stopAutoRotation();
             this.stopProgressTimer();
 
+            // Remove custom cursor
+            if (this.customCursor && this.customCursor.parentNode) {
+                this.customCursor.parentNode.removeChild(this.customCursor);
+            }
+
             // Remove event listeners
             this.slider.removeEventListener('mousemove', this.handleMouseMove);
             this.slider.removeEventListener('mouseenter', this.handleMouseEnter);
             this.slider.removeEventListener('mouseleave', this.handleMouseLeave);
+            this.slider.removeEventListener('click', this.handleSliderClick);
             this.slider.removeEventListener('touchstart', this.handleTouchStart);
             this.slider.removeEventListener('touchend', this.handleTouchEnd);
             this.slider.removeEventListener('keydown', this.handleKeyboard);
