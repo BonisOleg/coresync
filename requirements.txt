@@ -1,6 +1,7 @@
 # Django Core & Production Optimized for Render 2025
 # Python 3.13.4 Compatible Versions
-Django==5.1.1
+# Django 4.2 LTS - Compatible with django-celery-beat
+Django==4.2.16
 djangorestframework==3.15.2
 django-cors-headers==4.4.0
 python-decouple==3.8
