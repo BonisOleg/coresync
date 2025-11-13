@@ -62,7 +62,7 @@ gunicorn==22.0.0
 # Task Queue & Async Processing
 celery[redis]==5.3.4
 django-celery-beat==2.5.0
-redis==5.0.1
+redis==4.6.0  # Must be <5.0.0 for celery[redis] compatibility
 
 # WebSocket Support (Django Channels)
 channels==4.0.0
