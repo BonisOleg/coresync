@@ -33,14 +33,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const menuWasOpen = localStorage.getItem('coresync_menu_open') === 'true';
         
         if (menuWasOpen && burgerMenu && navMenu && header) {
-            // Menu already visible via critical CSS
-            // Just sync JS classes without animation
-            burgerMenu.classList.add('active');
-            header.classList.add('menu-open');
-            navMenu.classList.add('active');
+            // Classes already added by critical script
+            // Do NOT remove 'restored' yet - it prevents animation restart
+            // It will be removed when user manually toggles menu
             
-            // Remove critical CSS class now that JS has taken over
-            document.documentElement.classList.remove('coresync-menu-restore');
+            // Just remove critical CSS class after a moment
+            setTimeout(() => {
+                document.documentElement.classList.remove('coresync-menu-restore');
+            }, 100);
         }
     }
 
@@ -50,6 +50,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (!isActive) {
             // Open menu with animation
+            // Remove 'restored' to enable gentleBlink animation
+            navMenu.classList.remove('restored');
+            
             if (burgerMenu) burgerMenu.classList.add('active');
             header.classList.add('menu-open');
 
@@ -63,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Close menu
             if (burgerMenu) burgerMenu.classList.remove('active');
             navMenu.classList.remove('active');
+            navMenu.classList.remove('restored');  // Clean up
             header.classList.remove('menu-open');
             
             // Remove state from localStorage

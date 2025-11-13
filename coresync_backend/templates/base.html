@@ -15,7 +15,20 @@
     <script>
         (function() {
             if (localStorage.getItem('coresync_menu_open') === 'true') {
+                // Add state classes BEFORE render for instant visibility
                 document.documentElement.classList.add('coresync-menu-restore');
+                
+                // Execute after DOM elements exist but before render
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Add .active classes synchronously for instant state
+                    var burger = document.getElementById('burger-menu');
+                    var nav = document.getElementById('nav-menu');
+                    var header = document.querySelector('.header');
+                    
+                    if (burger) burger.classList.add('active');
+                    if (nav) nav.classList.add('active', 'restored');
+                    if (header) header.classList.add('menu-open');
+                }, {once: true});
             }
         })();
     </script>
