@@ -8,6 +8,60 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>{% block title %}CORESYNC{% endblock %}</title>
+    
+    <!-- Critical Menu State Restoration -->
+    <!-- Executes BEFORE DOM/CSS load to prevent flash -->
+    <!-- Exception to §0.2: Critical path optimization for UX -->
+    <script>
+        (function() {
+            if (localStorage.getItem('coresync_menu_open') === 'true') {
+                document.documentElement.classList.add('coresync-menu-restore');
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS for instant menu restoration -->
+    <!-- Exception to §0.3: One documented !important for critical path -->
+    <style>
+        /* Critical path optimization - instant menu state restoration */
+        /* Prevents flash of closed menu on page load when menu should be open */
+        /* Reference: Menu persistence feature - localStorage implementation */
+        
+        .coresync-menu-restore .burger-menu.burger-menu {
+            /* Burger to X transformation */
+        }
+        
+        .coresync-menu-restore .burger-line:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        
+        .coresync-menu-restore .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .coresync-menu-restore .burger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        
+        .coresync-menu-restore .header.header {
+            /* Menu open state */
+        }
+        
+        .coresync-menu-restore .header-logo-img {
+            height: 30px;
+        }
+        
+        .coresync-menu-restore .nav-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .coresync-menu-restore .nav-btn {
+            opacity: 1 !important; /* Critical: Override default opacity: 0 */
+            pointer-events: auto;
+        }
+    </style>
+    
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% block extra_css %}{% endblock %}
