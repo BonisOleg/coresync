@@ -243,7 +243,6 @@
          */
         handleSliderClick() {
             this.navigate(this.currentDirection);
-            this.startProgressTimer();
         }
 
         /**
@@ -310,6 +309,11 @@
         navigate(direction) {
             const newIndex = (this.currentIndex + direction + this.slides.length) % this.slides.length;
             this.goToSlide(newIndex);
+            
+            // Restart progress timer after navigation
+            if (this.isMouseInside) {
+                this.startProgressTimer();
+            }
         }
 
         /**
@@ -366,22 +370,25 @@
 
             if (!this.progressBar) return;
 
-            // Reset animation
+            // Force reset animation completely
             this.progressBar.classList.remove('animating');
             this.progressBar.style.animation = 'none';
+            this.progressBar.style.strokeDasharray = '0 100';
 
-            // Force reflow to restart animation
+            // Force reflow to ensure animation restart
             void this.progressBar.offsetWidth;
 
-            // Start animation
-            this.progressBar.style.animation = `progressFill ${PROGRESS_DURATION}ms linear forwards`;
-            this.progressBar.classList.add('animating');
+            // Small delay to ensure clean restart
+            requestAnimationFrame(() => {
+                // Start animation
+                this.progressBar.style.animation = `progressFill ${PROGRESS_DURATION}ms linear forwards`;
+                this.progressBar.classList.add('animating');
 
-            // Set timer to navigate when progress completes
-            this.progressTimer = setTimeout(() => {
-                this.navigate(this.currentDirection);
-                this.startProgressTimer();
-            }, PROGRESS_DURATION);
+                // Set timer to navigate when progress completes
+                this.progressTimer = setTimeout(() => {
+                    this.navigate(this.currentDirection);
+                }, PROGRESS_DURATION);
+            });
         }
 
         /**
@@ -396,6 +403,7 @@
             if (this.progressBar) {
                 this.progressBar.classList.remove('animating');
                 this.progressBar.style.animation = 'none';
+                this.progressBar.style.strokeDasharray = '0 100';
             }
         }
 
