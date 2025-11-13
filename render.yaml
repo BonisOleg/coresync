@@ -1,13 +1,13 @@
-# Render.com Configuration - ULTRA SIMPLIFIED
-# Back to working build script approach
+# Render.com Configuration - Fixed Build
+# Migrations run on service start, not during build
 
 services:
-  # Django Web Service - Minimal
+  # Django Web Service - Fixed
   - type: web
     name: coresync-django
     env: python
     buildCommand: "./build.sh"
-    startCommand: "cd coresync_backend && exec gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 1 --log-level info"
+    startCommand: "./start.sh"
     plan: free
     healthCheckPath: /health/
     autoDeploy: false
