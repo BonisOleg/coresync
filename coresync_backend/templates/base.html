@@ -27,37 +27,33 @@
         /* Prevents flash of closed menu on page load when menu should be open */
         /* Reference: Menu persistence feature - localStorage implementation */
         
-        .coresync-menu-restore .burger-menu.burger-menu {
-            /* Burger to X transformation */
-        }
-        
-        .coresync-menu-restore .burger-line:nth-child(1) {
+        /* Burger menu → X transformation */
+        html.coresync-menu-restore #burger-menu .burger-line:nth-child(1) {
             transform: rotate(45deg) translate(6px, 6px);
         }
         
-        .coresync-menu-restore .burger-line:nth-child(2) {
+        html.coresync-menu-restore #burger-menu .burger-line:nth-child(2) {
             opacity: 0;
         }
         
-        .coresync-menu-restore .burger-line:nth-child(3) {
+        html.coresync-menu-restore #burger-menu .burger-line:nth-child(3) {
             transform: rotate(-45deg) translate(6px, -6px);
         }
         
-        .coresync-menu-restore .header.header {
-            /* Menu open state */
-        }
-        
-        .coresync-menu-restore .header-logo-img {
+        /* Logo shrink */
+        html.coresync-menu-restore .header-logo-img {
             height: 30px;
         }
         
-        .coresync-menu-restore .nav-menu {
+        /* Menu visible */
+        html.coresync-menu-restore #nav-menu {
             opacity: 1;
             visibility: visible;
         }
         
-        .coresync-menu-restore .nav-btn {
-            opacity: 1 !important; /* Critical: Override default opacity: 0 */
+        /* Buttons instantly visible - override default opacity: 0 */
+        html.coresync-menu-restore #nav-menu .nav-btn {
+            opacity: 1 !important; /* Critical: Override .nav-btn { opacity: 0 } */
             pointer-events: auto;
         }
     </style>
