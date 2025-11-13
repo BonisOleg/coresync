@@ -796,14 +796,6 @@
         padding: 1rem 0.5rem;
     }
 
-    .amenities-carousel {
-        padding: 0 3rem;
-    }
-
-    .amenity-item {
-        flex: 0 0 calc(50% - 0.5rem);
-    }
-
     .ai-widget {
         width: calc(100% - 2rem);
         right: 1rem;
@@ -864,10 +856,6 @@
     .comparison-table th,
     .comparison-table td {
         padding: 0.8rem 0.3rem;
-    }
-
-    .amenity-item {
-        flex: 0 0 100%;
     }
 
     .ai-widget {

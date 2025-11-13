@@ -1,6 +1,6 @@
 /**
  * CoreSync Shared Carousel Functionality
- * Used across: membership.html, private.html, menssuite.html
+ * Used across: membership.html
  * 
  * Provides touch-enabled carousel navigation with responsive design
  */

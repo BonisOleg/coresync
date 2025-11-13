@@ -5,6 +5,7 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/private.css' %}">
+<link rel="stylesheet" href="{% static 'css/motion-slider.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -73,45 +74,76 @@
     </div>
 </section>
 
-<!-- Technology Section using amenities structure -->
-<section class="amenities-section">
-    <div class="container">
-        <h2 class="amenities-title">TECHNOLOGY & AMENITIES</h2>
-        <div class="amenities-carousel">
-            <div class="amenities-container">
-                <div class="amenities-track">
-                    <div class="amenity-item">
-                        <img src="{% static 'images/treatment_room.png' %}" alt="AI Massage Bed" class="amenity-image">
-                    </div>
-                    <div class="amenity-item">
-                        <img src="{% static 'images/shower.png' %}" alt="Smart Mirror" class="amenity-image">
-                    </div>
-                    <div class="amenity-item">
-                        <img src="{% static 'images/relaxation_room.png' %}" alt="Meditation Room"
-                            class="amenity-image">
-                    </div>
-                    <div class="amenity-item">
-                        <img src="{% static 'images/sauna.png' %}" alt="Recovery Sauna" class="amenity-image">
-                    </div>
-                    <div class="amenity-item">
-                        <img src="{% static 'images/fireplace.png' %}" alt="Executive Lounge" class="amenity-image">
-                    </div>
-                </div>
+<!-- Technology Section using motion slider -->
+<section class="motion-slider" id="technology-amenities-slider">
+    <div class="motion-slider-slides">
+        <article class="motion-slide active">
+            <img src="{% static 'images/treatment_room.png' %}" alt="AI Massage Bed">
+            <div class="motion-slide-content">
+                <h2>AI Massage<br>Therapy</h2>
+                <p>Advanced technology for ultimate relaxation</p>
             </div>
-            <button class="carousel-nav carousel-prev" data-carousel-nav="-1">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </button>
-            <button class="carousel-nav carousel-next" data-carousel-nav="1">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </button>
+        </article>
+        <article class="motion-slide">
+            <img src="{% static 'images/shower.png' %}" alt="Smart Mirror Technology">
+            <div class="motion-slide-content">
+                <h2>Smart<br>Technology</h2>
+                <p>AI-powered wellness analysis</p>
+            </div>
+        </article>
+        <article class="motion-slide">
+            <img src="{% static 'images/relaxation_room.png' %}" alt="Meditation Room">
+            <div class="motion-slide-content">
+                <h2>Meditation<br>Space</h2>
+                <p>Sanctuary for mental clarity</p>
+            </div>
+        </article>
+        <article class="motion-slide">
+            <img src="{% static 'images/sauna.png' %}" alt="Recovery Sauna">
+            <div class="motion-slide-content">
+                <h2>Recovery<br>Sauna</h2>
+                <p>Professional-grade wellness equipment</p>
+            </div>
+        </article>
+        <article class="motion-slide">
+            <img src="{% static 'images/fireplace.png' %}" alt="Executive Lounge">
+            <div class="motion-slide-content">
+                <h2>Executive<br>Lounge</h2>
+                <p>Refined comfort and sophistication</p>
+            </div>
+        </article>
+    </div>
+
+    <div class="motion-nav-cursor">
+        <div class="motion-progress-ring">
+            <svg viewBox="0 0 36 36">
+                <circle class="progress-bg" cx="18" cy="18" r="16"></circle>
+                <circle class="progress-bar" cx="18" cy="18" r="16"></circle>
+            </svg>
+            <span class="motion-arrow"></span>
         </div>
     </div>
+
+    <ul class="motion-dots">
+        <li class="motion-dot active"></li>
+        <li class="motion-dot"></li>
+        <li class="motion-dot"></li>
+        <li class="motion-dot"></li>
+        <li class="motion-dot"></li>
+    </ul>
+
+    <button class="motion-mobile-nav prev" aria-label="Previous slide">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </svg>
+    </button>
+    <button class="motion-mobile-nav next" aria-label="Next slide">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </svg>
+    </button>
 </section>
 
 <!-- Membership Benefits Section -->
@@ -140,5 +172,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/private.js' %}"></script>
+<script src="{% static 'js/motion-slider.js' %}"></script>
 {% endblock %}
