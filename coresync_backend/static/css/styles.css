@@ -166,6 +166,11 @@ body {
     pointer-events: auto;
 }
 
+.nav-menu.active.no-animation .nav-btn {
+    animation: none;
+    opacity: 1;
+}
+
 .nav-menu.active .nav-btn:hover {
     opacity: 0.7;
 }

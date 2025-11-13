@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const header = document.querySelector('.header');
     const headerLogo = document.querySelector('.header-logo');
 
+    // Restore menu state immediately on page load
+    restoreMenuState();
+
     // Service cards navigation
     document.querySelectorAll('.service-card').forEach(card => {
         card.addEventListener('click', function () {
@@ -25,6 +28,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // Function to restore menu state from localStorage
+    function restoreMenuState() {
+        const menuWasOpen = localStorage.getItem('coresync_menu_open') === 'true';
+        
+        if (menuWasOpen && burgerMenu && navMenu && header) {
+            // Restore menu state without animation
+            burgerMenu.classList.add('active');
+            header.classList.add('menu-open');
+            navMenu.classList.add('active', 'no-animation');
+            
+            // Remove no-animation class after a brief moment
+            setTimeout(() => {
+                navMenu.classList.remove('no-animation');
+            }, 50);
+        }
+    }
+
     // Function to toggle menu (used by burger only)
     function toggleMenu() {
         const isActive = navMenu.classList.contains('active');
@@ -37,11 +57,17 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(() => {
                 navMenu.classList.add('active');
             }, 200);
+            
+            // Save state to localStorage
+            localStorage.setItem('coresync_menu_open', 'true');
         } else {
             // Close menu
             if (burgerMenu) burgerMenu.classList.remove('active');
             navMenu.classList.remove('active');
             header.classList.remove('menu-open');
+            
+            // Remove state from localStorage
+            localStorage.removeItem('coresync_menu_open');
         }
     }
 
@@ -58,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (logoLink) {
             logoLink.addEventListener('click', function (e) {
                 // Allow normal navigation to home
-                // Menu state is preserved
+                // Menu state is preserved via localStorage
             });
         }
     }
@@ -69,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
             btn.addEventListener('click', function () {
                 const link = this.getAttribute('data-link');
                 if (link) {
+                    // Menu state preserved via localStorage
                     window.location.href = link;
                 }
             });
