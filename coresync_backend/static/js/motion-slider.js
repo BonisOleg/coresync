@@ -23,7 +23,7 @@
      * @const {number} PROGRESS_DURATION - Progress ring animation duration in ms
      * @const {number} SWIPE_THRESHOLD - Minimum swipe distance in pixels
      */
-    const AUTO_DURATION = 5500;
+    const AUTO_DURATION = 11000;
     const PROGRESS_DURATION = 5500;
     const SWIPE_THRESHOLD = 50;
 
