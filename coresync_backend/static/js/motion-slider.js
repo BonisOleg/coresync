@@ -22,10 +22,12 @@
      * @const {number} AUTO_DURATION - Auto-rotation duration in ms
      * @const {number} PROGRESS_DURATION - Progress ring animation duration in ms
      * @const {number} SWIPE_THRESHOLD - Minimum swipe distance in pixels
+     * @const {number} TRANSITION_DURATION - Slide transition duration in ms
      */
-    const AUTO_DURATION = 11000;
-    const PROGRESS_DURATION = 5500;
+    const AUTO_DURATION = 7000;
+    const PROGRESS_DURATION = 3500;
     const SWIPE_THRESHOLD = 50;
+    const TRANSITION_DURATION = 800;
 
     /**
      * Motion Slider Class
@@ -320,14 +322,22 @@
         goToSlide(index) {
             if (index === this.currentIndex) return;
 
+            const previousSlide = this.slides[this.currentIndex];
+            const previousDot = this.dots[this.currentIndex];
+
+            // Add exiting class to current slide for smooth transition
+            previousSlide.classList.add('exiting');
+
             // Remove active class from current slide and dot
-            this.slides[this.currentIndex].classList.remove('active');
-            this.dots[this.currentIndex].classList.remove('active');
+            setTimeout(() => {
+                previousSlide.classList.remove('active', 'exiting');
+                previousDot.classList.remove('active');
+            }, 100);
 
             // Update index
             this.currentIndex = index;
 
-            // Add active class to new slide and dot
+            // Add active class to new slide and dot immediately
             this.slides[this.currentIndex].classList.add('active');
             this.dots[this.currentIndex].classList.add('active');
 

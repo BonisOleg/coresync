@@ -39,15 +39,24 @@
     height: 100%;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.6s ease;
-    transform: translate3d(0, 0, 0);
-    will-change: opacity;
+    transform: translate3d(0, 0, 0) scale(1.05);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
+    backface-visibility: hidden;
 }
 
 .motion-slide.active {
     opacity: 1;
     pointer-events: auto;
+    transform: translate3d(0, 0, 0) scale(1);
     z-index: 1;
+}
+
+.motion-slide.exiting {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.95);
+    z-index: 0;
 }
 
 /* Media elements (images and videos) */
