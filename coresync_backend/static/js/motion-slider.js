@@ -243,6 +243,8 @@
          */
         handleSliderClick() {
             this.navigate(this.currentDirection);
+            // Restart progress timer immediately after click
+            this.startProgressTimer();
         }
 
         /**
@@ -309,11 +311,6 @@
         navigate(direction) {
             const newIndex = (this.currentIndex + direction + this.slides.length) % this.slides.length;
             this.goToSlide(newIndex);
-            
-            // Restart progress timer after navigation
-            if (this.isMouseInside) {
-                this.startProgressTimer();
-            }
         }
 
         /**
@@ -366,6 +363,7 @@
          * Start progress ring animation timer
          */
         startProgressTimer() {
+            // Clear any existing timer first
             this.stopProgressTimer();
 
             if (!this.progressBar) return;
@@ -378,17 +376,23 @@
             // Force reflow to ensure animation restart
             void this.progressBar.offsetWidth;
 
-            // Small delay to ensure clean restart
-            requestAnimationFrame(() => {
-                // Start animation
+            // Use setTimeout to ensure clean state before starting
+            setTimeout(() => {
+                if (!this.isMouseInside) return; // Don't start if mouse left
+
+                // Start CSS animation
                 this.progressBar.style.animation = `progressFill ${PROGRESS_DURATION}ms linear forwards`;
                 this.progressBar.classList.add('animating');
 
                 // Set timer to navigate when progress completes
                 this.progressTimer = setTimeout(() => {
-                    this.navigate(this.currentDirection);
+                    if (this.isMouseInside) {
+                        this.navigate(this.currentDirection);
+                        // Restart progress timer after navigation
+                        this.startProgressTimer();
+                    }
                 }, PROGRESS_DURATION);
-            });
+            }, 50); // Small delay for clean restart
         }
 
         /**
