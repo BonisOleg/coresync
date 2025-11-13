@@ -7,21 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const navMenu = document.getElementById('nav-menu');
     const header = document.querySelector('.header');
     const headerLogo = document.querySelector('.header-logo');
-    const footerBtn = document.querySelector('.footer-btn');
-    const heroImage = document.querySelector('.hero-image');
 
-    document.querySelectorAll('.service-btn').forEach(btn => btn.addEventListener('click', function () {
-        this.style.transform = 'scale(0.98)';
-        setTimeout(() => this.style.transform = 'scale(1)', 150);
-    }));
-
-    if (footerBtn) footerBtn.addEventListener('click', function () {
-        this.style.transform = 'translateY(-2px) scale(1.02)';
-        setTimeout(() => this.style.transform = 'translateY(-2px) scale(1)', 150);
-    });
-
-    if (heroImage) window.addEventListener('scroll', () => heroImage.style.transform = `translateY(${pageYOffset * -.5}px)`);
-
+    // Service cards navigation
     document.querySelectorAll('.service-card').forEach(card => {
         card.addEventListener('click', function () {
             const link = this.getAttribute('data-link');
@@ -38,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Function to toggle menu (used by both burger and logo)
+    // Function to toggle menu (used by burger only)
     function toggleMenu() {
         const isActive = navMenu.classList.contains('active');
 
@@ -58,46 +45,31 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Burger menu toggle (for desktop/tablet)
+    // Burger menu toggle
     if (burgerMenu && navMenu) {
         burgerMenu.addEventListener('click', function () {
             toggleMenu();
         });
     }
 
-    // Logo click handler for mobile (<=768px)
-    if (headerLogo && navMenu) {
-        headerLogo.addEventListener('click', function (e) {
-            // Only on mobile screens
-            if (window.innerWidth <= 768) {
-                e.preventDefault(); // Prevent navigation to home
-                toggleMenu();
-            }
-            // On desktop, allow normal link behavior (go to home)
-        });
+    // Logo navigation (no menu toggle)
+    if (headerLogo) {
+        const logoLink = headerLogo.querySelector('a');
+        if (logoLink) {
+            logoLink.addEventListener('click', function (e) {
+                // Allow normal navigation to home
+                // Menu state is preserved
+            });
+        }
     }
 
-    // Navigation button handlers with smooth transition
+    // Navigation buttons - simple navigation without closing menu
     if (navMenu) {
         document.querySelectorAll('.nav-btn').forEach(btn => {
             btn.addEventListener('click', function () {
                 const link = this.getAttribute('data-link');
                 if (link) {
-                    // Fade out menu
-                    navMenu.style.opacity = '0';
-
-                    // Close menu with animation
-                    setTimeout(() => {
-                        if (burgerMenu) burgerMenu.classList.remove('active');
-                        navMenu.classList.remove('active');
-                        header.classList.remove('menu-open');
-                        navMenu.style.opacity = '1';
-                    }, 400);
-
-                    // Navigate after animation
-                    setTimeout(() => {
-                        window.location.href = link;
-                    }, 800);
+                    window.location.href = link;
                 }
             });
         });

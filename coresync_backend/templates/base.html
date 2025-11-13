@@ -17,6 +17,13 @@
     <!-- Header -->
     <header class="header">
         <div class="container">
+            <!-- Logo - centered -->
+            <div class="header-logo">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'images/menu.png' %}" alt="CORESYNC" class="header-logo-img">
+                </a>
+            </div>
+
             <!-- Navigation Menu -->
             <nav class="nav-menu" id="nav-menu">
                 <div class="nav-left">
@@ -28,12 +35,6 @@
                     <button class="nav-btn" data-link="/signup/">Sign Up</button>
                     <button class="nav-btn" data-link="/login/">Sign In</button>
                     {% endif %}
-                </div>
-                
-                <div class="header-logo">
-                    <a href="{% url 'home' %}">
-                        <img src="{% static 'images/menu.png' %}" alt="CORESYNC" class="header-logo-img">
-                    </a>
                 </div>
                 
                 <div class="nav-right">

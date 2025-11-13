@@ -54,11 +54,14 @@ body {
 }
 
 .header-logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1002;
-    flex-shrink: 0;
 }
 
 .header-logo-img {
@@ -143,6 +146,7 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     opacity: 0;
+    pointer-events: none;
     padding: 0.8rem 1rem;
     white-space: nowrap;
     flex-shrink: 0;
@@ -152,12 +156,13 @@ body {
     justify-content: center;
 }
 
-.nav-btn:hover {
-    opacity: 0.7;
+.nav-menu.active .nav-btn {
+    animation: gentleBlink 1.2s ease both;
+    pointer-events: auto;
 }
 
-.nav-menu.active .nav-btn {
-    animation: gentleBlink 1.2s ease both
+.nav-menu.active .nav-btn:hover {
+    opacity: 0.7;
 }
 
 .nav-menu.active .nav-left .nav-btn:nth-child(1) {
@@ -202,7 +207,7 @@ body {
     height: 44px;
 }
 
-.nav-btn--book:hover {
+.nav-menu.active .nav-btn--book:hover {
     background: #E6E6D4;
     border-color: #E6E6D4;
     transform: translateY(-2px);
@@ -749,13 +754,17 @@ body {
         justify-content: center;
         padding: 1.5rem 2rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        opacity: 1 !important;
-        animation: none !important;
         min-height: 56px;
         font-size: 1.1rem;
         letter-spacing: 0.15em;
-        visibility: visible !important;
-        color: #fff !important;
+    }
+
+    .nav-menu.active .nav-btn {
+        opacity: 1;
+        animation: none;
+        pointer-events: auto;
+        visibility: visible;
+        color: #fff;
     }
 
     .nav-btn:active {
@@ -764,18 +773,6 @@ body {
 
     .nav-btn:first-child {
         border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    /* Override gentleBlink animation on mobile */
-    .nav-menu.active .nav-btn {
-        opacity: 1 !important;
-        animation: none !important;
-    }
-
-    .nav-menu.active .nav-left .nav-btn,
-    .nav-menu.active .nav-right .nav-btn {
-        animation: none !important;
-        opacity: 1 !important;
     }
 
     /* Logo stays on top when menu open */
